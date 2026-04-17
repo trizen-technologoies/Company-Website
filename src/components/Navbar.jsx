@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { HiMenuAlt3, HiX } from 'react-icons/hi'
-import { TbBrain } from 'react-icons/tb'
 
 const navLinks = [
   { name: 'Home', path: '/' },
@@ -40,12 +39,10 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
+
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group">
-            <div className="w-9 h-9 rounded-lg flex items-center justify-center"
-              style={{ background: 'linear-gradient(135deg, #3B82F6, #06B6D4)' }}>
-              <TbBrain className="text-white text-xl" />
-            </div>
+            <img src="/favicon.png" alt="Trizen Logo" className="w-9 h-9 rounded-lg object-contain" />
             <div className="flex flex-col leading-tight">
               <span className="font-bold text-white text-sm md:text-base tracking-wide">
                 Trizen

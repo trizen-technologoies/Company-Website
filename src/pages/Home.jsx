@@ -166,7 +166,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Stats Bar */}
+      {/* Stats Bar
       <section className="py-10 border-y border-blue-900/30"
         style={{ background: 'rgba(15,26,62,0.5)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -177,7 +177,7 @@ export default function Home() {
             <StatCard value={3} label="Years of Excellence" />
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* What We Do */}
       <section className="py-20 md:py-28">

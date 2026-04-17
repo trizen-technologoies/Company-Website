@@ -13,7 +13,7 @@ const quickLinks = [
 
 const services = [
   'Web App Development',
-  'Android App Development',
+  'iOS / Android App Development',
   'AI & Chatbot Integration',
   'Automation & AI Technologies',
   'AR/VR Products',
@@ -96,13 +96,23 @@ export default function Footer() {
           <div>
             <h3 className="text-white font-semibold mb-4">Contact Us</h3>
             <ul className="space-y-3">
-              <li className="flex items-start gap-3 text-slate-400 text-sm">
-                <HiMail className="text-blue-400 mt-0.5 flex-shrink-0" size={16} />
-                <span>hello@trizen.tech</span>
+              <li>
+                <a
+                  href="mailto:trizen@trizentechnologies.com"
+                  className="flex items-start gap-3 text-slate-400 hover:text-blue-400 text-sm transition-colors duration-200 group"
+                >
+                  <HiMail className="text-blue-400 group-hover:text-blue-300 mt-0.5 flex-shrink-0 transition-colors" size={16} />
+                  <span>trizen@trizentechnologies.com</span>
+                </a>
               </li>
-              <li className="flex items-start gap-3 text-slate-400 text-sm">
-                <HiPhone className="text-blue-400 mt-0.5 flex-shrink-0" size={16} />
-                <span>+91 00000 00000</span>
+              <li>
+                <a
+                  href="tel:+919015377060"
+                  className="flex items-start gap-3 text-slate-400 hover:text-blue-400 text-sm transition-colors duration-200 group"
+                >
+                  <HiPhone className="text-blue-400 group-hover:text-blue-300 mt-0.5 flex-shrink-0 transition-colors" size={16} />
+                  <span>+91 9015377060</span>
+                </a>
               </li>
               <li className="flex items-start gap-3 text-slate-400 text-sm">
                 <HiLocationMarker className="text-blue-400 mt-0.5 flex-shrink-0" size={16} />
@@ -110,6 +120,7 @@ export default function Footer() {
               </li>
             </ul>
           </div>
+
         </div>
 
         {/* Bottom Bar */}

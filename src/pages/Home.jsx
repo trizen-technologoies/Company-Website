@@ -34,7 +34,7 @@ function StatCard({ value, label, suffix = '+' }) {
 
 const services = [
   { icon: <TbWorld size={28} />, title: 'Web App Development', desc: 'Full-stack web apps with AI-powered features built in.' },
-  { icon: <TbDeviceMobile size={28} />, title: 'Android App Development', desc: 'Native & cross-platform mobile apps with smart AI integration.' },
+  { icon: <TbDeviceMobile size={28} />, title: 'iOS / Android App Development', desc: 'Native & cross-platform mobile apps with smart AI integration.' },
   { icon: <TbBrain size={28} />, title: 'AI & Chatbot Integration', desc: 'Custom chatbots and LLM-powered features for any application.' },
   { icon: <TbCpu size={28} />, title: 'Automation & AI Technologies', desc: 'RPA, intelligent workflows, NLP pipelines, and computer vision.' },
   { icon: <TbAugmentedReality size={28} />, title: 'AR/VR Products', desc: 'Augmented & Virtual Reality experiences for training and engagement.' },
@@ -106,7 +106,7 @@ export default function Home() {
               }}
             >
               <TbSparkles size={14} />
-              AI-First IT Company
+              AI-Powered Solutions
             </motion.div>
 
             <motion.h1

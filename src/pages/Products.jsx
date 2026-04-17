@@ -6,6 +6,7 @@ import {
   TbRocket, TbChartBar, TbClock, TbUsers, TbSend,
   TbPlayerPlay
 } from 'react-icons/tb'
+import { submitToSheets } from '../utils/submitToSheets.jsx'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -122,14 +123,25 @@ export default function Products() {
     name: '', company: '', email: '', phone: ''
   })
   const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
+    if (error) setError('')
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    setSubmitted(true)
+    setLoading(true)
+    try {
+      await submitToSheets({ ...formData, source: 'demo-request' })
+      setSubmitted(true)
+    } catch (err) {
+      setError('Something went wrong. Please try again.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -280,7 +292,6 @@ export default function Products() {
           </motion.div>
 
           <div className="relative">
-            {/* Connector line */}
             <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-0.5 -translate-y-1/2"
               style={{ background: 'linear-gradient(90deg, transparent, #3B82F6, #06B6D4, transparent)' }} />
 
@@ -402,8 +413,27 @@ export default function Products() {
                     />
                   </div>
                 </div>
-                <button type="submit" className="btn-primary w-full justify-center py-3.5 text-base mt-2">
-                  Request Demo <TbSend size={18} />
+
+                {error && (
+                  <p className="text-red-400 text-sm">{error}</p>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="btn-primary w-full justify-center py-3.5 text-base disabled:opacity-60 disabled:cursor-not-allowed mt-2"
+                >
+                  {loading ? (
+                    <>
+                      <svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
+                      </svg>
+                      Sending...
+                    </>
+                  ) : (
+                    <>Request Demo <TbSend size={18} /></>
+                  )}
                 </button>
               </form>
             )}

@@ -5,6 +5,8 @@ import {
   TbBrandLinkedin, TbBrandTwitter, TbBrandGithub, TbSparkles
 } from 'react-icons/tb'
 
+import { submitToSheets } from '../utils/submitToSheets.jsx'
+
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
@@ -18,7 +20,7 @@ const stagger = {
 const subjects = [
   'General Enquiry',
   'Web Application Development',
-  'Android App Development',
+  'IOS / Android App Development',
   'AI & Chatbot Integration',
   'Automation & AI Technologies',
   'AR/VR Products',
@@ -32,16 +34,18 @@ const contactInfo = [
   {
     icon: <TbMail size={24} />,
     title: 'Email Us',
-    value: 'hello@trizen.tech',
+    value: 'trizen@trizentechnologies.com',
     sub: "We'll reply within 24 hours",
     color: '#3B82F6',
+    href: 'mailto:trizen@trizentechnologies.com',
   },
   {
     icon: <TbPhone size={24} />,
     title: 'Call Us',
-    value: '+91 00000 00000',
+    value: '+91 9015377060',
     sub: 'Mon–Fri, 9am–6pm IST',
     color: '#06B6D4',
+    href: 'tel:+919015377060',
   },
   {
     icon: <TbMapPin size={24} />,
@@ -49,6 +53,7 @@ const contactInfo = [
     value: 'India',
     sub: 'Serving clients globally',
     color: '#8B5CF6',
+    href: null,
   },
 ]
 
@@ -72,10 +77,14 @@ export default function Contact() {
       return
     }
     setLoading(true)
-    // Simulate form submission (replace with EmailJS or backend call)
-    await new Promise((r) => setTimeout(r, 1500))
-    setLoading(false)
-    setSubmitted(true)
+    try {
+      await submitToSheets({ ...formData, source: 'contact-page' })
+      setSubmitted(true)
+    } catch (err) {
+      setError('Something went wrong. Please try again.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -88,12 +97,16 @@ export default function Contact() {
       {/* Page Hero */}
       <section className="relative pt-32 pb-16 overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/3 right-1/4 w-80 h-80 rounded-full opacity-10 animate-blob"
-            style={{ background: 'radial-gradient(circle, #06B6D4, transparent)' }} />
+          <div
+            className="absolute top-1/3 right-1/4 w-80 h-80 rounded-full opacity-10 animate-blob"
+            style={{ background: 'radial-gradient(circle, #06B6D4, transparent)' }}
+          />
         </div>
         <div className="max-w-3xl mx-auto px-4 text-center">
           <motion.div variants={fadeUp} initial="hidden" animate="visible">
-            <span className="text-blue-400 text-sm font-semibold uppercase tracking-widest mb-4 block">Contact Us</span>
+            <span className="text-blue-400 text-sm font-semibold uppercase tracking-widest mb-4 block">
+              Contact Us
+            </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-5">
               Let's <span className="gradient-text">Work Together</span>
             </h1>
@@ -115,21 +128,39 @@ export default function Contact() {
             className="grid grid-cols-1 sm:grid-cols-3 gap-5"
           >
             {contactInfo.map((info, i) => (
-              <motion.div
-                key={i}
-                variants={fadeUp}
-                className="glass-card rounded-xl p-5 flex items-start gap-4"
-                whileHover={{ y: -3 }}
-              >
-                <div className="w-11 h-11 rounded-lg flex items-center justify-center flex-shrink-0"
-                  style={{ background: `${info.color}15`, color: info.color }}>
-                  {info.icon}
-                </div>
-                <div>
-                  <p className="text-slate-400 text-xs mb-0.5">{info.title}</p>
-                  <p className="text-white font-semibold text-sm">{info.value}</p>
-                  <p className="text-slate-500 text-xs mt-0.5">{info.sub}</p>
-                </div>
+              <motion.div key={i} variants={fadeUp} whileHover={{ y: -3 }}>
+                {info.href ? (
+                  <a
+                    href={info.href}
+                    className="glass-card rounded-xl p-5 flex items-start gap-4 hover:border-blue-500/40 transition-all block no-underline"
+                  >
+                    <div
+                      className="w-11 h-11 rounded-lg flex items-center justify-center flex-shrink-0"
+                      style={{ background: `${info.color}15`, color: info.color }}
+                    >
+                      {info.icon}
+                    </div>
+                    <div>
+                      <p className="text-slate-400 text-xs mb-0.5">{info.title}</p>
+                      <p className="text-white font-semibold text-sm">{info.value}</p>
+                      <p className="text-slate-500 text-xs mt-0.5">{info.sub}</p>
+                    </div>
+                  </a>
+                ) : (
+                  <div className="glass-card rounded-xl p-5 flex items-start gap-4">
+                    <div
+                      className="w-11 h-11 rounded-lg flex items-center justify-center flex-shrink-0"
+                      style={{ background: `${info.color}15`, color: info.color }}
+                    >
+                      {info.icon}
+                    </div>
+                    <div>
+                      <p className="text-slate-400 text-xs mb-0.5">{info.title}</p>
+                      <p className="text-white font-semibold text-sm">{info.value}</p>
+                      <p className="text-slate-500 text-xs mt-0.5">{info.sub}</p>
+                    </div>
+                  </div>
+                )}
               </motion.div>
             ))}
           </motion.div>
@@ -140,6 +171,7 @@ export default function Contact() {
       <section className="py-20 md:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 items-start">
+
             {/* Left — text */}
             <motion.div
               variants={fadeUp}
@@ -148,12 +180,15 @@ export default function Contact() {
               viewport={{ once: true }}
               className="lg:col-span-2"
             >
-              <span className="text-blue-400 text-sm font-semibold uppercase tracking-widest mb-3 block">Send a Message</span>
+              <span className="text-blue-400 text-sm font-semibold uppercase tracking-widest mb-3 block">
+                Send a Message
+              </span>
               <h2 className="text-3xl md:text-4xl font-black text-white mb-5">
                 Start a <span className="gradient-text">Conversation</span>
               </h2>
               <p className="text-slate-400 leading-relaxed mb-8">
-                Whether you have a quick question or a detailed project brief — we're here to listen and respond. Tell us about your goals and we'll map out how Trizen Technologies can help.
+                Whether you have a quick question or a detailed project brief — we're here to listen
+                and respond. Tell us about your goals and we'll map out how Trizen Technologies can help.
               </p>
 
               <div className="space-y-4">
@@ -164,8 +199,10 @@ export default function Contact() {
                   { text: 'AI integration assessment' },
                 ].map((item, i) => (
                   <div key={i} className="flex items-center gap-3 text-slate-300 text-sm">
-                    <span className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0"
-                      style={{ background: 'rgba(59,130,246,0.2)', color: '#3B82F6' }}>
+                    <span
+                      className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0"
+                      style={{ background: 'rgba(59,130,246,0.2)', color: '#3B82F6' }}
+                    >
                       <TbCheck size={12} />
                     </span>
                     {item.text}
@@ -177,13 +214,22 @@ export default function Contact() {
               <div className="mt-10">
                 <p className="text-slate-400 text-sm mb-3">Follow us</p>
                 <div className="flex gap-3">
-                  <a href="#" className="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 hover:bg-blue-500/20 transition-all">
+                  <a
+                    href="#"
+                    className="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 hover:bg-blue-500/20 transition-all"
+                  >
                     <TbBrandLinkedin size={18} />
                   </a>
-                  <a href="#" className="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 hover:bg-blue-500/20 transition-all">
+                  <a
+                    href="#"
+                    className="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 hover:bg-blue-500/20 transition-all"
+                  >
                     <TbBrandTwitter size={18} />
                   </a>
-                  <a href="#" className="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 hover:bg-blue-500/20 transition-all">
+                  <a
+                    href="#"
+                    className="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 hover:bg-blue-500/20 transition-all"
+                  >
                     <TbBrandGithub size={18} />
                   </a>
                 </div>
@@ -205,8 +251,10 @@ export default function Contact() {
                     animate={{ opacity: 1, scale: 1 }}
                     className="text-center py-10"
                   >
-                    <div className="w-20 h-20 rounded-full mx-auto mb-5 flex items-center justify-center"
-                      style={{ background: 'rgba(16,185,129,0.15)', color: '#10B981' }}>
+                    <div
+                      className="w-20 h-20 rounded-full mx-auto mb-5 flex items-center justify-center"
+                      style={{ background: 'rgba(16,185,129,0.15)', color: '#10B981' }}
+                    >
                       <TbCheck size={40} />
                     </div>
                     <h3 className="text-white font-bold text-2xl mb-2">Message Sent!</h3>
@@ -215,7 +263,10 @@ export default function Contact() {
                     </p>
                     <button
                       className="mt-6 btn-outline text-sm"
-                      onClick={() => { setSubmitted(false); setFormData({ name: '', email: '', phone: '', subject: '', message: '' }) }}
+                      onClick={() => {
+                        setSubmitted(false)
+                        setFormData({ name: '', email: '', phone: '', subject: '', message: '' })
+                      }}
                     >
                       Send Another Message
                     </button>
@@ -257,7 +308,9 @@ export default function Contact() {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="text-slate-300 text-sm font-medium block mb-1.5">Phone Number</label>
+                        <label className="text-slate-300 text-sm font-medium block mb-1.5">
+                          Phone Number
+                        </label>
                         <input
                           type="tel"
                           name="phone"
@@ -281,7 +334,7 @@ export default function Contact() {
                           style={{
                             background: '#0F1A3E',
                             border: '1px solid rgba(59,130,246,0.2)',
-                            color: formData.subject ? '#F8FAFC' : '#64748B'
+                            color: formData.subject ? '#F8FAFC' : '#64748B',
                           }}
                         >
                           <option value="" disabled>Select a subject</option>
@@ -310,9 +363,7 @@ export default function Contact() {
                       />
                     </div>
 
-                    {error && (
-                      <p className="text-red-400 text-sm">{error}</p>
-                    )}
+                    {error && <p className="text-red-400 text-sm">{error}</p>}
 
                     <button
                       type="submit"
@@ -335,6 +386,7 @@ export default function Contact() {
                 )}
               </div>
             </motion.div>
+
           </div>
         </div>
       </section>
@@ -346,11 +398,14 @@ export default function Contact() {
             <TbSparkles size={30} className="text-blue-400 mx-auto mb-3" />
             <p className="text-slate-400 text-sm">
               Prefer email? Reach us directly at{' '}
-              <a href="mailto:hello@trizen.tech" className="text-blue-400 hover:underline">hello@trizen.tech</a>
+              <a href="mailto:trizen@trizentechnologies.com" className="text-blue-400 hover:underline">
+                trizen@trizentechnologies.com
+              </a>
             </p>
           </motion.div>
         </div>
       </section>
+
     </motion.div>
   )
 }

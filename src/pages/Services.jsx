@@ -36,10 +36,11 @@ const services = [
   },
   {
     icon: <TbDeviceMobile size={36} />,
-    title: 'Android App Development',
+    title: 'IOS / Android App Development',
     subtitle: 'Intelligent Mobile Applications',
     desc: 'Native and cross-platform Android apps with built-in AI capabilities. We develop mobile solutions that are intuitive, performant, and ready for the AI era.',
     features: [
+      'Native iOS development (Swift)',
       'Native Android development (Kotlin/Java)',
       'Cross-platform (React Native, Flutter)',
       'AI/ML model integration',

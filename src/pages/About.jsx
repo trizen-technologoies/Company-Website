@@ -230,7 +230,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* Team */}
+      {/* Team
       <section className="py-20 md:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -273,7 +273,7 @@ export default function About() {
             ))}
           </motion.div>
         </div>
-      </section>
+      </section> */}
 
       {/* CTA */}
       <section className="py-16 md:py-20" style={{ background: 'rgba(15,26,62,0.3)' }}>

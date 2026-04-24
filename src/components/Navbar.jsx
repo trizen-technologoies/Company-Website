@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom'
-import { motion, AnimatePresence } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
 import { HiMenuAlt3, HiX } from 'react-icons/hi'
+import { Link, useLocation } from 'react-router-dom'
 
 const navLinks = [
   { name: 'Home', path: '/' },
@@ -42,7 +42,7 @@ export default function Navbar() {
 
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group">
-            <img src="/favicon.png" alt="Trizen Logo" className="w-9 h-9 rounded-lg object-contain" />
+<img src="/favicon.png" alt="Trizen Logo" className="w-12 h-12 rounded-lg object-contain" />
             <div className="flex flex-col leading-tight">
               <span className="font-bold text-white text-sm md:text-base tracking-wide">
                 Trizen

@@ -1,6 +1,6 @@
+import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa'
+import { HiLocationMarker, HiMail, HiPhone } from 'react-icons/hi'
 import { Link } from 'react-router-dom'
-import { FaLinkedin, FaTwitter, FaGithub } from 'react-icons/fa'
-import { HiMail, HiPhone, HiLocationMarker } from 'react-icons/hi'
 
 const quickLinks = [
   { name: 'Home', path: '/' },
@@ -28,7 +28,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <Link to="/" className="flex items-center gap-2 mb-4">
-              <img src="/favicon.png" alt="Trizen Logo" className="w-9 h-9 rounded-lg object-contain" />
+<img src="/favicon.png" alt="Trizen Logo" className="w-12 h-12 rounded-lg object-contain" />
               <div className="flex flex-col leading-tight">
                 <span className="font-bold text-white text-sm">Trizen</span>
                 <span className="text-xs font-medium bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent tracking-widest uppercase">

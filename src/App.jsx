@@ -1,12 +1,13 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
-import Navbar from './components/Navbar'
+import { Route, BrowserRouter as Router, Routes, useLocation } from 'react-router-dom'
 import Footer from './components/Footer'
-import Home from './pages/Home'
+import Navbar from './components/Navbar'
+import ScrollToTop from './components/ScrollToTop'
 import About from './pages/About'
-import Services from './pages/Services'
-import Products from './pages/Products'
 import Contact from './pages/Contact'
+import Home from './pages/Home'
+import Products from './pages/Products'
+import Services from './pages/Services'
 
 function AnimatedRoutes() {
   const location = useLocation()
@@ -27,6 +28,7 @@ function AnimatedRoutes() {
 export default function App() {
   return (
     <Router>
+      <ScrollToTop />
       <div className="min-h-screen flex flex-col bg-navy-900">
         <Navbar />
         <main className="flex-1">

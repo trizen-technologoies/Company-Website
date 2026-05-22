@@ -6,6 +6,7 @@ import {
 } from 'react-icons/tb'
 import { FaRobot } from 'react-icons/fa'
 import { MdOutlineAutoAwesome } from 'react-icons/md'
+import TiltCard from '../components/TiltCard'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 50 },
@@ -128,15 +129,29 @@ export default function Services() {
       {/* ── Page Hero ── */}
       <section className="relative pt-36 pb-24 overflow-hidden">
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          {/* Horizontal scanner line sweeping downward */}
+          <motion.div
+            animate={{ y: ['-10vh', '110vh'] }}
+            transition={{ duration: 8, repeat: Infinity, ease: 'linear', repeatDelay: 1 }}
+            style={{
+              position: 'absolute',
+              left: 0,
+              right: 0,
+              height: 2,
+              background: 'linear-gradient(90deg, transparent 0%, rgba(59,130,246,0.0) 10%, rgba(59,130,246,0.6) 30%, rgba(6,182,212,0.8) 50%, rgba(59,130,246,0.6) 70%, rgba(59,130,246,0.0) 90%, transparent 100%)',
+              boxShadow: '0 0 20px 4px rgba(59,130,246,0.25), 0 0 60px 8px rgba(6,182,212,0.12)',
+            }}
+          />
+          {/* Static soft glows */}
           <div
-            className="absolute -top-20 left-1/4 w-[600px] h-[600px] rounded-full opacity-[0.13] animate-blob"
+            className="absolute -top-20 left-1/4 w-[500px] h-[500px] rounded-full opacity-[0.10]"
             style={{
               background: 'radial-gradient(circle at center, #3B82F6 0%, #1D4ED8 40%, transparent 70%)',
               filter: 'blur(80px)',
             }}
           />
           <div
-            className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full opacity-[0.1] animate-blob animation-delay-2000"
+            className="absolute bottom-0 right-1/4 w-[350px] h-[350px] rounded-full opacity-[0.08]"
             style={{
               background: 'radial-gradient(circle at center, #06B6D4 0%, transparent 70%)',
               filter: 'blur(70px)',
@@ -170,7 +185,7 @@ export default function Services() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="space-y-6">
             {services.map((service, i) => (
-              <motion.div
+              <TiltCard
                 key={i}
                 variants={fadeUp}
                 initial="hidden"
@@ -247,7 +262,7 @@ export default function Services() {
                     </ul>
                   </div>
                 </div>
-              </motion.div>
+              </TiltCard>
             ))}
           </div>
         </div>

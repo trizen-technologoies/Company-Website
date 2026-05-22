@@ -4,8 +4,8 @@ import {
   TbMail, TbPhone, TbMapPin, TbSend, TbCheck,
   TbBrandLinkedin, TbBrandTwitter, TbBrandGithub, TbSparkles
 } from 'react-icons/tb'
-
 import { submitToSheets } from '../utils/submitToSheets.jsx'
+import TiltCard from '../components/TiltCard'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 50 },
@@ -96,12 +96,48 @@ export default function Contact() {
     >
       {/* ── Page Hero ── */}
       <section className="relative pt-36 pb-20 overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none overflow-hidden flex items-center justify-center">
+          {/* Radar / sonar expanding pulse rings */}
+          {[0, 0.9, 1.8, 2.7].map((delay, i) => (
+            <motion.div
+              key={i}
+              animate={{ scale: [0.5, 8], opacity: [0.55, 0] }}
+              transition={{ duration: 3.5, delay, repeat: Infinity, ease: 'easeOut' }}
+              style={{
+                position: 'absolute',
+                width: 120,
+                height: 120,
+                borderRadius: '50%',
+                border: '1px solid rgba(6,182,212,0.6)',
+                boxShadow: '0 0 8px rgba(6,182,212,0.2)',
+                top: '50%',
+                left: '50%',
+                marginLeft: -60,
+                marginTop: -60,
+              }}
+            />
+          ))}
+          {/* Central glow dot */}
+          <div style={{
+            position: 'absolute',
+            width: 10,
+            height: 10,
+            borderRadius: '50%',
+            background: 'rgba(6,182,212,0.9)',
+            boxShadow: '0 0 20px 6px rgba(6,182,212,0.4)',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+          }} />
+          {/* Background soft glow */}
           <div
-            className="absolute -top-20 right-1/4 w-[580px] h-[580px] rounded-full opacity-[0.13] animate-blob"
+            className="absolute w-[500px] h-[500px] rounded-full opacity-[0.12]"
             style={{
               background: 'radial-gradient(circle at center, #06B6D4 0%, #0891B2 40%, transparent 70%)',
               filter: 'blur(80px)',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
             }}
           />
           <div className="absolute inset-0 dot-grid" />
@@ -140,7 +176,12 @@ export default function Contact() {
             className="grid grid-cols-1 sm:grid-cols-3 gap-4"
           >
             {contactInfo.map((info, i) => (
-              <motion.div key={i} variants={fadeUp} whileHover={{ y: -4 }} transition={{ duration: 0.3 }}>
+              <TiltCard
+                key={i}
+                variants={fadeUp}
+                whileHover={{ y: -4, boxShadow: `0 0 0 1px ${info.color}22, 0 20px 50px ${info.color}10` }}
+                transition={{ duration: 0.3 }}
+              >
                 {info.href ? (
                   <a
                     href={info.href}
@@ -174,7 +215,7 @@ export default function Contact() {
                     </div>
                   </div>
                 )}
-              </motion.div>
+              </TiltCard>
             ))}
           </motion.div>
         </div>

@@ -7,6 +7,9 @@ import {
   TbPlayerPlay
 } from 'react-icons/tb'
 import { submitToSheets } from '../utils/submitToSheets.jsx'
+import TiltCard from '../components/TiltCard'
+
+const DATA_FRAGMENTS = ['01', 'ML', 'AI', '∑', 'GPU', 'API', '∞', '10x', '02', 'LLM', '03', 'RAG']
 
 const fadeUp = {
   hidden: { opacity: 0, y: 50 },
@@ -154,15 +157,38 @@ export default function Products() {
       {/* ── Product Hero ── */}
       <section className="relative pt-32 pb-24 overflow-hidden">
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          {/* Rising data fragments */}
+          {DATA_FRAGMENTS.map((frag, i) => {
+            const leftPct = 5 + ((i * 73) % 90)
+            const delay = (i * 0.7) % 4
+            const duration = 5 + (i % 4)
+            const size = i % 3 === 0 ? 'text-base' : i % 3 === 1 ? 'text-sm' : 'text-xs'
+            return (
+              <motion.span
+                key={i}
+                className={`absolute font-mono font-bold ${size} select-none`}
+                style={{
+                  left: `${leftPct}%`,
+                  bottom: '-2rem',
+                  color: i % 3 === 0 ? 'rgba(59,130,246,0.45)' : i % 3 === 1 ? 'rgba(6,182,212,0.35)' : 'rgba(99,102,241,0.3)',
+                }}
+                animate={{ y: [0, -700], opacity: [0, 0.8, 0] }}
+                transition={{ duration, delay, repeat: Infinity, ease: 'linear' }}
+              >
+                {frag}
+              </motion.span>
+            )
+          })}
+          {/* Background glows */}
           <div
-            className="absolute -top-40 left-1/4 w-[700px] h-[700px] rounded-full opacity-[0.18] animate-blob"
+            className="absolute -top-40 left-1/4 w-[600px] h-[600px] rounded-full opacity-[0.15]"
             style={{
               background: 'radial-gradient(circle at center, #3B82F6 0%, #1D4ED8 40%, transparent 70%)',
               filter: 'blur(80px)',
             }}
           />
           <div
-            className="absolute bottom-0 right-1/4 w-[500px] h-[500px] rounded-full opacity-[0.12] animate-blob animation-delay-2000"
+            className="absolute bottom-0 right-1/4 w-[450px] h-[450px] rounded-full opacity-[0.10]"
             style={{
               background: 'radial-gradient(circle at center, #06B6D4 0%, transparent 70%)',
               filter: 'blur(80px)',
@@ -213,7 +239,7 @@ export default function Products() {
       </section>
 
       {/* ── Benefits Bar ── */}
-      <section className="py-12" style={{ background: 'rgba(255,255,255,0.02)', borderTop: '1px solid rgba(255,255,255,0.05)', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+      <section className="py-12" style={{ background: 'rgba(255,255,255,0.016)', borderTop: '1px solid rgba(255,255,255,0.05)', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
         <div className="max-w-4xl mx-auto px-4">
           <div className="grid grid-cols-3 gap-4 md:gap-8">
             {benefits.map((b, i) => (
@@ -250,7 +276,7 @@ export default function Products() {
             className="grid grid-cols-1 lg:grid-cols-2 gap-5"
           >
             {channels.map((ch, i) => (
-              <motion.div
+              <TiltCard
                 key={i}
                 variants={fadeUp}
                 className="glass-card rounded-3xl overflow-hidden"
@@ -292,7 +318,7 @@ export default function Products() {
                     ))}
                   </ul>
                 </div>
-              </motion.div>
+              </TiltCard>
             ))}
           </motion.div>
         </div>
@@ -322,7 +348,7 @@ export default function Products() {
               className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
             >
               {steps.map((step, i) => (
-                <motion.div
+                <TiltCard
                   key={i}
                   variants={fadeUp}
                   className="glass-card rounded-2xl p-7 text-center"
@@ -338,7 +364,7 @@ export default function Products() {
                   <div className="text-blue-400 flex justify-center mb-3 opacity-70">{step.icon}</div>
                   <h3 className="text-white font-bold mb-2 text-[0.95rem]" style={{ letterSpacing: '-0.01em' }}>{step.title}</h3>
                   <p className="text-slate-500 text-sm leading-relaxed">{step.desc}</p>
-                </motion.div>
+                </TiltCard>
               ))}
             </motion.div>
           </div>

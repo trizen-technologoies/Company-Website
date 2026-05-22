@@ -5,6 +5,7 @@ import {
   TbSparkles, TbArrowRight, TbStar, TbTrophy,
   TbBulb, TbShieldCheck
 } from 'react-icons/tb'
+import TiltCard from '../components/TiltCard'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 50 },
@@ -60,12 +61,53 @@ export default function About() {
     >
       {/* ── Page Hero ── */}
       <section className="relative pt-36 pb-24 overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none overflow-hidden flex items-center justify-center">
+          {/* Orbital rings */}
+          {[
+            { size: 600, duration: 18, color: 'rgba(59,130,246,0.13)', reverse: false },
+            { size: 1000, duration: 28, color: 'rgba(6,182,212,0.08)', reverse: true },
+            { size: 1400, duration: 40, color: 'rgba(99,102,241,0.06)', reverse: false },
+          ].map((ring, i) => (
+            <motion.div
+              key={i}
+              animate={{ rotate: ring.reverse ? [0, -360] : [0, 360] }}
+              transition={{ duration: ring.duration, repeat: Infinity, ease: 'linear' }}
+              style={{
+                position: 'absolute',
+                width: ring.size,
+                height: ring.size,
+                borderRadius: '50%',
+                border: `1px solid ${ring.color}`,
+                boxShadow: `0 0 30px ${ring.color}`,
+                top: '50%',
+                left: '50%',
+                marginLeft: -(ring.size / 2),
+                marginTop: -(ring.size / 2),
+              }}
+            >
+              {/* Glowing dot orbiting on the ring */}
+              <div style={{
+                position: 'absolute',
+                top: -4,
+                left: '50%',
+                marginLeft: -4,
+                width: 8,
+                height: 8,
+                borderRadius: '50%',
+                background: ring.color.replace('0.', '0.9').replace(',0.', ',0.'),
+                boxShadow: `0 0 12px 4px ${ring.color}`,
+              }} />
+            </motion.div>
+          ))}
+          {/* Central soft glow */}
           <div
-            className="absolute -top-20 right-1/4 w-[600px] h-[600px] rounded-full opacity-[0.14] animate-blob"
+            className="absolute w-[500px] h-[500px] rounded-full opacity-[0.12]"
             style={{
               background: 'radial-gradient(circle at center, #3B82F6 0%, #1D4ED8 40%, transparent 70%)',
               filter: 'blur(80px)',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
             }}
           />
           <div className="absolute inset-0 dot-grid" />
@@ -126,7 +168,7 @@ export default function About() {
                 { icon: <TbUsers size={26} />, label: '20+ Happy Clients', color: '#8B5CF6' },
                 { icon: <TbShieldCheck size={26} />, label: 'Quality Guaranteed', color: '#F59E0B' },
               ].map((item, i) => (
-                <motion.div
+                <TiltCard
                   key={i}
                   variants={fadeUp}
                   className="glass-card rounded-2xl p-6 text-center"
@@ -140,7 +182,7 @@ export default function About() {
                     {item.icon}
                   </div>
                   <p className="text-white text-sm font-medium leading-snug">{item.label}</p>
-                </motion.div>
+                </TiltCard>
               ))}
             </motion.div>
           </div>
@@ -234,7 +276,7 @@ export default function About() {
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
           >
             {values.map((value, i) => (
-              <motion.div
+              <TiltCard
                 key={i}
                 variants={fadeUp}
                 className="glass-card rounded-2xl p-7 text-center"
@@ -253,7 +295,7 @@ export default function About() {
                 </div>
                 <h3 className="text-white font-bold text-lg mb-2" style={{ letterSpacing: '-0.01em' }}>{value.title}</h3>
                 <p className="text-slate-500 text-sm leading-relaxed">{value.desc}</p>
-              </motion.div>
+              </TiltCard>
             ))}
           </motion.div>
         </div>

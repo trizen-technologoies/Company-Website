@@ -43,39 +43,24 @@ export default function Footer() {
               Empowering businesses with AI-driven innovation. We integrate intelligent solutions into your applications to unlock new possibilities.
             </p>
             <div className="flex items-center gap-2.5">
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 rounded-xl flex items-center justify-center text-slate-500 transition-all duration-200 hover:text-blue-400"
-                style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}
-                onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(59,130,246,0.4)'}
-                onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'}
-              >
-                <FaLinkedin size={15} />
-              </a>
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 rounded-xl flex items-center justify-center text-slate-500 transition-all duration-200 hover:text-blue-400"
-                style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}
-                onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(59,130,246,0.4)'}
-                onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'}
-              >
-                <FaTwitter size={15} />
-              </a>
-              <a
-                href="https://github.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 rounded-xl flex items-center justify-center text-slate-500 transition-all duration-200 hover:text-blue-400"
-                style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}
-                onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(59,130,246,0.4)'}
-                onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'}
-              >
-                <FaGithub size={15} />
-              </a>
+              {[
+                { href: 'https://linkedin.com', icon: <FaLinkedin size={15} /> },
+                { href: 'https://twitter.com', icon: <FaTwitter size={15} /> },
+                { href: 'https://github.com', icon: <FaGithub size={15} /> },
+              ].map((s, i) => (
+                <a
+                  key={i}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-xl flex items-center justify-center text-slate-500 transition-all duration-200 hover:text-blue-400"
+                  style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}
+                  onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(59,130,246,0.4)'}
+                  onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'}
+                >
+                  {s.icon}
+                </a>
+              ))}
             </div>
           </div>
 
@@ -120,19 +105,15 @@ export default function Footer() {
             <h3 className="text-white font-semibold mb-5 text-sm tracking-wide">Contact Us</h3>
             <ul className="space-y-3.5">
               <li>
-                <a
-                  href="mailto:trizen@trizentechnologies.com"
-                  className="flex items-start gap-3 text-slate-500 hover:text-slate-200 text-sm transition-colors duration-200 group"
-                >
+                <a href="mailto:trizen@trizentechnologies.com"
+                  className="flex items-start gap-3 text-slate-500 hover:text-slate-200 text-sm transition-colors duration-200 group">
                   <HiMail className="text-blue-500/60 group-hover:text-blue-400 mt-0.5 flex-shrink-0 transition-colors" size={16} />
                   <span>trizen@trizentechnologies.com</span>
                 </a>
               </li>
               <li>
-                <a
-                  href="tel:+919015377060"
-                  className="flex items-start gap-3 text-slate-500 hover:text-slate-200 text-sm transition-colors duration-200 group"
-                >
+                <a href="tel:+919015377060"
+                  className="flex items-start gap-3 text-slate-500 hover:text-slate-200 text-sm transition-colors duration-200 group">
                   <HiPhone className="text-blue-500/60 group-hover:text-blue-400 mt-0.5 flex-shrink-0 transition-colors" size={16} />
                   <span>+91 9015377060</span>
                 </a>

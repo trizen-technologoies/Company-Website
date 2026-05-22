@@ -32,9 +32,7 @@ export default function Navbar() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.7, ease: 'easeOut' }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? 'shadow-2xl shadow-black/40'
-          : 'bg-transparent'
+        scrolled ? 'shadow-2xl shadow-black/40' : 'bg-transparent'
       }`}
       style={scrolled ? {
         background: 'rgba(5, 8, 15, 0.88)',

@@ -1,5 +1,6 @@
 import { AnimatePresence } from 'framer-motion'
 import { Route, BrowserRouter as Router, Routes, useLocation } from 'react-router-dom'
+import CursorGlow from './components/CursorGlow'
 import Footer from './components/Footer'
 import Navbar from './components/Navbar'
 import ScrollToTop from './components/ScrollToTop'
@@ -29,6 +30,7 @@ export default function App() {
   return (
     <Router>
       <ScrollToTop />
+      <CursorGlow />
       <div className="min-h-screen flex flex-col bg-dark-950">
         <Navbar />
         <main className="flex-1">

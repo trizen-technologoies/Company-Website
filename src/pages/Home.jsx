@@ -9,6 +9,8 @@ import {
   TbBrandLinkedin, TbShieldCheck, TbRocket, TbChartBar,
   TbCpu, TbAugmentedReality
 } from 'react-icons/tb'
+import ParticleField from '../components/ParticleField'
+import ScrambleText from '../components/ScrambleText'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 50 },
@@ -32,7 +34,7 @@ function StatCard({ value, label, suffix = '+' }) {
       <div className="text-3xl md:text-4xl font-extrabold gradient-text">
         {inView ? <CountUp end={value} duration={2.5} suffix={suffix} /> : `0${suffix}`}
       </div>
-      <div className="text-slate-400 text-sm mt-1">{label}</div>
+      <div className="text-slate-500 dark:text-slate-400 text-sm mt-1">{label}</div>
     </div>
   )
 }
@@ -84,9 +86,7 @@ export default function Home() {
     >
       {/* ── Hero Section ── */}
       <section className="relative min-h-screen flex items-center overflow-hidden pt-20">
-        {/* Aurora background */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          {/* Large aurora orbs */}
           <div
             className="absolute -top-40 -left-40 w-[750px] h-[750px] rounded-full opacity-[0.18] animate-blob"
             style={{
@@ -109,10 +109,8 @@ export default function Home() {
             }}
           />
 
-          {/* Dot grid */}
-          <div className="absolute inset-0 dot-grid" />
+          <ParticleField />
 
-          {/* Bottom fade to page bg */}
           <div
             className="absolute bottom-0 left-0 right-0 h-56 pointer-events-none"
             style={{ background: 'linear-gradient(to bottom, transparent, #05080F)' }}
@@ -122,7 +120,6 @@ export default function Home() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
           <div className="max-w-4xl mx-auto text-center">
 
-            {/* Badge */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -133,20 +130,20 @@ export default function Home() {
               AI-Powered Solutions
             </motion.div>
 
-            {/* Headline */}
             <motion.h1
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.25, duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2, duration: 0.3 }}
               className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-black text-white mb-8 leading-[1.0]"
               style={{ letterSpacing: '-0.03em' }}
             >
-              Empowering Business{' '}
-              <span className="gradient-text">with AI-Driven</span>{' '}
-              Innovation
+              <ScrambleText text="Empowering Business" delay={400} duration={900} />
+              {' '}
+              <ScrambleText text="with AI-Driven" className="gradient-text" delay={750} duration={900} />
+              {' '}
+              <ScrambleText text="Innovation" delay={1100} duration={700} />
             </motion.h1>
 
-            {/* Sub text */}
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -156,7 +153,6 @@ export default function Home() {
               We integrate AI into your web apps, mobile apps, and business workflows — delivering chatbots, automation, AR/VR, and intelligent outreach systems that transform how you operate and grow.
             </motion.p>
 
-            {/* CTA Buttons */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -194,19 +190,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Stats Bar (commented out)
-      <section className="py-10 border-y border-blue-900/30"
-        style={{ background: 'rgba(15,26,62,0.5)' }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <StatCard value={50} label="Projects Delivered" />
-            <StatCard value={20} label="Happy Clients" />
-            <StatCard value={5} label="AI Products" />
-            <StatCard value={3} label="Years of Excellence" />
-          </div>
-        </div>
-      </section> */}
-
       {/* ── What We Do ── */}
       <section className="py-24 md:py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -234,24 +217,9 @@ export default function Home() {
             className="grid grid-cols-1 md:grid-cols-3 gap-5"
           >
             {[
-              {
-                icon: <TbBrain size={34} />,
-                title: 'AI Integration',
-                desc: 'We embed chatbots, LLMs, recommendation engines, and AI features into your existing applications seamlessly.',
-                color: '#3B82F6',
-              },
-              {
-                icon: <TbCpu size={34} />,
-                title: 'Intelligent Automation',
-                desc: 'Automate repetitive workflows with RPA, NLP pipelines, and AI-driven decision engines to save time and cost.',
-                color: '#06B6D4',
-              },
-              {
-                icon: <TbAugmentedReality size={34} />,
-                title: 'AR/VR Solutions',
-                desc: 'Create immersive augmented and virtual reality experiences for training, simulation, and customer engagement.',
-                color: '#8B5CF6',
-              },
+              { icon: <TbBrain size={34} />, title: 'AI Integration', desc: 'We embed chatbots, LLMs, recommendation engines, and AI features into your existing applications seamlessly.', color: '#3B82F6' },
+              { icon: <TbCpu size={34} />, title: 'Intelligent Automation', desc: 'Automate repetitive workflows with RPA, NLP pipelines, and AI-driven decision engines to save time and cost.', color: '#06B6D4' },
+              { icon: <TbAugmentedReality size={34} />, title: 'AR/VR Solutions', desc: 'Create immersive augmented and virtual reality experiences for training, simulation, and customer engagement.', color: '#8B5CF6' },
             ].map((item, i) => (
               <motion.div
                 key={i}
@@ -311,13 +279,13 @@ export default function Home() {
                 className="glass-card rounded-2xl p-6 group cursor-pointer"
                 whileHover={{
                   y: -5,
-                  boxShadow: '0 0 0 1px rgba(59,130,246,0.2), 0 20px 50px rgba(59,130,246,0.08)',
+                  boxShadow: '0 0 0 1px rgba(59,130,246,0.2), 0 20px 50px rgba(59,130,246,0.1)',
                   borderColor: 'rgba(59,130,246,0.22)',
                 }}
                 transition={{ duration: 0.3 }}
               >
-                <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-4 transition-colors duration-300"
-                  style={{ background: 'rgba(59,130,246,0.08)', color: '#60A5FA' }}>
+                <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-4"
+                  style={{ background: 'rgba(59,130,246,0.1)', color: '#3B82F6' }}>
                   {service.icon}
                 </div>
                 <h3 className="text-white font-semibold mb-2 text-[0.95rem]">{service.title}</h3>
@@ -351,8 +319,7 @@ export default function Home() {
             className="rounded-3xl overflow-hidden p-px"
             style={{ background: 'linear-gradient(135deg, rgba(59,130,246,0.5), rgba(6,182,212,0.5), rgba(139,92,246,0.5))' }}
           >
-            <div className="rounded-3xl p-8 md:p-12 relative overflow-hidden" style={{ background: '#07091A' }}>
-              {/* Background glow */}
+            <div className="rounded-3xl p-8 md:p-12 relative overflow-hidden" style={{ background: 'rgba(8,12,26,0.85)', backdropFilter: 'blur(20px)' }}>
               <div className="absolute inset-0 pointer-events-none">
                 <div
                   className="absolute -top-24 -right-24 w-96 h-96 rounded-full opacity-[0.12]"
@@ -469,12 +436,7 @@ export default function Home() {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            <div className="relative rounded-3xl p-10 md:p-16 overflow-hidden text-center"
-              style={{
-                background: 'rgba(8,12,26,0.8)',
-                border: '1px solid rgba(255,255,255,0.07)',
-              }}>
-              {/* Background aurora */}
+            <div className="relative rounded-3xl p-10 md:p-16 overflow-hidden text-center glass-card">
               <div className="absolute inset-0 pointer-events-none">
                 <div
                   className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] rounded-full opacity-[0.12]"
@@ -487,7 +449,7 @@ export default function Home() {
 
               <div className="relative">
                 <div className="w-14 h-14 rounded-2xl mx-auto mb-6 flex items-center justify-center"
-                  style={{ background: 'rgba(59,130,246,0.12)', color: '#60A5FA' }}>
+                  style={{ background: 'rgba(59,130,246,0.12)', color: '#3B82F6' }}>
                   <TbRocket size={28} />
                 </div>
                 <h2 className="text-3xl md:text-5xl font-black text-white mb-5" style={{ letterSpacing: '-0.03em' }}>

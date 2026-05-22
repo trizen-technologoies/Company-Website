@@ -8,18 +8,18 @@ import { FaRobot } from 'react-icons/fa'
 import { MdOutlineAutoAwesome } from 'react-icons/md'
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
+  hidden: { opacity: 0, y: 50 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] } },
 }
 
 const stagger = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.1 } },
+  visible: { transition: { staggerChildren: 0.08 } },
 }
 
 const services = [
   {
-    icon: <TbWorld size={36} />,
+    icon: <TbWorld size={34} />,
     title: 'Web Application Development',
     subtitle: 'Smart, Scalable Web Experiences',
     desc: 'We build full-stack web applications that are fast, secure, and AI-enhanced. From dashboards to SaaS platforms, we bring your ideas to life with modern technologies.',
@@ -35,7 +35,7 @@ const services = [
     gradient: 'from-blue-500 to-blue-600',
   },
   {
-    icon: <TbDeviceMobile size={36} />,
+    icon: <TbDeviceMobile size={34} />,
     title: 'IOS / Android App Development',
     subtitle: 'Intelligent Mobile Applications',
     desc: 'Native and cross-platform Android apps with built-in AI capabilities. We develop mobile solutions that are intuitive, performant, and ready for the AI era.',
@@ -52,7 +52,7 @@ const services = [
     gradient: 'from-cyan-500 to-cyan-600',
   },
   {
-    icon: <TbBrain size={36} />,
+    icon: <TbBrain size={34} />,
     title: 'AI & Chatbot Integration',
     subtitle: 'Make Your App Intelligent',
     desc: 'We embed conversational AI, LLMs, recommendation engines, and other intelligent features into your existing or new applications — turning ordinary tools into smart systems.',
@@ -68,7 +68,7 @@ const services = [
     gradient: 'from-violet-500 to-violet-600',
   },
   {
-    icon: <TbCpu size={36} />,
+    icon: <TbCpu size={34} />,
     title: 'Automation & AI Technologies',
     subtitle: 'Intelligent Process Automation',
     desc: 'Automate repetitive workflows and unlock new efficiencies with AI-driven automation. We combine RPA, NLP pipelines, and computer vision to transform your operations.',
@@ -84,7 +84,7 @@ const services = [
     gradient: 'from-amber-500 to-orange-500',
   },
   {
-    icon: <TbAugmentedReality size={36} />,
+    icon: <TbAugmentedReality size={34} />,
     title: 'AR/VR Products',
     subtitle: 'Immersive Reality Experiences',
     desc: 'We design and build augmented and virtual reality products that create immersive experiences for training, simulation, product visualization, and customer engagement.',
@@ -100,7 +100,7 @@ const services = [
     gradient: 'from-pink-500 to-rose-500',
   },
   {
-    icon: <TbTestPipe size={36} />,
+    icon: <TbTestPipe size={34} />,
     title: 'Manual & Automated Testing',
     subtitle: 'Quality Assurance You Can Trust',
     desc: 'Comprehensive QA services that ensure your applications are bug-free, reliable, and ready for production. From manual test planning to full CI/CD automation pipelines.',
@@ -125,18 +125,37 @@ export default function Services() {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.4 }}
     >
-      {/* Page Hero */}
-      <section className="relative pt-32 pb-20 overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/3 left-1/4 w-80 h-80 rounded-full opacity-10 animate-blob"
-            style={{ background: 'radial-gradient(circle, #3B82F6, transparent)' }} />
-          <div className="absolute bottom-1/4 right-1/3 w-60 h-60 rounded-full opacity-8 animate-blob animation-delay-2000"
-            style={{ background: 'radial-gradient(circle, #06B6D4, transparent)' }} />
+      {/* ── Page Hero ── */}
+      <section className="relative pt-36 pb-24 overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div
+            className="absolute -top-20 left-1/4 w-[600px] h-[600px] rounded-full opacity-[0.13] animate-blob"
+            style={{
+              background: 'radial-gradient(circle at center, #3B82F6 0%, #1D4ED8 40%, transparent 70%)',
+              filter: 'blur(80px)',
+            }}
+          />
+          <div
+            className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full opacity-[0.1] animate-blob animation-delay-2000"
+            style={{
+              background: 'radial-gradient(circle at center, #06B6D4 0%, transparent 70%)',
+              filter: 'blur(70px)',
+            }}
+          />
+          <div className="absolute inset-0 dot-grid" />
+          <div
+            className="absolute bottom-0 left-0 right-0 h-40"
+            style={{ background: 'linear-gradient(to bottom, transparent, #05080F)' }}
+          />
         </div>
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div variants={fadeUp} initial="hidden" animate="visible">
-            <span className="text-blue-400 text-sm font-semibold uppercase tracking-widest mb-4 block">Our Services</span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6">
+            <span className="text-blue-400 text-xs font-semibold uppercase tracking-[0.2em] mb-5 block">Our Services</span>
+            <h1
+              className="text-4xl md:text-6xl lg:text-7xl font-black text-white mb-6"
+              style={{ letterSpacing: '-0.03em', lineHeight: '1.05' }}
+            >
               Full-Spectrum <span className="gradient-text">Tech Services</span>
             </h1>
             <p className="text-slate-400 text-lg md:text-xl leading-relaxed max-w-3xl mx-auto">
@@ -146,10 +165,10 @@ export default function Services() {
         </div>
       </section>
 
-      {/* Services Grid */}
+      {/* ── Services List ── */}
       <section className="py-16 md:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="space-y-8">
+          <div className="space-y-6">
             {services.map((service, i) => (
               <motion.div
                 key={i}
@@ -157,48 +176,70 @@ export default function Services() {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: '-50px' }}
-                className="glass-card rounded-2xl overflow-hidden"
-                whileHover={{ borderColor: `${service.color}30` }}
+                className="glass-card rounded-3xl overflow-hidden"
+                whileHover={{
+                  boxShadow: `0 0 0 1px ${service.color}22, 0 25px 60px ${service.color}0e`,
+                  borderColor: `${service.color}20`,
+                }}
+                transition={{ duration: 0.35 }}
               >
                 <div className={`grid grid-cols-1 lg:grid-cols-2 gap-0 ${i % 2 === 1 ? 'lg:grid-flow-dense' : ''}`}>
                   {/* Info */}
-                  <div className="p-8 md:p-10">
-                    <div className="flex items-start gap-4 mb-5">
-                      <div className="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0"
-                        style={{ background: `${service.color}15`, color: service.color }}>
+                  <div className="p-9 md:p-11">
+                    <div className="flex items-start gap-4 mb-6">
+                      <div
+                        className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0"
+                        style={{ background: `${service.color}12`, color: service.color }}
+                      >
                         {service.icon}
                       </div>
                       <div>
-                        <p className="text-xs font-semibold uppercase tracking-widest mb-1"
-                          style={{ color: service.color }}>
+                        <p
+                          className="text-xs font-semibold uppercase tracking-[0.15em] mb-1.5"
+                          style={{ color: service.color }}
+                        >
                           {service.subtitle}
                         </p>
-                        <h2 className="text-white font-bold text-xl md:text-2xl">{service.title}</h2>
+                        <h2 className="text-white font-bold text-xl md:text-2xl" style={{ letterSpacing: '-0.02em' }}>
+                          {service.title}
+                        </h2>
                       </div>
                     </div>
-                    <p className="text-slate-400 leading-relaxed mb-6">{service.desc}</p>
+                    <p className="text-slate-400 leading-relaxed mb-7 text-[0.95rem]">{service.desc}</p>
                     <Link to="/contact" className="btn-outline text-sm">
-                      Get Started <TbArrowRight size={16} />
+                      Get Started <TbArrowRight size={15} />
                     </Link>
                   </div>
 
                   {/* Features */}
-                  <div className="p-8 md:p-10 border-t lg:border-t-0 lg:border-l border-blue-900/20"
-                    style={{ background: `${service.color}05` }}>
-                    <h3 className="text-white font-semibold mb-5 text-sm uppercase tracking-wider">What's Included</h3>
-                    <ul className="space-y-3">
+                  <div
+                    className="p-9 md:p-11 border-t lg:border-t-0 lg:border-l"
+                    style={{
+                      background: `${service.color}06`,
+                      borderColor: 'rgba(255,255,255,0.05)',
+                    }}
+                  >
+                    <h3
+                      className="text-xs font-semibold uppercase tracking-[0.15em] mb-6"
+                      style={{ color: service.color }}
+                    >
+                      What's Included
+                    </h3>
+                    <ul className="space-y-3.5">
                       {service.features.map((feature, j) => (
                         <motion.li
                           key={j}
-                          initial={{ opacity: 0, x: -10 }}
+                          initial={{ opacity: 0, x: -12 }}
                           whileInView={{ opacity: 1, x: 0 }}
-                          transition={{ delay: j * 0.07, duration: 0.4 }}
+                          transition={{ delay: j * 0.06, duration: 0.4 }}
                           viewport={{ once: true }}
                           className="flex items-start gap-3 text-slate-300 text-sm"
                         >
-                          <span className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
-                            style={{ background: `${service.color}20`, color: service.color }}>
-                            <TbCheck size={12} />
+                          <span
+                            className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
+                            style={{ background: `${service.color}18`, color: service.color }}
+                          >
+                            <TbCheck size={11} />
                           </span>
                           {feature}
                         </motion.li>
@@ -212,18 +253,21 @@ export default function Services() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-16 md:py-20" style={{ background: 'rgba(15,26,62,0.4)' }}>
+      {/* ── CTA ── */}
+      <section className="py-20 md:py-28" style={{ background: 'rgba(255,255,255,0.016)' }}>
         <div className="max-w-3xl mx-auto px-4 text-center">
           <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <TbSparkles size={36} className="text-blue-400 mx-auto mb-4" />
-            <h2 className="text-2xl md:text-3xl font-black text-white mb-4">
+            <div className="w-14 h-14 rounded-2xl mx-auto mb-6 flex items-center justify-center"
+              style={{ background: 'rgba(59,130,246,0.1)', color: '#60A5FA' }}>
+              <TbSparkles size={26} />
+            </div>
+            <h2 className="text-2xl md:text-4xl font-black text-white mb-5" style={{ letterSpacing: '-0.025em' }}>
               Not Sure Which Service You Need?
             </h2>
-            <p className="text-slate-400 mb-7">
+            <p className="text-slate-400 mb-8 text-lg leading-relaxed">
               Talk to our team and we'll help you identify the right solution for your business goals.
             </p>
-            <Link to="/contact" className="btn-primary">
+            <Link to="/contact" className="btn-primary px-8 py-4 text-base">
               Talk to Our Team <TbArrowRight size={18} />
             </Link>
           </motion.div>

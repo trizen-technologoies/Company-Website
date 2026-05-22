@@ -30,19 +30,25 @@ export default function Navbar() {
     <motion.nav
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: 'easeOut' }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      transition={{ duration: 0.7, ease: 'easeOut' }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? 'bg-navy-900/95 backdrop-blur-md shadow-lg shadow-black/20 border-b border-blue-900/30'
+          ? 'shadow-2xl shadow-black/40'
           : 'bg-transparent'
       }`}
+      style={scrolled ? {
+        background: 'rgba(5, 8, 15, 0.88)',
+        backdropFilter: 'blur(24px)',
+        WebkitBackdropFilter: 'blur(24px)',
+        borderBottom: '1px solid rgba(255,255,255,0.05)',
+      } : {}}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
 
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 group">
-<img src="/favicon.png" alt="Trizen Logo" className="w-12 h-12 rounded-lg object-contain" />
+          <Link to="/" className="flex items-center gap-2.5 group">
+            <img src="/favicon.png" alt="Trizen Logo" className="w-11 h-11 rounded-xl object-contain" />
             <div className="flex flex-col leading-tight">
               <span className="font-bold text-white text-sm md:text-base tracking-wide">
                 Trizen
@@ -61,15 +67,16 @@ export default function Navbar() {
                 to={link.path}
                 className={`relative text-sm font-medium transition-colors duration-200 group ${
                   location.pathname === link.path
-                    ? 'text-blue-400'
-                    : 'text-slate-300 hover:text-white'
+                    ? 'text-white'
+                    : 'text-slate-400 hover:text-white'
                 }`}
               >
                 {link.name}
                 <span
-                  className={`absolute -bottom-1 left-0 h-0.5 rounded-full transition-all duration-300 bg-gradient-to-r from-blue-400 to-cyan-400 ${
+                  className={`absolute -bottom-1 left-0 h-px rounded-full transition-all duration-300 ${
                     location.pathname === link.path ? 'w-full' : 'w-0 group-hover:w-full'
                   }`}
+                  style={{ background: 'linear-gradient(90deg, #3B82F6, #06B6D4)' }}
                 />
               </Link>
             ))}
@@ -77,18 +84,18 @@ export default function Navbar() {
 
           {/* CTA */}
           <div className="hidden md:flex items-center">
-            <Link to="/contact" className="btn-primary text-sm">
+            <Link to="/contact" className="btn-primary text-sm px-5 py-2.5">
               Get in Touch
             </Link>
           </div>
 
           {/* Mobile Toggle */}
           <button
-            className="md:hidden text-slate-300 hover:text-white transition-colors"
+            className="md:hidden text-slate-400 hover:text-white transition-colors"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
           >
-            {mobileOpen ? <HiX size={26} /> : <HiMenuAlt3 size={26} />}
+            {mobileOpen ? <HiX size={24} /> : <HiMenuAlt3 size={24} />}
           </button>
         </div>
       </div>
@@ -101,17 +108,23 @@ export default function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden bg-navy-800/98 backdrop-blur-md border-t border-blue-900/30 overflow-hidden"
+            className="md:hidden overflow-hidden"
+            style={{
+              background: 'rgba(8, 12, 24, 0.98)',
+              backdropFilter: 'blur(24px)',
+              WebkitBackdropFilter: 'blur(24px)',
+              borderTop: '1px solid rgba(255,255,255,0.05)',
+            }}
           >
             <div className="px-4 py-4 space-y-1">
               {navLinks.map((link) => (
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`block px-4 py-3 rounded-lg text-sm font-medium transition-colors duration-200 ${
+                  className={`block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
                     location.pathname === link.path
-                      ? 'text-blue-400 bg-blue-500/10'
-                      : 'text-slate-300 hover:text-white hover:bg-white/5'
+                      ? 'text-white bg-blue-500/10 border border-blue-500/20'
+                      : 'text-slate-400 hover:text-white hover:bg-white/[0.04]'
                   }`}
                 >
                   {link.name}

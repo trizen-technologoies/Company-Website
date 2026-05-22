@@ -29,7 +29,7 @@ export default function App() {
   return (
     <Router>
       <ScrollToTop />
-      <div className="min-h-screen flex flex-col bg-navy-900">
+      <div className="min-h-screen flex flex-col bg-dark-950">
         <Navbar />
         <main className="flex-1">
           <AnimatedRoutes />

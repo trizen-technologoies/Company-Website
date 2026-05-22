@@ -21,14 +21,17 @@ const services = [
 
 export default function Footer() {
   return (
-    <footer className="bg-navy-800 border-t border-blue-900/30">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+    <footer style={{ background: '#080C18', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+      {/* Gradient divider line */}
+      <div className="h-px w-full" style={{ background: 'linear-gradient(90deg, transparent, rgba(59,130,246,0.4), rgba(6,182,212,0.4), transparent)' }} />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 md:py-18">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
 
           {/* Brand */}
           <div className="lg:col-span-1">
-            <Link to="/" className="flex items-center gap-2 mb-4">
-<img src="/favicon.png" alt="Trizen Logo" className="w-12 h-12 rounded-lg object-contain" />
+            <Link to="/" className="flex items-center gap-2.5 mb-5">
+              <img src="/favicon.png" alt="Trizen Logo" className="w-11 h-11 rounded-xl object-contain" />
               <div className="flex flex-col leading-tight">
                 <span className="font-bold text-white text-sm">Trizen</span>
                 <span className="text-xs font-medium bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent tracking-widest uppercase">
@@ -36,48 +39,57 @@ export default function Footer() {
                 </span>
               </div>
             </Link>
-            <p className="text-slate-400 text-sm leading-relaxed mb-6">
+            <p className="text-slate-500 text-sm leading-relaxed mb-6">
               Empowering businesses with AI-driven innovation. We integrate intelligent solutions into your applications to unlock new possibilities.
             </p>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2.5">
               <a
                 href="https://linkedin.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 hover:bg-blue-500/20 hover:text-blue-300 transition-all duration-200"
+                className="w-9 h-9 rounded-xl flex items-center justify-center text-slate-500 transition-all duration-200 hover:text-blue-400"
+                style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}
+                onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(59,130,246,0.4)'}
+                onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'}
               >
-                <FaLinkedin size={16} />
+                <FaLinkedin size={15} />
               </a>
               <a
                 href="https://twitter.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 hover:bg-blue-500/20 hover:text-blue-300 transition-all duration-200"
+                className="w-9 h-9 rounded-xl flex items-center justify-center text-slate-500 transition-all duration-200 hover:text-blue-400"
+                style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}
+                onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(59,130,246,0.4)'}
+                onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'}
               >
-                <FaTwitter size={16} />
+                <FaTwitter size={15} />
               </a>
               <a
                 href="https://github.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 hover:bg-blue-500/20 hover:text-blue-300 transition-all duration-200"
+                className="w-9 h-9 rounded-xl flex items-center justify-center text-slate-500 transition-all duration-200 hover:text-blue-400"
+                style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}
+                onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(59,130,246,0.4)'}
+                onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'}
               >
-                <FaGithub size={16} />
+                <FaGithub size={15} />
               </a>
             </div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-white font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-2">
+            <h3 className="text-white font-semibold mb-5 text-sm tracking-wide">Quick Links</h3>
+            <ul className="space-y-2.5">
               {quickLinks.map((link) => (
                 <li key={link.path}>
                   <Link
                     to={link.path}
-                    className="text-slate-400 hover:text-blue-400 text-sm transition-colors duration-200 flex items-center gap-2 group"
+                    className="text-slate-500 hover:text-slate-200 text-sm transition-colors duration-200 flex items-center gap-2.5 group"
                   >
-                    <span className="w-1 h-1 rounded-full bg-blue-500/50 group-hover:bg-blue-400 transition-colors" />
+                    <span className="w-1 h-1 rounded-full bg-slate-700 group-hover:bg-blue-400 transition-colors" />
                     {link.name}
                   </Link>
                 </li>
@@ -87,15 +99,15 @@ export default function Footer() {
 
           {/* Services */}
           <div>
-            <h3 className="text-white font-semibold mb-4">Our Services</h3>
-            <ul className="space-y-2">
+            <h3 className="text-white font-semibold mb-5 text-sm tracking-wide">Our Services</h3>
+            <ul className="space-y-2.5">
               {services.map((service) => (
                 <li key={service}>
                   <Link
                     to="/services"
-                    className="text-slate-400 hover:text-blue-400 text-sm transition-colors duration-200 flex items-center gap-2 group"
+                    className="text-slate-500 hover:text-slate-200 text-sm transition-colors duration-200 flex items-center gap-2.5 group"
                   >
-                    <span className="w-1 h-1 rounded-full bg-blue-500/50 group-hover:bg-blue-400 transition-colors" />
+                    <span className="w-1 h-1 rounded-full bg-slate-700 group-hover:bg-blue-400 transition-colors" />
                     {service}
                   </Link>
                 </li>
@@ -105,28 +117,28 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h3 className="text-white font-semibold mb-4">Contact Us</h3>
-            <ul className="space-y-3">
+            <h3 className="text-white font-semibold mb-5 text-sm tracking-wide">Contact Us</h3>
+            <ul className="space-y-3.5">
               <li>
                 <a
                   href="mailto:trizen@trizentechnologies.com"
-                  className="flex items-start gap-3 text-slate-400 hover:text-blue-400 text-sm transition-colors duration-200 group"
+                  className="flex items-start gap-3 text-slate-500 hover:text-slate-200 text-sm transition-colors duration-200 group"
                 >
-                  <HiMail className="text-blue-400 group-hover:text-blue-300 mt-0.5 flex-shrink-0 transition-colors" size={16} />
+                  <HiMail className="text-blue-500/60 group-hover:text-blue-400 mt-0.5 flex-shrink-0 transition-colors" size={16} />
                   <span>trizen@trizentechnologies.com</span>
                 </a>
               </li>
               <li>
                 <a
                   href="tel:+919015377060"
-                  className="flex items-start gap-3 text-slate-400 hover:text-blue-400 text-sm transition-colors duration-200 group"
+                  className="flex items-start gap-3 text-slate-500 hover:text-slate-200 text-sm transition-colors duration-200 group"
                 >
-                  <HiPhone className="text-blue-400 group-hover:text-blue-300 mt-0.5 flex-shrink-0 transition-colors" size={16} />
+                  <HiPhone className="text-blue-500/60 group-hover:text-blue-400 mt-0.5 flex-shrink-0 transition-colors" size={16} />
                   <span>+91 9015377060</span>
                 </a>
               </li>
-              <li className="flex items-start gap-3 text-slate-400 text-sm">
-                <HiLocationMarker className="text-blue-400 mt-0.5 flex-shrink-0" size={16} />
+              <li className="flex items-start gap-3 text-slate-500 text-sm">
+                <HiLocationMarker className="text-blue-500/60 mt-0.5 flex-shrink-0" size={16} />
                 <span>India</span>
               </li>
             </ul>
@@ -135,11 +147,12 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-10 pt-6 border-t border-blue-900/30 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-slate-500 text-sm">
+        <div className="mt-12 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3"
+          style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+          <p className="text-slate-600 text-sm">
             © {new Date().getFullYear()} Trizen Technologies. All rights reserved.
           </p>
-          <p className="text-slate-600 text-xs">
+          <p className="text-slate-700 text-xs">
             Built with AI-Driven Innovation
           </p>
         </div>

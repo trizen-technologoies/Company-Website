@@ -8,13 +8,13 @@ import {
 import { submitToSheets } from '../utils/submitToSheets.jsx'
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
+  hidden: { opacity: 0, y: 50 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] } },
 }
 
 const stagger = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.12 } },
+  visible: { transition: { staggerChildren: 0.1 } },
 }
 
 const subjects = [
@@ -32,7 +32,7 @@ const subjects = [
 
 const contactInfo = [
   {
-    icon: <TbMail size={24} />,
+    icon: <TbMail size={22} />,
     title: 'Email Us',
     value: 'trizen@trizentechnologies.com',
     sub: "We'll reply within 24 hours",
@@ -40,7 +40,7 @@ const contactInfo = [
     href: 'mailto:trizen@trizentechnologies.com',
   },
   {
-    icon: <TbPhone size={24} />,
+    icon: <TbPhone size={22} />,
     title: 'Call Us',
     value: '+91 9015377060',
     sub: 'Mon–Fri, 9am–6pm IST',
@@ -48,7 +48,7 @@ const contactInfo = [
     href: 'tel:+919015377060',
   },
   {
-    icon: <TbMapPin size={24} />,
+    icon: <TbMapPin size={22} />,
     title: 'Location',
     value: 'India',
     sub: 'Serving clients globally',
@@ -94,20 +94,32 @@ export default function Contact() {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.4 }}
     >
-      {/* Page Hero */}
-      <section className="relative pt-32 pb-16 overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
+      {/* ── Page Hero ── */}
+      <section className="relative pt-36 pb-20 overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div
-            className="absolute top-1/3 right-1/4 w-80 h-80 rounded-full opacity-10 animate-blob"
-            style={{ background: 'radial-gradient(circle, #06B6D4, transparent)' }}
+            className="absolute -top-20 right-1/4 w-[580px] h-[580px] rounded-full opacity-[0.13] animate-blob"
+            style={{
+              background: 'radial-gradient(circle at center, #06B6D4 0%, #0891B2 40%, transparent 70%)',
+              filter: 'blur(80px)',
+            }}
+          />
+          <div className="absolute inset-0 dot-grid" />
+          <div
+            className="absolute bottom-0 left-0 right-0 h-40"
+            style={{ background: 'linear-gradient(to bottom, transparent, #05080F)' }}
           />
         </div>
-        <div className="max-w-3xl mx-auto px-4 text-center">
+
+        <div className="relative max-w-3xl mx-auto px-4 text-center">
           <motion.div variants={fadeUp} initial="hidden" animate="visible">
-            <span className="text-blue-400 text-sm font-semibold uppercase tracking-widest mb-4 block">
+            <span className="text-blue-400 text-xs font-semibold uppercase tracking-[0.2em] mb-5 block">
               Contact Us
             </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-5">
+            <h1
+              className="text-4xl md:text-6xl lg:text-7xl font-black text-white mb-5"
+              style={{ letterSpacing: '-0.03em', lineHeight: '1.05' }}
+            >
               Let's <span className="gradient-text">Work Together</span>
             </h1>
             <p className="text-slate-400 text-lg leading-relaxed">
@@ -117,47 +129,48 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* Contact Info Cards */}
-      <section className="py-10" style={{ background: 'rgba(15,26,62,0.3)' }}>
+      {/* ── Contact Info Cards ── */}
+      <section className="py-10" style={{ background: 'rgba(255,255,255,0.016)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             variants={stagger}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="grid grid-cols-1 sm:grid-cols-3 gap-5"
+            className="grid grid-cols-1 sm:grid-cols-3 gap-4"
           >
             {contactInfo.map((info, i) => (
-              <motion.div key={i} variants={fadeUp} whileHover={{ y: -3 }}>
+              <motion.div key={i} variants={fadeUp} whileHover={{ y: -4 }} transition={{ duration: 0.3 }}>
                 {info.href ? (
                   <a
                     href={info.href}
-                    className="glass-card rounded-xl p-5 flex items-start gap-4 hover:border-blue-500/40 transition-all block no-underline"
+                    className="glass-card rounded-2xl p-5 flex items-start gap-4 block no-underline"
+                    style={{ textDecoration: 'none' }}
                   >
                     <div
-                      className="w-11 h-11 rounded-lg flex items-center justify-center flex-shrink-0"
-                      style={{ background: `${info.color}15`, color: info.color }}
+                      className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
+                      style={{ background: `${info.color}12`, color: info.color }}
                     >
                       {info.icon}
                     </div>
                     <div>
-                      <p className="text-slate-400 text-xs mb-0.5">{info.title}</p>
+                      <p className="text-slate-500 text-xs mb-0.5 uppercase tracking-wide">{info.title}</p>
                       <p className="text-white font-semibold text-sm">{info.value}</p>
-                      <p className="text-slate-500 text-xs mt-0.5">{info.sub}</p>
+                      <p className="text-slate-600 text-xs mt-0.5">{info.sub}</p>
                     </div>
                   </a>
                 ) : (
-                  <div className="glass-card rounded-xl p-5 flex items-start gap-4">
+                  <div className="glass-card rounded-2xl p-5 flex items-start gap-4">
                     <div
-                      className="w-11 h-11 rounded-lg flex items-center justify-center flex-shrink-0"
-                      style={{ background: `${info.color}15`, color: info.color }}
+                      className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
+                      style={{ background: `${info.color}12`, color: info.color }}
                     >
                       {info.icon}
                     </div>
                     <div>
-                      <p className="text-slate-400 text-xs mb-0.5">{info.title}</p>
+                      <p className="text-slate-500 text-xs mb-0.5 uppercase tracking-wide">{info.title}</p>
                       <p className="text-white font-semibold text-sm">{info.value}</p>
-                      <p className="text-slate-500 text-xs mt-0.5">{info.sub}</p>
+                      <p className="text-slate-600 text-xs mt-0.5">{info.sub}</p>
                     </div>
                   </div>
                 )}
@@ -167,10 +180,10 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* Contact Form */}
-      <section className="py-20 md:py-28">
+      {/* ── Contact Form ── */}
+      <section className="py-24 md:py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
 
             {/* Left — text */}
             <motion.div
@@ -180,18 +193,21 @@ export default function Contact() {
               viewport={{ once: true }}
               className="lg:col-span-2"
             >
-              <span className="text-blue-400 text-sm font-semibold uppercase tracking-widest mb-3 block">
+              <span className="text-blue-400 text-xs font-semibold uppercase tracking-[0.2em] mb-4 block">
                 Send a Message
               </span>
-              <h2 className="text-3xl md:text-4xl font-black text-white mb-5">
+              <h2
+                className="text-3xl md:text-4xl font-black text-white mb-6"
+                style={{ letterSpacing: '-0.025em', lineHeight: '1.1' }}
+              >
                 Start a <span className="gradient-text">Conversation</span>
               </h2>
-              <p className="text-slate-400 leading-relaxed mb-8">
+              <p className="text-slate-400 leading-relaxed mb-9 text-[0.95rem]">
                 Whether you have a quick question or a detailed project brief — we're here to listen
                 and respond. Tell us about your goals and we'll map out how Trizen Technologies can help.
               </p>
 
-              <div className="space-y-4">
+              <div className="space-y-3.5">
                 {[
                   { text: 'Free initial consultation' },
                   { text: 'Response within 24 hours' },
@@ -201,9 +217,9 @@ export default function Contact() {
                   <div key={i} className="flex items-center gap-3 text-slate-300 text-sm">
                     <span
                       className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0"
-                      style={{ background: 'rgba(59,130,246,0.2)', color: '#3B82F6' }}
+                      style={{ background: 'rgba(59,130,246,0.15)', color: '#60A5FA' }}
                     >
-                      <TbCheck size={12} />
+                      <TbCheck size={11} />
                     </span>
                     {item.text}
                   </div>
@@ -212,26 +228,22 @@ export default function Contact() {
 
               {/* Social links */}
               <div className="mt-10">
-                <p className="text-slate-400 text-sm mb-3">Follow us</p>
-                <div className="flex gap-3">
-                  <a
-                    href="#"
-                    className="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 hover:bg-blue-500/20 transition-all"
-                  >
-                    <TbBrandLinkedin size={18} />
-                  </a>
-                  <a
-                    href="#"
-                    className="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 hover:bg-blue-500/20 transition-all"
-                  >
-                    <TbBrandTwitter size={18} />
-                  </a>
-                  <a
-                    href="#"
-                    className="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 hover:bg-blue-500/20 transition-all"
-                  >
-                    <TbBrandGithub size={18} />
-                  </a>
+                <p className="text-slate-600 text-xs uppercase tracking-widest mb-4">Follow us</p>
+                <div className="flex gap-2.5">
+                  {[
+                    { icon: <TbBrandLinkedin size={16} />, href: '#' },
+                    { icon: <TbBrandTwitter size={16} />, href: '#' },
+                    { icon: <TbBrandGithub size={16} />, href: '#' },
+                  ].map((s, i) => (
+                    <a
+                      key={i}
+                      href={s.href}
+                      className="w-10 h-10 rounded-xl flex items-center justify-center text-slate-500 hover:text-blue-400 transition-all duration-200"
+                      style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}
+                    >
+                      {s.icon}
+                    </a>
+                  ))}
                 </div>
               </div>
             </motion.div>
@@ -244,25 +256,25 @@ export default function Contact() {
               viewport={{ once: true }}
               className="lg:col-span-3"
             >
-              <div className="glass-card rounded-2xl p-8">
+              <div className="glass-card rounded-3xl p-8 md:p-10">
                 {submitted ? (
                   <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="text-center py-10"
+                    className="text-center py-12"
                   >
                     <div
-                      className="w-20 h-20 rounded-full mx-auto mb-5 flex items-center justify-center"
-                      style={{ background: 'rgba(16,185,129,0.15)', color: '#10B981' }}
+                      className="w-20 h-20 rounded-3xl mx-auto mb-6 flex items-center justify-center"
+                      style={{ background: 'rgba(16,185,129,0.1)', color: '#10B981' }}
                     >
-                      <TbCheck size={40} />
+                      <TbCheck size={36} />
                     </div>
-                    <h3 className="text-white font-bold text-2xl mb-2">Message Sent!</h3>
+                    <h3 className="text-white font-bold text-2xl mb-2" style={{ letterSpacing: '-0.02em' }}>Message Sent!</h3>
                     <p className="text-slate-400">
                       Thanks for reaching out. We'll get back to you within 24 hours.
                     </p>
                     <button
-                      className="mt-6 btn-outline text-sm"
+                      className="mt-8 btn-outline text-sm"
                       onClick={() => {
                         setSubmitted(false)
                         setFormData({ name: '', email: '', phone: '', subject: '', message: '' })
@@ -275,7 +287,7 @@ export default function Contact() {
                   <form onSubmit={handleSubmit} className="space-y-5">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="text-slate-300 text-sm font-medium block mb-1.5">
+                        <label className="text-slate-400 text-xs font-medium block mb-2 uppercase tracking-wide">
                           Full Name <span className="text-blue-400">*</span>
                         </label>
                         <input
@@ -285,12 +297,11 @@ export default function Contact() {
                           value={formData.name}
                           onChange={handleChange}
                           placeholder="Your full name"
-                          className="w-full px-4 py-3 rounded-lg text-white placeholder-slate-500 text-sm outline-none focus:ring-2 focus:ring-blue-500/40 transition-all"
-                          style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(59,130,246,0.2)' }}
+                          className="input-field"
                         />
                       </div>
                       <div>
-                        <label className="text-slate-300 text-sm font-medium block mb-1.5">
+                        <label className="text-slate-400 text-xs font-medium block mb-2 uppercase tracking-wide">
                           Email Address <span className="text-blue-400">*</span>
                         </label>
                         <input
@@ -300,15 +311,14 @@ export default function Contact() {
                           value={formData.email}
                           onChange={handleChange}
                           placeholder="your@email.com"
-                          className="w-full px-4 py-3 rounded-lg text-white placeholder-slate-500 text-sm outline-none focus:ring-2 focus:ring-blue-500/40 transition-all"
-                          style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(59,130,246,0.2)' }}
+                          className="input-field"
                         />
                       </div>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="text-slate-300 text-sm font-medium block mb-1.5">
+                        <label className="text-slate-400 text-xs font-medium block mb-2 uppercase tracking-wide">
                           Phone Number
                         </label>
                         <input
@@ -317,12 +327,11 @@ export default function Contact() {
                           value={formData.phone}
                           onChange={handleChange}
                           placeholder="+91 00000 00000"
-                          className="w-full px-4 py-3 rounded-lg text-white placeholder-slate-500 text-sm outline-none focus:ring-2 focus:ring-blue-500/40 transition-all"
-                          style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(59,130,246,0.2)' }}
+                          className="input-field"
                         />
                       </div>
                       <div>
-                        <label className="text-slate-300 text-sm font-medium block mb-1.5">
+                        <label className="text-slate-400 text-xs font-medium block mb-2 uppercase tracking-wide">
                           Subject <span className="text-blue-400">*</span>
                         </label>
                         <select
@@ -330,16 +339,12 @@ export default function Contact() {
                           required
                           value={formData.subject}
                           onChange={handleChange}
-                          className="w-full px-4 py-3 rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500/40 transition-all cursor-pointer"
-                          style={{
-                            background: '#0F1A3E',
-                            border: '1px solid rgba(59,130,246,0.2)',
-                            color: formData.subject ? '#F8FAFC' : '#64748B',
-                          }}
+                          className="input-field cursor-pointer"
+                          style={{ color: formData.subject ? '#F8FAFC' : 'rgba(148,163,184,0.45)' }}
                         >
-                          <option value="" disabled>Select a subject</option>
+                          <option value="" disabled style={{ background: '#0C1020', color: '#64748B' }}>Select a subject</option>
                           {subjects.map((s) => (
-                            <option key={s} value={s} style={{ background: '#0F1A3E', color: '#F8FAFC' }}>
+                            <option key={s} value={s} style={{ background: '#0C1020', color: '#F8FAFC' }}>
                               {s}
                             </option>
                           ))}
@@ -348,7 +353,7 @@ export default function Contact() {
                     </div>
 
                     <div>
-                      <label className="text-slate-300 text-sm font-medium block mb-1.5">
+                      <label className="text-slate-400 text-xs font-medium block mb-2 uppercase tracking-wide">
                         Message <span className="text-blue-400">*</span>
                       </label>
                       <textarea
@@ -358,8 +363,7 @@ export default function Contact() {
                         value={formData.message}
                         onChange={handleChange}
                         placeholder="Tell us about your project or question..."
-                        className="w-full px-4 py-3 rounded-lg text-white placeholder-slate-500 text-sm outline-none focus:ring-2 focus:ring-blue-500/40 transition-all resize-none"
-                        style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(59,130,246,0.2)' }}
+                        className="input-field resize-none"
                       />
                     </div>
 
@@ -368,7 +372,7 @@ export default function Contact() {
                     <button
                       type="submit"
                       disabled={loading}
-                      className="btn-primary w-full justify-center py-3.5 text-base disabled:opacity-60 disabled:cursor-not-allowed"
+                      className="btn-primary w-full justify-center py-4 text-base disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       {loading ? (
                         <>
@@ -379,7 +383,7 @@ export default function Contact() {
                           Sending...
                         </>
                       ) : (
-                        <>Send Message <TbSend size={18} /></>
+                        <>Send Message <TbSend size={17} /></>
                       )}
                     </button>
                   </form>
@@ -391,14 +395,13 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* Bottom CTA */}
-      <section className="py-14" style={{ background: 'rgba(15,26,62,0.4)' }}>
+      {/* ── Bottom CTA ── */}
+      <section className="py-14" style={{ background: 'rgba(255,255,255,0.016)' }}>
         <div className="max-w-xl mx-auto px-4 text-center">
           <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <TbSparkles size={30} className="text-blue-400 mx-auto mb-3" />
-            <p className="text-slate-400 text-sm">
+            <p className="text-slate-500 text-sm">
               Prefer email? Reach us directly at{' '}
-              <a href="mailto:trizen@trizentechnologies.com" className="text-blue-400 hover:underline">
+              <a href="mailto:trizen@trizentechnologies.com" className="text-blue-400 hover:text-blue-300 transition-colors">
                 trizen@trizentechnologies.com
               </a>
             </p>

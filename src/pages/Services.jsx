@@ -34,6 +34,7 @@ const services = [
     ],
     color: '#3B82F6',
     gradient: 'from-blue-500 to-blue-600',
+    id: 'web-app',
   },
   {
     icon: <TbDeviceMobile size={34} />,
@@ -51,6 +52,7 @@ const services = [
     ],
     color: '#06B6D4',
     gradient: 'from-cyan-500 to-cyan-600',
+    id: 'mobile-app',
   },
   {
     icon: <TbBrain size={34} />,
@@ -67,6 +69,7 @@ const services = [
     ],
     color: '#8B5CF6',
     gradient: 'from-violet-500 to-violet-600',
+    id: 'ai-chatbot',
   },
   {
     icon: <TbCpu size={34} />,
@@ -83,6 +86,7 @@ const services = [
     ],
     color: '#F59E0B',
     gradient: 'from-amber-500 to-orange-500',
+    id: 'automation',
   },
   {
     icon: <TbAugmentedReality size={34} />,
@@ -99,6 +103,7 @@ const services = [
     ],
     color: '#EC4899',
     gradient: 'from-pink-500 to-rose-500',
+    id: 'arvr',
   },
   {
     icon: <TbTestPipe size={34} />,
@@ -115,6 +120,7 @@ const services = [
     ],
     color: '#10B981',
     gradient: 'from-emerald-500 to-green-500',
+    id: 'testing',
   },
 ]
 
@@ -187,6 +193,7 @@ export default function Services() {
             {services.map((service, i) => (
               <TiltCard
                 key={i}
+                id={service.id}
                 variants={fadeUp}
                 initial="hidden"
                 whileInView="visible"

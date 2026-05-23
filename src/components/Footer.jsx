@@ -1,6 +1,15 @@
 import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa'
 import { HiLocationMarker, HiMail, HiPhone } from 'react-icons/hi'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
+
+function scrollToHash(hash) {
+  const el = document.getElementById(hash)
+  if (el) {
+    const navbarHeight = window.innerWidth >= 768 ? 80 : 64
+    const top = el.getBoundingClientRect().top + window.scrollY - navbarHeight - 16
+    window.scrollTo({ top, behavior: 'smooth' })
+  }
+}
 
 const quickLinks = [
   { name: 'Home', path: '/' },
@@ -11,15 +20,17 @@ const quickLinks = [
 ]
 
 const services = [
-  'Web App Development',
-  'iOS / Android App Development',
-  'AI & Chatbot Integration',
-  'Automation & AI Technologies',
-  'AR/VR Products',
-  'Manual & Automated Testing',
+  { name: 'Web App Development', hash: 'web-app' },
+  { name: 'iOS / Android App Development', hash: 'mobile-app' },
+  { name: 'AI & Chatbot Integration', hash: 'ai-chatbot' },
+  { name: 'Automation & AI Technologies', hash: 'automation' },
+  { name: 'AR/VR Products', hash: 'arvr' },
+  { name: 'Manual & Automated Testing', hash: 'testing' },
 ]
 
 export default function Footer() {
+  const { pathname } = useLocation()
+
   return (
     <footer style={{ background: '#080C18', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
       {/* Gradient divider line */}
@@ -87,13 +98,16 @@ export default function Footer() {
             <h3 className="text-white font-semibold mb-5 text-sm tracking-wide">Our Services</h3>
             <ul className="space-y-2.5">
               {services.map((service) => (
-                <li key={service}>
+                <li key={service.hash}>
                   <Link
-                    to="/services"
+                    to={`/services#${service.hash}`}
+                    onClick={() => {
+                      if (pathname === '/services') scrollToHash(service.hash)
+                    }}
                     className="text-slate-500 hover:text-slate-200 text-sm transition-colors duration-200 flex items-center gap-2.5 group"
                   >
                     <span className="w-1 h-1 rounded-full bg-slate-700 group-hover:bg-blue-400 transition-colors" />
-                    {service}
+                    {service.name}
                   </Link>
                 </li>
               ))}

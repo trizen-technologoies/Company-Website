@@ -1,5 +1,6 @@
+import { useState } from 'react'
 import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa'
-import { HiLocationMarker, HiMail, HiPhone } from 'react-icons/hi'
+import { HiLocationMarker, HiMail, HiPhone, HiX } from 'react-icons/hi'
 import { Link, useLocation } from 'react-router-dom'
 
 function scrollToHash(hash) {
@@ -30,6 +31,7 @@ const services = [
 
 export default function Footer() {
   const { pathname } = useLocation()
+  const [mapOpen, setMapOpen] = useState(false)
 
   return (
     <footer style={{ background: '#080C18', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
@@ -132,9 +134,14 @@ export default function Footer() {
                   <span>+91 9015377060</span>
                 </a>
               </li>
-              <li className="flex items-start gap-3 text-slate-500 text-sm">
-                <HiLocationMarker className="text-blue-500/60 mt-0.5 flex-shrink-0" size={16} />
-                <span>India</span>
+              <li>
+                <button
+                  onClick={() => setMapOpen(true)}
+                  className="flex items-start gap-3 text-slate-500 hover:text-slate-200 text-sm transition-colors duration-200 group text-left"
+                >
+                  <HiLocationMarker className="text-blue-500/60 group-hover:text-blue-400 mt-0.5 flex-shrink-0 transition-colors" size={16} />
+                  <span>Mohali, Punjab, India</span>
+                </button>
               </li>
             </ul>
           </div>
@@ -152,6 +159,51 @@ export default function Footer() {
           </p>
         </div>
       </div>
+      {/* Map Modal */}
+      {mapOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          style={{ background: 'rgba(0,0,0,0.75)', backdropFilter: 'blur(4px)' }}
+          onClick={() => setMapOpen(false)}
+        >
+          <div
+            className="relative w-full max-w-2xl rounded-2xl overflow-hidden"
+            style={{ border: '1px solid rgba(59,130,246,0.3)', boxShadow: '0 0 40px rgba(59,130,246,0.15)' }}
+            onClick={e => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between px-4 py-3" style={{ background: '#0f172a' }}>
+              <div className="flex items-center gap-2 text-white text-sm font-medium">
+                <HiLocationMarker className="text-blue-400" size={16} />
+                Mohali, Punjab, India
+              </div>
+              <button
+                onClick={() => setMapOpen(false)}
+                className="text-slate-400 hover:text-white transition-colors"
+              >
+                <HiX size={18} />
+              </button>
+            </div>
+            <div className="relative" style={{ cursor: 'pointer' }}>
+              <iframe
+                title="Trizen Technologies Location"
+                src="https://maps.google.com/maps?q=30.74004,76.6706889&output=embed"
+                width="100%"
+                height="380"
+                style={{ border: 0, display: 'block', pointerEvents: 'none' }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+              <a
+                href="https://www.google.com/maps/place/Paras+Panorama,+Sector+126,+Model+Town,+Sahibzada+Ajit+Singh+Nagar,+Punjab+140301/@30.7404308,76.6631021,15.77z"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="absolute inset-0"
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </footer>
   )
 }

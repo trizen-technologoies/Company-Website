@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa'
-import { HiLocationMarker, HiMail, HiPhone, HiX } from 'react-icons/hi'
+import { HiLocationMarker, HiMail, HiX } from 'react-icons/hi'
 import { Link, useLocation } from 'react-router-dom'
 
 function scrollToHash(hash) {
@@ -125,13 +125,6 @@ export default function Footer() {
                   className="flex items-start gap-3 text-slate-500 hover:text-slate-200 text-sm transition-colors duration-200 group">
                   <HiMail className="text-blue-500/60 group-hover:text-blue-400 mt-0.5 flex-shrink-0 transition-colors" size={16} />
                   <span>trizen@trizentechnologies.com</span>
-                </a>
-              </li>
-              <li>
-                <a href="tel:+919015377060"
-                  className="flex items-start gap-3 text-slate-500 hover:text-slate-200 text-sm transition-colors duration-200 group">
-                  <HiPhone className="text-blue-500/60 group-hover:text-blue-400 mt-0.5 flex-shrink-0 transition-colors" size={16} />
-                  <span>+91 9015377060</span>
                 </a>
               </li>
               <li>

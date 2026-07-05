@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import {
-  TbMail, TbPhone, TbMapPin, TbSend, TbCheck,
+  TbMail, TbMapPin, TbSend, TbCheck,
   TbBrandLinkedin, TbBrandTwitter, TbBrandGithub, TbSparkles
 } from 'react-icons/tb'
 import { submitToSheets } from '../utils/submitToSheets.jsx'
@@ -38,14 +38,6 @@ const contactInfo = [
     sub: "We'll reply within 24 hours",
     color: '#3B82F6',
     href: 'mailto:trizen@trizentechnologies.com',
-  },
-  {
-    icon: <TbPhone size={22} />,
-    title: 'Call Us',
-    value: '+91 9015377060',
-    sub: 'Mon–Fri, 9am–6pm IST',
-    color: '#06B6D4',
-    href: 'tel:+919015377060',
   },
   {
     icon: <TbMapPin size={22} />,

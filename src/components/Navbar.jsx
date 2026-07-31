@@ -26,6 +26,11 @@ export default function Navbar() {
     setMobileOpen(false)
   }, [location])
 
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [mobileOpen])
+
   return (
     <motion.nav
       initial={{ y: -80, opacity: 0 }}
@@ -42,7 +47,7 @@ export default function Navbar() {
       } : {}}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 md:h-20">
+        <div className="relative flex items-center justify-between h-16 md:h-20">
 
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2.5 group">
@@ -58,7 +63,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Links */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
@@ -80,13 +85,6 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* CTA */}
-          <div className="hidden md:flex items-center">
-            <Link to="/contact" className="btn-primary text-sm px-5 py-2.5">
-              Get in Touch
-            </Link>
-          </div>
-
           {/* Mobile Toggle */}
           <button
             className="md:hidden text-slate-400 hover:text-white transition-colors"
@@ -98,6 +96,21 @@ export default function Navbar() {
         </div>
       </div>
 
+      {/* Mobile Menu Backdrop */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden fixed inset-0 bg-black/60 z-40"
+            style={{ top: '4rem' }}
+            onClick={() => setMobileOpen(false)}
+          />
+        )}
+      </AnimatePresence>
+
       {/* Mobile Menu */}
       <AnimatePresence>
         {mobileOpen && (
@@ -106,7 +119,7 @@ export default function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden overflow-hidden"
+            className="md:hidden overflow-hidden relative z-50"
             style={{
               background: 'rgba(8, 12, 24, 0.98)',
               backdropFilter: 'blur(24px)',

@@ -133,7 +133,7 @@ export default function Services() {
       transition={{ duration: 0.4 }}
     >
       {/* ── Page Hero ── */}
-      <section className="relative pt-36 pb-24 overflow-hidden">
+      <section className="relative min-h-screen flex items-center overflow-hidden pt-16 pb-16">
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           {/* Horizontal scanner line sweeping downward */}
           <motion.div
@@ -196,8 +196,9 @@ export default function Services() {
                 id={service.id}
                 variants={fadeUp}
                 initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: '-50px' }}
+                {...(i === 0
+                  ? { animate: 'visible' }
+                  : { whileInView: 'visible', viewport: { once: true, margin: '-50px' } })}
                 className="glass-card rounded-3xl overflow-hidden"
                 whileHover={{
                   boxShadow: `0 0 0 1px ${service.color}22, 0 25px 60px ${service.color}0e`,

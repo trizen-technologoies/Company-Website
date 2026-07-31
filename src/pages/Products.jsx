@@ -155,7 +155,7 @@ export default function Products() {
       transition={{ duration: 0.4 }}
     >
       {/* ── Product Hero ── */}
-      <section className="relative pt-32 pb-24 overflow-hidden">
+      <section className="relative min-h-screen flex items-center overflow-hidden pt-16 pb-16">
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           {/* Rising data fragments */}
           {DATA_FRAGMENTS.map((frag, i) => {

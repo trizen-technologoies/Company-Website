@@ -87,7 +87,7 @@ export default function Contact() {
       transition={{ duration: 0.4 }}
     >
       {/* ── Page Hero ── */}
-      <section className="relative pt-36 pb-20 overflow-hidden">
+      <section className="relative min-h-screen flex items-center overflow-hidden pt-16 pb-16">
         <div className="absolute inset-0 pointer-events-none overflow-hidden flex items-center justify-center">
           {/* Radar / sonar expanding pulse rings */}
           {[0, 0.9, 1.8, 2.7].map((delay, i) => (
@@ -163,8 +163,7 @@ export default function Contact() {
           <motion.div
             variants={stagger}
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
+            animate="visible"
             className="grid grid-cols-1 sm:grid-cols-3 gap-4"
           >
             {contactInfo.map((info, i) => (

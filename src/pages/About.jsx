@@ -60,7 +60,7 @@ export default function About() {
       transition={{ duration: 0.4 }}
     >
       {/* ── Page Hero ── */}
-      <section className="relative pt-36 pb-24 overflow-hidden">
+      <section className="relative min-h-screen flex items-center overflow-hidden pt-16 pb-16">
         <div className="absolute inset-0 pointer-events-none overflow-hidden flex items-center justify-center">
           {/* Orbital rings */}
           {[
@@ -137,7 +137,7 @@ export default function About() {
       <section className="py-20 md:py-28" style={{ background: 'rgba(255,255,255,0.016)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
-            <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+            <motion.div variants={fadeUp} initial="hidden" animate="visible">
               <span className="text-blue-400 text-xs font-semibold uppercase tracking-[0.2em] mb-4 block">Our Story</span>
               <h2 className="text-3xl md:text-4xl font-black text-white mb-7" style={{ letterSpacing: '-0.025em', lineHeight: '1.1' }}>
                 Building the <span className="gradient-text">Intelligent Future</span>
@@ -158,8 +158,7 @@ export default function About() {
             <motion.div
               variants={stagger}
               initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
+              animate="visible"
               className="grid grid-cols-2 gap-4"
             >
               {[

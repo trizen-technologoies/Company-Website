@@ -10,7 +10,6 @@ import {
   TbCpu, TbAugmentedReality
 } from 'react-icons/tb'
 import ParticleField from '../components/ParticleField'
-import ScrambleText from '../components/ScrambleText'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 50 },
@@ -85,7 +84,7 @@ export default function Home() {
       transition={{ duration: 0.4 }}
     >
       {/* ── Hero Section ── */}
-      <section className="relative min-h-screen flex items-center overflow-hidden pt-20">
+      <section className="relative overflow-hidden pt-32 pb-16">
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div
             className="absolute -top-40 -left-40 w-[750px] h-[750px] rounded-full opacity-[0.18] animate-blob"
@@ -117,38 +116,36 @@ export default function Home() {
           />
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.15, duration: 0.6 }}
-              className="tag-badge mb-8 mx-auto w-fit"
+              className="tag-badge mb-5 mx-auto w-fit"
             >
               <TbSparkles size={13} />
               AI-Powered Solutions
             </motion.div>
 
             <motion.h1
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.3 }}
-              className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-black text-white mb-8 leading-[1.0]"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white mb-5 leading-[1.05]"
               style={{ letterSpacing: '-0.03em' }}
             >
-              <ScrambleText text="Empowering Business" delay={400} duration={900} />
-              {' '}
-              <ScrambleText text="with AI-Driven" className="gradient-text" delay={750} duration={900} />
-              {' '}
-              <ScrambleText text="Innovation" delay={1100} duration={700} />
+              Empowering Business{' '}
+              <span className="gradient-text">with AI-Driven</span>{' '}
+              Innovation
             </motion.h1>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.45, duration: 0.7 }}
-              className="text-slate-400 text-lg md:text-xl leading-relaxed mb-12 max-w-2xl mx-auto"
+              className="text-slate-400 text-base md:text-lg leading-relaxed mb-8 max-w-2xl mx-auto"
             >
               We integrate AI into your web apps, mobile apps, and business workflows — delivering chatbots, automation, AR/VR, and intelligent outreach systems that transform how you operate and grow.
             </motion.p>

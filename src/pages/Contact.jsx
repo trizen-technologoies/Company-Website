@@ -25,6 +25,7 @@ const subjects = [
   'Automation & AI Technologies',
   'AR/VR Products',
   'Manual & Automated Testing',
+  'Digital Marketing & SEO',
   'AI SDR Outreach System',
   'Partnership / Collaboration',
   'Other',

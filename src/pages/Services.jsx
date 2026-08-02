@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import {
   TbWorld, TbDeviceMobile, TbBrain, TbCpu, TbAugmentedReality,
-  TbTestPipe, TbArrowRight, TbCheck, TbSparkles
+  TbTestPipe, TbArrowRight, TbCheck, TbSparkles, TbSpeakerphone
 } from 'react-icons/tb'
 import { FaRobot } from 'react-icons/fa'
 import { MdOutlineAutoAwesome } from 'react-icons/md'
@@ -121,6 +121,23 @@ const services = [
     color: '#10B981',
     gradient: 'from-emerald-500 to-green-500',
     id: 'testing',
+  },
+  {
+    icon: <TbSpeakerphone size={34} />,
+    title: 'Digital Marketing & SEO',
+    subtitle: 'Grow Your Online Visibility',
+    desc: 'We help businesses grow their online presence with data-driven digital marketing and SEO strategies — from search rankings to paid campaigns and content that converts.',
+    features: [
+      'Search Engine Optimization (SEO)',
+      'Pay-per-click (PPC) advertising',
+      'Social media marketing & management',
+      'Content marketing & strategy',
+      'Keyword research & competitor analysis',
+      'Analytics & performance tracking',
+    ],
+    color: '#14B8A6',
+    gradient: 'from-teal-500 to-cyan-600',
+    id: 'digital-marketing',
   },
 ]
 

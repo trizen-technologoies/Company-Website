@@ -27,6 +27,7 @@ const services = [
   { name: 'Automation & AI Technologies', hash: 'automation' },
   { name: 'AR/VR Products', hash: 'arvr' },
   { name: 'Manual & Automated Testing', hash: 'testing' },
+  { name: 'Digital Marketing & SEO', hash: 'digital-marketing' },
 ]
 
 export default function Footer() {

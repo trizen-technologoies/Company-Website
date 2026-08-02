@@ -7,7 +7,7 @@ import {
   TbBrain, TbRobot, TbWorld, TbDeviceMobile, TbTestPipe,
   TbSparkles, TbArrowRight, TbPhone, TbMail, TbBrandWhatsapp,
   TbBrandLinkedin, TbShieldCheck, TbRocket, TbChartBar,
-  TbCpu, TbAugmentedReality
+  TbCpu, TbAugmentedReality, TbSpeakerphone
 } from 'react-icons/tb'
 import ParticleField from '../components/ParticleField'
 
@@ -45,6 +45,7 @@ const services = [
   { icon: <TbCpu size={26} />, title: 'Automation & AI Technologies', desc: 'RPA, intelligent workflows, NLP pipelines, and computer vision.' },
   { icon: <TbAugmentedReality size={26} />, title: 'AR/VR Products', desc: 'Augmented & Virtual Reality experiences for training and engagement.' },
   { icon: <TbTestPipe size={26} />, title: 'Manual & Automated Testing', desc: 'Comprehensive QA with Selenium, Appium, and CI/CD integration.' },
+  { icon: <TbSpeakerphone size={26} />, title: 'Digital Marketing & SEO', desc: 'Data-driven SEO, PPC, and content strategies that grow your visibility.' },
 ]
 
 const whyUs = [

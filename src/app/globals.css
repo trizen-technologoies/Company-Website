@@ -1,0 +1,744 @@
+@import "tailwindcss";
+
+/* ============================================================
+   TRIZEN   Design System
+   "Ivory & Amber" · warm luxury · light + dark
+   Every color is a semantic token. Flip [data-theme] on <html>
+   and the entire site (surfaces, text, borders, gradients,
+   canvas) re-themes instantly.
+   ============================================================ */
+
+@theme {
+  /* --- Semantic aliases -> theme variables (defined per-mode below) --- */
+  --color-void: var(--void);
+  --color-bg: var(--bg);
+  --color-bg-2: var(--bg-2);
+  --color-surface: var(--surface);
+
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-fill: var(--fill);
+  --color-fill-2: var(--fill-2);
+  --color-fill-strong: var(--fill-strong);
+
+  --color-ink: var(--text);
+  --color-mist: var(--text-mist);
+  --color-muted: var(--text-muted);
+  --color-faint: var(--text-faint);
+
+  --color-accent: var(--accent);
+  --color-accent-bright: var(--accent-bright);
+  --color-accent-2: var(--accent-2);
+  --color-accent-3: var(--accent-3);
+
+  /* Legacy accent names remapped to the amber family so existing
+     gradient utilities (from-blue / via-violet / to-cyan …) keep working. */
+  --color-blue: var(--accent);
+  --color-blue-bright: var(--accent-bright);
+  --color-indigo: var(--accent-2);
+  --color-violet: var(--accent-2);
+  --color-purple: var(--accent-3);
+  --color-cyan: var(--accent-3);
+
+  /* Typography */
+  --font-display: var(--font-display), "Space Grotesk", sans-serif;
+  --font-sans: var(--font-sans), "Inter", system-ui, sans-serif;
+
+  --radius-xl2: 1.75rem;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quint: cubic-bezier(0.83, 0, 0.17, 1);
+}
+
+/* ============================================================
+   THEME TOKENS
+   ============================================================ */
+
+/* LIGHT (default + system-light)   brushed platinum / steel to match the logo */
+:root {
+  color-scheme: light;
+
+  --void: #d3d9e0;
+  --bg: #eaedf1;
+  --bg-2: #e2e6ec;
+  --surface: #ffffff;
+
+  --line: rgba(27, 33, 41, 0.1);
+  --line-strong: rgba(27, 33, 41, 0.2);
+  --fill: rgba(27, 33, 41, 0.04);
+  --fill-2: rgba(27, 33, 41, 0.07);
+  --fill-strong: rgba(27, 33, 41, 0.14);
+
+  --text: #1b2129;
+  --text-mist: #39424d;
+  --text-muted: #5e6a76;
+  --text-faint: #97a1ac;
+
+  --accent: #c6892c;
+  --accent-bright: #9c6414;
+  --accent-2: #a85221;
+  --accent-3: #cf9836;
+  --accent-contrast: #201a12;
+
+  --glass-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.44));
+  --glass-border: rgba(27, 33, 41, 0.08);
+  --card-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(249, 250, 252, 0.62));
+  --card-border: rgba(27, 33, 41, 0.09);
+
+  --canvas-rgb: 168 93 43;
+  --canvas-line-alpha: 0.5;
+  --hero-media-opacity: 0.12;
+
+  --nav-h: 76px;
+}
+
+/* DARK tokens shared by system-dark and explicit dark */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --void: #0e0b07;
+    --bg: #14110c;
+    --bg-2: #1a160f;
+    --surface: #1e1a13;
+
+    --line: rgba(255, 255, 255, 0.09);
+    --line-strong: rgba(255, 255, 255, 0.22);
+    --fill: rgba(255, 255, 255, 0.05);
+    --fill-2: rgba(255, 255, 255, 0.08);
+    --fill-strong: rgba(255, 255, 255, 0.2);
+
+    --text: #f4eee3;
+    --text-mist: #d9d0c0;
+    --text-muted: #a99c88;
+    --text-faint: #776c5b;
+
+    --accent: #f0a742;
+    --accent-bright: #f6be68;
+    --accent-2: #de7f27;
+    --accent-3: #f3c978;
+    --accent-contrast: #1a1712;
+
+    --glass-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --card-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.012));
+    --card-border: rgba(255, 255, 255, 0.07);
+
+    --canvas-rgb: 240 167 66;
+    --canvas-line-alpha: 0.35;
+    --hero-media-opacity: 0.28;
+  }
+}
+
+/* Explicit dark (toggle)   wins over system in both directions */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --void: #0e0b07;
+  --bg: #14110c;
+  --bg-2: #1a160f;
+  --surface: #1e1a13;
+
+  --line: rgba(255, 255, 255, 0.09);
+  --line-strong: rgba(255, 255, 255, 0.22);
+  --fill: rgba(255, 255, 255, 0.05);
+  --fill-2: rgba(255, 255, 255, 0.08);
+  --fill-strong: rgba(255, 255, 255, 0.2);
+
+  --text: #f4eee3;
+  --text-mist: #d9d0c0;
+  --text-muted: #a99c88;
+  --text-faint: #776c5b;
+
+  --accent: #f0a742;
+  --accent-bright: #f6be68;
+  --accent-2: #de7f27;
+  --accent-3: #f3c978;
+  --accent-contrast: #1a1712;
+
+  --glass-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --card-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.012));
+  --card-border: rgba(255, 255, 255, 0.07);
+
+  --canvas-rgb: 240 167 66;
+  --canvas-line-alpha: 0.35;
+  --hero-media-opacity: 0.28;
+}
+
+/* ---- Base ---- */
+* {
+  border-color: var(--color-line);
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: auto;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  font-feature-settings: "ss01", "cv01", "cv11";
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 0.4s var(--ease-out-expo), color 0.4s var(--ease-out-expo);
+}
+
+::selection {
+  background: color-mix(in oklab, var(--accent) 55%, transparent);
+  color: var(--accent-contrast);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--void);
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--accent), var(--accent-2));
+  border-radius: 99px;
+  border: 2px solid var(--void);
+}
+
+/* ============================================================
+   Typographic helpers
+   ============================================================ */
+.font-display {
+  font-family: var(--font-display);
+}
+
+.text-gradient {
+  background: linear-gradient(100deg, var(--text) 0%, var(--accent) 55%, var(--accent-2) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Fixed warm gradient   reads on dark media in both themes (unlike text-gradient
+   which starts from the theme --text colour). */
+.text-gold {
+  background: linear-gradient(100deg, var(--accent-3), var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.text-gradient-soft {
+  background: linear-gradient(180deg, var(--text) 30%, var(--text-muted));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.balance {
+  text-wrap: balance;
+}
+
+/* ============================================================
+   Surfaces   glass / cards / borders
+   ============================================================ */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border: 1px solid var(--glass-border);
+}
+
+.card {
+  position: relative;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 1.5rem;
+  box-shadow: 0 1px 2px rgba(26, 23, 18, 0.04);
+  transition:
+    transform 0.5s var(--ease-out-expo),
+    border-color 0.5s var(--ease-out-expo),
+    box-shadow 0.5s var(--ease-out-expo),
+    background 0.5s var(--ease-out-expo);
+}
+
+.card-glow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(130deg, var(--accent), var(--accent-2) 45%, var(--accent-3) 80%, transparent 92%);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-out-expo);
+  pointer-events: none;
+}
+.card-glow:hover::before {
+  opacity: 1;
+}
+.card-glow:hover {
+  border-color: transparent;
+  transform: translateY(-6px);
+  box-shadow: 0 24px 60px -28px color-mix(in oklab, var(--accent) 55%, transparent);
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.5;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.grid-bg {
+  background-image:
+    linear-gradient(to right, var(--line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 40%, transparent 100%);
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 40%, transparent 100%);
+}
+
+.noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+}
+
+.hero-media {
+  opacity: var(--hero-media-opacity);
+}
+
+/* Hero video backdrop   more visible than .hero-media, esp. in light mode. */
+.hero-video {
+  opacity: 0.22;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .hero-video {
+    opacity: 0.36;
+  }
+}
+:root[data-theme="dark"] .hero-video {
+  opacity: 0.36;
+}
+
+/* Softer / more translucent hero video (AI SDR) */
+.hero-video-soft {
+  opacity: 0.15;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .hero-video-soft {
+    opacity: 0.26;
+  }
+}
+:root[data-theme="dark"] .hero-video-soft {
+  opacity: 0.26;
+}
+
+/* ============================================================
+   Buttons
+   ============================================================ */
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  border-radius: 999px;
+  transition:
+    transform 0.35s var(--ease-out-expo),
+    box-shadow 0.4s var(--ease-out-expo),
+    background 0.4s var(--ease-out-expo);
+  will-change: transform;
+}
+
+.btn-primary {
+  color: var(--accent-contrast);
+  background: linear-gradient(120deg, var(--accent), var(--accent-2));
+  box-shadow:
+    0 8px 30px -8px color-mix(in oklab, var(--accent) 60%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
+}
+.btn-primary:hover {
+  box-shadow:
+    0 16px 50px -10px color-mix(in oklab, var(--accent) 70%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.btn-ghost {
+  color: var(--text);
+  background: var(--fill);
+  border: 1px solid var(--line-strong);
+}
+.btn-ghost:hover {
+  background: var(--fill-2);
+  border-color: color-mix(in oklab, var(--accent) 45%, var(--line-strong));
+}
+
+.eyebrow {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding-bottom: 0.6rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-bright);
+}
+@media (min-width: 640px) {
+  .eyebrow {
+    font-size: 1.85rem;
+  }
+}
+.eyebrow::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 2.75rem;
+  height: 3px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-3));
+  box-shadow: 0 0 12px -1px var(--glow);
+}
+.eyebrow > span {
+  display: none;
+}
+
+/* ============================================================
+   Keyframes
+   ============================================================ */
+@keyframes float {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  50% { transform: translateY(-24px) translateX(10px); }
+}
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(30px) rotate(6deg); }
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.85; }
+}
+@keyframes spinSlow {
+  to { transform: rotate(360deg); }
+}
+@keyframes gradientMove {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.animate-float { animation: float 9s ease-in-out infinite; }
+.animate-float-slow { animation: floatSlow 14s ease-in-out infinite; }
+.animate-marquee { animation: marquee 38s linear infinite; }
+.animate-pulse-glow { animation: pulseGlow 5s ease-in-out infinite; }
+.animate-spin-slow { animation: spinSlow 22s linear infinite; }
+
+.aurora-text {
+  background: linear-gradient(90deg, var(--accent-bright), var(--accent-2), var(--accent-3), var(--accent-bright));
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradientMove 8s ease infinite;
+}
+
+/* Reveal */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(34px);
+  transition:
+    opacity 1s var(--ease-out-expo),
+    transform 1s var(--ease-out-expo);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+[data-reveal][data-inview="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+/* Layout rhythm */
+.section {
+  position: relative;
+  padding-block: clamp(6rem, 12vw, 11rem);
+}
+.container-x {
+  width: 100%;
+  max-width: 1240px;
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 5vw, 2.5rem);
+}
+
+/* ============================================================
+   SHOWCASE LAYER   extra tokens + motion primitives (light + dark)
+   Small, additive color tweaks: a per-section warm accent, a
+   glow token and a "sheen" gradient for kinetic type. Dark mode
+   is nudged a touch deeper/brighter for showcase drama.
+   ============================================================ */
+
+:root {
+  /* Per-section accent   overridden inline per capability. */
+  --section-accent: var(--accent);
+  --section-accent-2: var(--accent-2);
+  /* Warm glow + sheen (light values) */
+  --glow: rgba(198, 137, 44, 0.20);
+  --sheen: linear-gradient(
+    100deg,
+    transparent 18%,
+    color-mix(in oklab, var(--accent) 55%, white) 50%,
+    transparent 82%
+  );
+  /* Backdrop wash used behind showcase beats */
+  --wash: radial-gradient(
+    ellipse 70% 60% at 50% 0%,
+    color-mix(in oklab, var(--accent) 12%, transparent),
+    transparent 70%
+  );
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    /* Deeper ground + brighter gold headline for the showcase look */
+    --void: #0b0906;
+    --bg: #100d09;
+    --bg-2: #17130d;
+    --glow: rgba(240, 167, 66, 0.30);
+    --sheen: linear-gradient(
+      100deg,
+      transparent 18%,
+      color-mix(in oklab, var(--accent-bright) 62%, white) 50%,
+      transparent 82%
+    );
+    --wash: radial-gradient(
+      ellipse 70% 60% at 50% 0%,
+      color-mix(in oklab, var(--accent) 20%, transparent),
+      transparent 70%
+    );
+  }
+}
+
+:root[data-theme="dark"] {
+  --void: #0b0906;
+  --bg: #100d09;
+  --bg-2: #17130d;
+  --glow: rgba(240, 167, 66, 0.30);
+  --sheen: linear-gradient(
+    100deg,
+    transparent 18%,
+    color-mix(in oklab, var(--accent-bright) 62%, white) 50%,
+    transparent 82%
+  );
+  --wash: radial-gradient(
+    ellipse 70% 60% at 50% 0%,
+    color-mix(in oklab, var(--accent) 20%, transparent),
+    transparent 70%
+  );
+}
+
+/* Force dark-mode tokens on a subtree (e.g. a full-bleed video hero), so its
+   text + glass/cards render like dark mode regardless of the site theme.
+   Overrides BOTH the raw tokens (--text…) used by custom classes AND the
+   Tailwind --color-* aliases used by utilities (text-ink, borders, fills). */
+.force-dark {
+  color-scheme: dark;
+  --void: #0b0906;
+  --bg: #100d09;
+  --bg-2: #17130d;
+  --surface: #1e1a13;
+  --line: rgba(255, 255, 255, 0.12);
+  --line-strong: rgba(255, 255, 255, 0.24);
+  --fill: rgba(255, 255, 255, 0.06);
+  --fill-2: rgba(255, 255, 255, 0.1);
+  --fill-strong: rgba(255, 255, 255, 0.2);
+  --text: #f4eee3;
+  --text-mist: #d9d0c0;
+  --text-muted: #b7ab97;
+  --text-faint: #8a7f6d;
+  --accent: #f0a742;
+  --accent-bright: #f6be68;
+  --accent-2: #de7f27;
+  --accent-3: #f3c978;
+  --accent-contrast: #1a1712;
+  /* Tailwind color aliases (utilities read these directly) */
+  --color-ink: #f4eee3;
+  --color-mist: #d9d0c0;
+  --color-muted: #b7ab97;
+  --color-faint: #8a7f6d;
+  --color-line: rgba(255, 255, 255, 0.12);
+  --color-line-strong: rgba(255, 255, 255, 0.24);
+  --color-fill: rgba(255, 255, 255, 0.06);
+  --color-fill-2: rgba(255, 255, 255, 0.1);
+  --color-fill-strong: rgba(255, 255, 255, 0.2);
+  --color-surface: #1e1a13;
+  --color-bg: #100d09;
+  --color-bg-2: #17130d;
+  --color-void: #0b0906;
+  --color-accent: #f0a742;
+  --color-accent-bright: #f6be68;
+  --color-accent-2: #de7f27;
+  --color-accent-3: #f3c978;
+  --color-blue: #f0a742;
+  --color-blue-bright: #f6be68;
+  --color-violet: #de7f27;
+  --color-cyan: #f3c978;
+  /* Dark, semi-opaque glass/cards so they stand out over the video */
+  --glass-bg: linear-gradient(180deg, rgba(22, 18, 12, 0.62), rgba(22, 18, 12, 0.42));
+  --glass-border: rgba(255, 255, 255, 0.14);
+  --card-bg: linear-gradient(180deg, rgba(22, 18, 12, 0.72), rgba(22, 18, 12, 0.5));
+  --card-border: rgba(255, 255, 255, 0.12);
+}
+
+/* Sparkle / 4-point-star clip   the brand mark used as a reveal mask */
+.clip-sparkle {
+  clip-path: polygon(
+    50% 0%, 58% 42%, 100% 50%, 58% 58%,
+    50% 100%, 42% 58%, 0% 50%, 42% 42%
+  );
+}
+
+/* Kinetic type helpers */
+@keyframes marqueeReverse {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+.animate-marquee-reverse { animation: marqueeReverse 46s linear infinite; }
+
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+.animate-breathe { animation: breathe 4.5s ease-in-out infinite; }
+
+@keyframes sheenSweep {
+  0% { background-position: -140% 0; }
+  100% { background-position: 240% 0; }
+}
+.sheen-text {
+  background: var(--sheen);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: sheenSweep 6s linear infinite;
+}
+
+/* Section accent utilities (consume --section-accent set inline) */
+.accent-dot { background: var(--section-accent); }
+.accent-text { color: var(--section-accent); }
+
+/* Big showcase wordmark, filled by a scroll-driven gradient stop */
+.wordmark-fill {
+  background: linear-gradient(
+    90deg,
+    var(--accent) 0%,
+    var(--accent-3) var(--fill-stop, 0%),
+    var(--text-faint) calc(var(--fill-stop, 0%) + 0.5%)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Preloader overlay */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  background: var(--bg);
+}
+
+@keyframes loaderSpin {
+  to { transform: rotate(360deg); }
+}
+.loader-spin {
+  animation: loaderSpin 1.6s linear infinite;
+}
+
+/* Rotating keyword (services hero)   each new word blurs + slides in */
+@keyframes rotWordIn {
+  from { opacity: 0; transform: translateY(0.4em); filter: blur(6px); }
+  to { opacity: 1; transform: none; filter: blur(0); }
+}
+.rotator-word {
+  display: inline-block;
+  animation: rotWordIn 0.95s var(--ease-out-expo);
+  will-change: transform, filter, opacity;
+}
+
+/* Navbar translucency   more opaque in LIGHT mode so the (dark) nav text stays
+   legible over dark hero media; more transparent in DARK mode. */
+/* Light mode: resting (unscrolled) nav is fully solid; scrolled pill stays translucent */
+.nav-bar {
+  background: var(--bg);
+}
+.nav-bar.is-scrolled {
+  background: color-mix(in oklab, var(--bg) 64%, transparent);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .nav-bar {
+    background: color-mix(in oklab, var(--bg) 40%, transparent);
+  }
+  :root:not([data-theme="light"]) .nav-bar.is-scrolled {
+    background: color-mix(in oklab, var(--bg) 62%, transparent);
+  }
+}
+:root[data-theme="dark"] .nav-bar {
+  background: color-mix(in oklab, var(--bg) 40%, transparent);
+}
+:root[data-theme="dark"] .nav-bar.is-scrolled {
+  background: color-mix(in oklab, var(--bg) 62%, transparent);
+}
+
+/* Hover-expand panels (Mission / Vision)   equal by default, hovered one grows */
+.mv-row {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.mv-panel {
+  min-width: 0;
+  transition:
+    flex-grow 0.55s var(--ease-out-expo),
+    opacity 1s var(--ease-out-expo) var(--reveal-delay, 0ms),
+    transform 1s var(--ease-out-expo) var(--reveal-delay, 0ms);
+}
+@media (min-width: 1024px) {
+  .mv-row {
+    flex-direction: row;
+  }
+  .mv-panel {
+    flex: 1 1 0;
+  }
+  .mv-row:hover .mv-panel {
+    flex-grow: 0.8;
+  }
+  .mv-row .mv-panel:hover {
+    flex-grow: 1.6;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  [data-reveal] { opacity: 1 !important; transform: none !important; }
+  .sheen-text, .animate-breathe, .animate-marquee-reverse { animation: none !important; }
+  .mv-panel { transition: none !important; }
+}

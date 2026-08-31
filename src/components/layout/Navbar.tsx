@@ -15,6 +15,7 @@ const contactLink = nav.find((item) => item.label === "Contact");
 export default function Navbar() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
   const [open, setOpen] = useState(false);
   const ulRef = useRef<HTMLUListElement>(null);
   const [pillWidth, setPillWidth] = useState<number | null>(null);
@@ -26,6 +27,18 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // The shrink-to-pill treatment (logo/links collapsing) is desktop-only -
+  // on mobile the nav bar stays the same before and after scroll.
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    const onChange = () => setIsDesktop(mq.matches);
+    onChange();
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+
+  const shrink = scrolled && isDesktop;
+
   // Measure the (always-rendered, absolutely-positioned) links row so the
   // scrolled pill can shrink-wrap to fit it exactly, rather than guessing a
   // fixed width - keeps the "AI SDR" / "Contact" labels from wrapping.
@@ -36,7 +49,7 @@ export default function Navbar() {
     measure();
     window.addEventListener("resize", measure);
     return () => window.removeEventListener("resize", measure);
-  }, [scrolled, pathname]);
+  }, [shrink, pathname]);
 
   // Lock scroll when mobile menu is open
   useEffect(() => {
@@ -51,26 +64,26 @@ export default function Navbar() {
       <header
         className={cn(
           "fixed inset-x-0 top-0 z-50 transition-all duration-[1400ms] ease-out",
-          scrolled ? "py-2.5" : "py-4"
+          shrink ? "py-2.5" : "py-4"
         )}
       >
         <div className="container-x">
           <nav
             className={cn(
               "nav-bar relative mx-auto flex items-center justify-between overflow-hidden border border-line backdrop-blur-xl backdrop-saturate-150",
-              scrolled
+              shrink
                 ? "is-scrolled px-3 py-1.5 shadow-[0_12px_40px_-20px_rgba(0,0,0,0.5)]"
                 : "w-full px-4 py-2.5"
             )}
             style={{
-              ...(scrolled && pillWidth ? { width: pillWidth + 40 } : {}),
+              ...(shrink && pillWidth ? { width: pillWidth + 40 } : {}),
               // An explicit, modest px value (not Tailwind's rounded-full ->
               // 9999px) so border-radius interpolates smoothly the whole
               // way - animating from 9999px down to 16px spends almost the
               // entire transition clamped at "fully round" (since any value
               // above ~half the pill's height looks identical), then snaps
               // in the last instant once it finally drops below that.
-              borderRadius: scrolled ? 28 : 16,
+              borderRadius: shrink ? 28 : 16,
               // Same duration, no relative delay: the pill's edges and the
               // logo/contact motion move together as one shrink, instead of
               // the logo disappearing before the bar itself has moved.
@@ -81,11 +94,11 @@ export default function Navbar() {
             <div
               className="shrink-0 overflow-hidden"
               style={{
-                maxWidth: scrolled ? 0 : 220,
-                opacity: scrolled ? 0 : 1,
+                maxWidth: shrink ? 0 : 220,
+                opacity: shrink ? 0 : 1,
                 // Slides toward the middle as it fades, in step with the
                 // pill's own width change - not before it.
-                transform: `translateX(${scrolled ? 36 : 0}px)`,
+                transform: `translateX(${shrink ? 36 : 0}px)`,
                 transition:
                   "max-width 1.4s var(--ease-out-expo), opacity 1.1s var(--ease-out-expo), transform 1.4s var(--ease-out-expo)",
               }}
@@ -97,12 +110,12 @@ export default function Navbar() {
               ref={ulRef}
               className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 md:flex"
             >
-              {(scrolled ? nav : navLinks).map((item) => {
+              {(shrink ? nav : navLinks).map((item) => {
                 const active =
                   item.href === "/"
                     ? pathname === "/"
                     : pathname.startsWith(item.href);
-                const isContact = scrolled && item.label === "Contact";
+                const isContact = shrink && item.label === "Contact";
                 return (
                   <li
                     key={item.href}
@@ -133,12 +146,12 @@ export default function Navbar() {
               <div
                 className="hidden shrink-0 overflow-hidden md:block"
                 style={{
-                  maxWidth: scrolled ? 0 : 200,
-                  opacity: scrolled ? 0 : 1,
+                  maxWidth: shrink ? 0 : 200,
+                  opacity: shrink ? 0 : 1,
                   // Detaches and slides left toward the group in step with
                   // the pill's own width change, mirroring the logo's motion
                   // on the opposite edge.
-                  transform: `translateX(${scrolled ? -36 : 0}px)`,
+                  transform: `translateX(${shrink ? -36 : 0}px)`,
                   transition:
                     "max-width 0.9s var(--ease-out-expo), opacity 0.7s var(--ease-out-expo), transform 0.9s var(--ease-out-expo)",
                 }}

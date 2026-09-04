@@ -11,16 +11,22 @@ import Sparkle from "@/components/ui/Sparkle";
  * prefers-reduced-motion. Locks scroll while visible.
  */
 export default function Preloader() {
-  const [show, setShow] = useState(false);
+  // Rendered by default so the overlay is present in the very first paint
+  // (matching the blocking <head> script, which hides it via CSS before
+  // paint for visits that should skip it) - avoids a flash of page content
+  // before the loader shows up.
+  const [show, setShow] = useState(true);
   const root = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const seen = sessionStorage.getItem("trizen-intro");
     const skip = new URLSearchParams(window.location.search).has("nointro");
-    if (reduce || seen || skip) return;
+    if (reduce || seen || skip) {
+      setShow(false);
+      return;
+    }
 
-    setShow(true);
     document.body.style.overflow = "hidden";
 
     const ctx = gsap.context(() => {

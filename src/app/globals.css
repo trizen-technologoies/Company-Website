@@ -660,6 +660,12 @@ body {
   place-items: center;
   background: var(--bg);
 }
+/* Set synchronously (before first paint) by the inline script in <head> for
+   visits that should skip the intro - keeps the overlay from ever flashing
+   on screen for returning visitors. */
+html.no-intro .preloader {
+  display: none;
+}
 
 @keyframes loaderSpin {
   to { transform: rotate(360deg); }

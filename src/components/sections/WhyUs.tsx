@@ -96,17 +96,6 @@ export default function WhyUs() {
               />
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-void/60 via-transparent to-transparent" />
             </div>
-
-            {/* Floating logo badge overlapping bottom-left */}
-            <div className="glass absolute -bottom-6 -left-4 grid h-20 w-20 place-items-center rounded-full sm:-left-6">
-              <Image
-                src="/logo-mark.png"
-                alt=""
-                width={44}
-                height={44}
-                className="h-11 w-11 object-contain drop-shadow-[0_2px_6px_rgba(0,0,0,0.35)]"
-              />
-            </div>
           </div>
 
           {/* Right: copy */}

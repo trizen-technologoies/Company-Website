@@ -68,6 +68,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             __html: `(function(){try{if('scrollRestoration' in history){history.scrollRestoration='manual';}}catch(e){}})();`,
           }}
         />
+        {/* Runs before first paint so returning visitors (or reduced-motion /
+            ?nointro) never see the preloader overlay flash on screen - it's
+            hidden via CSS before the browser paints anything. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;var seen=sessionStorage.getItem('trizen-intro');var skip=new URLSearchParams(window.location.search).has('nointro');if(reduce||seen||skip){document.documentElement.classList.add('no-intro');}}catch(e){}})();`,
+          }}
+        />
       </head>
       <body className="min-h-screen antialiased">
         <SmoothScroll>

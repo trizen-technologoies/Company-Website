@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Phone, Mail, MessageCircle, ArrowUpRight, Sparkles } from "lucide-react";
+import { Phone, Mail, MessageCircle, Sparkles } from "lucide-react";
 import { Linkedin } from "@/components/ui/SocialIcons";
 import { product } from "@/lib/content";
 import Reveal from "@/components/ui/Reveal";
@@ -9,11 +9,9 @@ const channelIcons = [Phone, Mail, MessageCircle, Linkedin];
 export default function ProductSpotlight() {
   return (
     <section id="ai-sdr" className="section overflow-hidden">
-      <div className="blob left-1/2 top-0 h-[500px] w-[900px] -translate-x-1/2 bg-violet/15" />
       <div className="container-x relative">
         <div className="card relative overflow-hidden rounded-[2rem] p-8 sm:p-12 lg:p-16">
           <div className="grid-bg absolute inset-0 opacity-60" />
-          <div className="blob right-[-10%] bottom-[-20%] h-[360px] w-[360px] bg-blue/20" />
 
           <div className="relative grid gap-12 lg:grid-cols-2 lg:items-center">
             <div>
@@ -54,7 +52,7 @@ export default function ProductSpotlight() {
 
               <Reveal delay={320}>
                 <Link href="/products" className="btn btn-primary mt-9 px-7 py-3.5">
-                  See the full product <ArrowUpRight className="h-4 w-4" />
+                  See the full product
                 </Link>
               </Reveal>
             </div>

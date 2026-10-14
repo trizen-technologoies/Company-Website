@@ -86,7 +86,7 @@ export default function ValuesAccordion() {
                       {it.tags.map((t) => (
                         <span
                           key={t}
-                          className="rounded-full border border-white/25 bg-white/10 px-3 py-1 text-xs font-medium text-white backdrop-blur"
+                          className="rounded-full border border-white/25 px-3 py-1 text-xs font-medium text-white"
                         >
                           {t}
                         </span>

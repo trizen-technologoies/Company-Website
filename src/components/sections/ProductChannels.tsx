@@ -75,7 +75,6 @@ export default function ProductChannels() {
               className="card relative overflow-hidden rounded-3xl p-8 sm:p-10"
               style={{ animation: "fadeInPanel 0.5s var(--ease-out-expo)" }}
             >
-              <div className="blob right-0 top-0 h-64 w-64 bg-violet/15" />
               <div className="relative flex items-center gap-4">
                 <span className="grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-blue to-violet text-[var(--accent-contrast)]">
                   <Icon className="h-6 w-6" />

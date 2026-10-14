@@ -8,6 +8,19 @@ import Sparkle from "@/components/ui/Sparkle";
 import SplitReveal from "@/components/ui/SplitReveal";
 
 /**
+ * Copy colours picked by how bright the unscrimmed footage is behind it:
+ * headline by `tone`, subtitle by `subTone`. White subtitles get a soft glow.
+ */
+const TONE = {
+  light: { text: "text-ink", accent: "text-accent", sub: "text-ink" },
+  dark: {
+    text: "text-white",
+    accent: "text-[color:var(--accent-3)]",
+    sub: "text-white [text-shadow:0_0_12px_rgba(255,255,255,0.45)]",
+  },
+} as const;
+
+/**
  * Apple-style scroll-scrub hero. A pinned section where the video's playback
  * is driven by scroll (video.currentTime = progress × duration) while the
  * headline copy crossfades through stages around it and the footage subtly
@@ -112,7 +125,7 @@ export default function AboutScrollHero() {
         ref={stage}
         className="relative flex h-[100svh] items-center justify-center overflow-hidden bg-void"
       >
-        {/* Video */}
+        {/* Video, shown as-is (no scrims); each stage's copy adapts to it instead */}
         <div ref={media} className="absolute inset-0 will-change-transform">
           <video
             ref={video}
@@ -124,14 +137,10 @@ export default function AboutScrollHero() {
           >
             <source src={aboutHero.video} type="video/mp4" />
           </video>
-          {/* Warm tint + legibility scrims   fixed dark so the video stays crisp in BOTH themes */}
-          <div className="absolute inset-0 bg-black/35" />
-          <div className="absolute inset-0 bg-accent/10 mix-blend-overlay" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-black/45" />
         </div>
 
         {/* Stage copy (crossfades on scroll) */}
-        <div className="container-x relative z-10 mt-[7vh] text-center">
+        <div className="container-x relative z-10 mt-[18vh] text-center">
           <div className="mx-auto mb-6 w-fit">
             <Sparkle className="mx-auto h-8 w-8 animate-breathe text-accent" />
           </div>
@@ -140,20 +149,22 @@ export default function AboutScrollHero() {
             {aboutHero.eyebrow}
           </span>
 
-          <div className="relative mt-5 h-[42vh] min-h-[320px]">
+          <div className="relative mt-5 h-[42vh] min-h-[20rem]">
             {stages.map((s, i) => (
               <div
                 key={i}
                 data-stage={i}
                 className={`absolute inset-x-0 top-0 ${i === 0 ? "opacity-100 mt-[6vh]" : "opacity-0"}`}
               >
-                <h1 className="font-display mx-auto max-w-4xl text-balance text-center text-[clamp(2.4rem,6vw,4.6rem)] font-semibold leading-[1.02] tracking-[-0.02em] text-white">
+                <h1
+                  className={`font-display mx-auto max-w-4xl text-balance text-center text-[clamp(2.4rem,6vw,4.6rem)] font-semibold leading-[1.02] tracking-[-0.02em] ${TONE[s.tone].text}`}
+                >
                   {i === 0 ? (
                     <>
                       <SplitReveal text={s.title[0]} immediate delay={0.25} />{" "}
                       <SplitReveal
                         text={s.title[1]}
-                        className="text-[color:var(--accent-3)]"
+                        className={TONE[s.tone].accent}
                         immediate
                         delay={0.45}
                       />
@@ -161,20 +172,16 @@ export default function AboutScrollHero() {
                   ) : (
                     <>
                       {s.title[0]}{" "}
-                      <span
-                        style={{
-                          background: "linear-gradient(100deg, var(--accent-3), var(--accent))",
-                          WebkitBackgroundClip: "text",
-                          backgroundClip: "text",
-                          color: "transparent",
-                        }}
-                      >
-                        {s.title[1]}
-                      </span>
+                      <span className={TONE[s.tone].accent}>{s.title[1]}</span>
                     </>
                   )}
                 </h1>
-                <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-white/75">
+                <p className={`mx-auto mt-6 max-w-xl text-lg leading-relaxed ${TONE[s.subTone].sub}`}>
+                  {"subLead" in s && (
+                    <>
+                      <span className="text-ink [text-shadow:none]">{s.subLead}</span>{" "}
+                    </>
+                  )}
                   {s.sub}
                 </p>
               </div>

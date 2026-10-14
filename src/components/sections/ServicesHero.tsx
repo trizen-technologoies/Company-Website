@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ArrowDown, PhoneCall } from "lucide-react";
+import { PhoneCall } from "lucide-react";
 import { gsap } from "gsap";
 import { servicesHero } from "@/lib/content";
 import MagneticButton from "@/components/ui/MagneticButton";
@@ -20,8 +20,8 @@ const TAG_POS = [
 
 /**
  * Premium full-screen Services hero. The keyword in "Full-spectrum ___ services."
- * rotates through the disciplines (blur-slide transition); warm aurora blobs,
- * grain and floating service tags parallax with the cursor. Reduced-motion:
+ * rotates through the disciplines (blur-slide transition) over a light,
+ * unfiltered video; floating service tags parallax with the cursor. Reduced-motion:
  * first word only, no parallax.
  */
 export default function ServicesHero() {
@@ -62,22 +62,18 @@ export default function ServicesHero() {
       ref={root}
       className="relative flex min-h-[100svh] items-center justify-center overflow-hidden pt-20 pb-16"
     >
-      {/* Full-bleed amber-graded video + dark scrims (readable in both themes) */}
+      {/* Full-bleed light video shown as-is (no scrims); copy is dark ink on top */}
       <video
         autoPlay
         muted
         loop
         playsInline
         preload="metadata"
-        poster="/media/services-hero-poster.jpg"
+        poster="/hero/services-bg-poster.jpg"
         className="absolute inset-0 h-full w-full object-cover"
       >
-        <source src="/media/services-hero.mp4" type="video/mp4" />
+        <source src="/hero/services-bg.mp4" type="video/mp4" />
       </video>
-      <div className="absolute inset-0 bg-black/45" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/15 to-black/55" />
-      <div className="absolute inset-0 bg-accent/10 mix-blend-overlay" />
-      <div className="noise pointer-events-none absolute inset-0 opacity-40" />
 
       {/* Floating service tags (desktop) */}
       <div className="pointer-events-none absolute inset-0 hidden lg:block">
@@ -88,7 +84,7 @@ export default function ServicesHero() {
               key={t}
               data-parallax
               data-depth={p.depth}
-              className="absolute -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium text-white/90 backdrop-blur"
+              className="absolute -translate-x-1/2 -translate-y-1/2 rounded-full border border-line-strong bg-bg/50 px-4 py-2 text-sm font-medium text-mist backdrop-blur-sm"
               style={{ top: p.top, left: p.left }}
             >
               {t}
@@ -102,12 +98,12 @@ export default function ServicesHero() {
         <div className="mx-auto mb-6 w-fit">
           <Sparkle className="mx-auto h-8 w-8 animate-breathe text-accent" />
         </div>
-        <span className="eyebrow justify-center" style={{ color: "var(--accent-3)" }}>
+        <span className="eyebrow justify-center">
           <span className="h-1 w-1 rounded-full bg-accent" />
           {servicesHero.eyebrow}
         </span>
 
-        <h1 className="font-display mx-auto mt-5 max-w-4xl text-balance text-[clamp(2.6rem,7vw,5.5rem)] font-semibold leading-[0.98] tracking-[-0.02em] text-white">
+        <h1 className="font-display mx-auto mt-5 max-w-4xl text-balance text-[clamp(2.6rem,7vw,5.5rem)] font-semibold leading-[0.98] tracking-[-0.02em] text-ink">
           <span className="block">{servicesHero.prefix}</span>
           <span className="relative block py-1">
             <span
@@ -122,18 +118,17 @@ export default function ServicesHero() {
             >
               {words[active]}
             </span>{" "}
-            <span className="text-white">{servicesHero.suffix}</span>
+            <span className="text-ink">{servicesHero.suffix}</span>
           </span>
         </h1>
 
-        <p className="mx-auto mt-7 max-w-2xl text-lg leading-relaxed text-white/80">
+        <p className="hero-halo mx-auto mt-7 max-w-2xl text-lg leading-relaxed text-mist">
           {servicesHero.subtitle}
         </p>
 
         <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
           <MagneticButton href={servicesHero.primary.href}>
             {servicesHero.primary.label}
-            <ArrowDown className="h-4 w-4" />
           </MagneticButton>
           <MagneticButton href={servicesHero.secondary.href} variant="ghost">
             <PhoneCall className="h-4 w-4" />

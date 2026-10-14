@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, ArrowUpRight, Check, ArrowRight } from "lucide-react";
+import { Check } from "lucide-react";
 import { services, serviceExtra } from "@/lib/content";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Reveal from "@/components/ui/Reveal";
@@ -10,6 +10,7 @@ import SplitReveal from "@/components/ui/SplitReveal";
 import Sparkle from "@/components/ui/Sparkle";
 import MagneticButton from "@/components/ui/MagneticButton";
 import CTABand from "@/components/sections/CTABand";
+import { cn } from "@/lib/utils";
 
 type Params = { params: Promise<{ slug: string }> };
 
@@ -32,6 +33,7 @@ export default async function ServiceDetailPage({ params }: Params) {
 
   const idx = services.findIndex((x) => x.id === slug);
   const next = services[(idx + 1) % services.length];
+  const light = extra.videoTone === "light";
 
   return (
     <>
@@ -44,43 +46,67 @@ export default async function ServiceDetailPage({ params }: Params) {
           playsInline
           preload="metadata"
           poster={extra.poster}
-          className="absolute inset-0 h-full w-full object-cover"
+          className={cn("absolute inset-0 h-full w-full object-cover", light && "video-dim-dark")}
         >
           <source src={extra.video} type="video/mp4" />
         </video>
-        {/* Fixed dark scrims   readable in both themes */}
-        <div className="absolute inset-0 bg-black/50" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-black/55" />
-        <div className="absolute inset-0 bg-accent/10 mix-blend-overlay" />
+        {light ? (
+          <>
+            {/* Ivory fade behind the copy: even wash on small screens, left-weighted on desktop */}
+            <div className="absolute inset-0 bg-bg/75 lg:hidden" />
+            <div className="absolute inset-0 hidden bg-gradient-to-r from-bg from-10% via-bg/70 via-45% to-transparent to-75% lg:block" />
+            <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-bg to-transparent" />
+          </>
+        ) : (
+          <>
+            {/* Fixed dark scrims   readable in both themes */}
+            <div className="absolute inset-0 bg-black/50" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-black/55" />
+            <div className="absolute inset-0 bg-accent/10 mix-blend-overlay" />
+          </>
+        )}
 
         <div className="container-x relative z-10">
           <Link
             href="/services"
-            className="inline-flex items-center gap-2 text-sm font-medium text-white/70 transition-colors hover:text-white"
+            className={cn(
+              "inline-flex items-center gap-2 text-sm font-medium transition-colors",
+              light ? "text-muted hover:text-ink" : "text-white/70 hover:text-white"
+            )}
           >
-            <ArrowLeft className="h-4 w-4" /> All services
+            All services
           </Link>
 
           <div className="mt-6 flex items-center gap-3">
             <Sparkle className="h-7 w-7 animate-breathe text-accent" />
             <span
               className="text-sm font-semibold uppercase tracking-[0.2em]"
-              style={{ color: "var(--accent-3)" }}
+              style={{ color: light ? "var(--accent-bright)" : "var(--accent-3)" }}
             >
               Service {s.n}
             </span>
           </div>
 
-          <h1 className="font-display mt-4 max-w-3xl text-balance text-[clamp(2.4rem,6vw,4.6rem)] font-semibold leading-[1.02] tracking-tight text-white">
+          <h1
+            className={cn(
+              "font-display mt-4 max-w-3xl text-balance text-[clamp(2.4rem,6vw,4.6rem)] font-semibold leading-[1.02] tracking-tight",
+              light ? "text-ink" : "text-white"
+            )}
+          >
             <SplitReveal text={s.title} immediate delay={0.1} />
           </h1>
-          <p className="mt-5 max-w-xl text-xl leading-relaxed text-white/80">
+          <p
+            className={cn(
+              "mt-5 max-w-xl text-xl leading-relaxed",
+              light ? "text-mist" : "text-white/80"
+            )}
+          >
             {extra.tagline}
           </p>
 
           <div className="mt-9 flex flex-wrap items-center gap-4">
             <MagneticButton href="/contact">
-              Start a project <ArrowUpRight className="h-4 w-4" />
+              Start a project
             </MagneticButton>
           </div>
         </div>
@@ -214,9 +240,6 @@ export default async function ServiceDetailPage({ params }: Params) {
                 </h3>
                 <p className="mt-1 text-muted">{next.subtitle}</p>
               </div>
-              <span className="grid h-14 w-14 shrink-0 place-items-center rounded-full border border-line-strong text-ink transition-all duration-300 group-hover:translate-x-1 group-hover:border-transparent group-hover:bg-gradient-to-br group-hover:from-accent group-hover:to-accent-2 group-hover:text-[var(--accent-contrast)]">
-                <ArrowRight className="h-5 w-5" />
-              </span>
             </Link>
           </Reveal>
         </div>

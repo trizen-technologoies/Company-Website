@@ -2,13 +2,16 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
-import { Sparkles, ArrowRight, PlayCircle, Phone, Mail, MessageCircle } from "lucide-react";
+import { PlayCircle, Phone, Mail, MessageCircle } from "lucide-react";
 import { gsap } from "gsap";
 import { Linkedin } from "@/components/ui/SocialIcons";
 import { product } from "@/lib/content";
 import SplitReveal from "@/components/ui/SplitReveal";
 import MagneticButton from "@/components/ui/MagneticButton";
 import Counter from "@/components/ui/Counter";
+
+/** Floating card shell: dark frosted fill so its text stays legible over the bright animation. */
+const CARD = "glass absolute rounded-3xl bg-black/55 p-5 backdrop-blur-md";
 
 /**
  * Premium full-screen AI SDR hero   copy on the left, floating "live" product
@@ -55,35 +58,27 @@ export default function ProductHero() {
   return (
     <section
       ref={root}
-      className="force-dark relative flex min-h-[100svh] items-center overflow-hidden pt-20 pb-8 text-ink"
+      className="force-dark relative flex min-h-[100svh] items-center overflow-hidden pt-28 pb-8 text-ink"
     >
-      {/* Full-bleed video + dark scrims (always reads as dark mode) */}
+      {/* Full-bleed video shown as-is (no scrims); the footage is dark, so the
+          section keeps dark-mode copy colours */}
       <video
         autoPlay
         muted
         loop
         playsInline
         preload="metadata"
-        poster="/media/svc-ai-poster.jpg"
+        poster="/hero/ai-sdr-bg-poster.jpg"
         className="absolute inset-0 h-full w-full object-cover"
       >
-        <source src="/media/svc-ai.mp4" type="video/mp4" />
+        <source src="/hero/ai-sdr-bg.mp4" type="video/mp4" />
       </video>
-      <div className="absolute inset-0 bg-black/45" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/15 to-black/55" />
-      <div className="absolute inset-0 bg-accent/10 mix-blend-overlay" />
-      <div className="noise pointer-events-none absolute inset-0 opacity-40" />
 
       <div className="container-x relative z-10">
         <div className="grid items-center gap-12 lg:grid-cols-12">
           {/* Copy */}
           <div className="lg:col-span-6">
-            <span className="glass inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium text-accent-bright">
-              <Sparkles className="h-3.5 w-3.5" />
-              {product.badge}
-            </span>
-
-            <h1 className="font-display mt-5 max-w-xl text-balance text-[clamp(2.2rem,4.8vw,3.6rem)] font-semibold leading-[1.0] tracking-[-0.02em] text-white">
+            <h1 className="font-display max-w-xl text-balance text-[clamp(2.2rem,4.8vw,3.6rem)] font-semibold leading-[1.0] tracking-[-0.02em] text-white">
               <SplitReveal text={product.title} immediate delay={0.12} />
             </h1>
             <p className="mt-4 max-w-lg text-lg font-medium text-gradient">
@@ -93,7 +88,7 @@ export default function ProductHero() {
 
             <div className="mt-6 flex flex-wrap items-center gap-4">
               <MagneticButton href="#demo">
-                Request a demo <ArrowRight className="h-4 w-4" />
+                Request a demo
               </MagneticButton>
               <MagneticButton href="#channels" variant="ghost">
                 <PlayCircle className="h-4 w-4" /> See how it works
@@ -113,13 +108,13 @@ export default function ProductHero() {
           </div>
 
           {/* Floating live cards */}
-          <div className="relative hidden h-[440px] lg:col-span-6 lg:block">
+          <div className="relative hidden h-[27.5rem] lg:col-span-6 lg:block">
             {/* Live call */}
             <div
               data-ph-card
               data-parallax
               data-depth="16"
-              className="glass absolute right-0 top-0 w-72 rounded-3xl p-5"
+              className={`${CARD} right-0 top-0 w-72`}
             >
               <div className="flex items-center justify-between">
                 <span className="inline-flex items-center gap-2 text-xs font-medium text-muted">
@@ -144,7 +139,7 @@ export default function ProductHero() {
               data-ph-card
               data-parallax
               data-depth="30"
-              className="glass absolute left-0 top-36 w-64 rounded-3xl p-5"
+              className={`${CARD} left-0 top-36 w-64`}
             >
               <div className="text-xs text-muted">Meetings booked · this month</div>
               <div className="mt-2 font-display text-4xl font-semibold text-ink">
@@ -161,7 +156,7 @@ export default function ProductHero() {
               data-ph-card
               data-parallax
               data-depth="12"
-              className="glass absolute bottom-0 right-4 w-64 rounded-3xl p-5"
+              className={`${CARD} bottom-0 right-4 w-64`}
             >
               <div className="text-xs text-muted">Active channels · 24/7</div>
               <div className="mt-4 flex items-center gap-3">

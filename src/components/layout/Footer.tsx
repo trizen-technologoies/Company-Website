@@ -12,8 +12,10 @@ export default function Footer() {
   const mapsUrl = site.mapsUrl;
 
   return (
-    <footer className="relative overflow-hidden border-t border-line bg-void">
-      <div className="blob left-1/2 top-0 h-[420px] w-[720px] -translate-x-1/2 -translate-y-1/3 bg-violet/20" />
+    <footer
+      data-nav-dark
+      className="force-dark relative overflow-hidden border-t border-line bg-void text-ink"
+    >
       <div className="noise pointer-events-none absolute inset-0" />
 
       {/* Oversized wordmark   gradient fills on scroll */}

@@ -11,6 +11,11 @@ import FAQ from "@/components/sections/FAQ";
 import HowWeWork from "@/components/sections/HowWeWork";
 import CTABand from "@/components/sections/CTABand";
 
+/*
+ * Section rhythm: ivory ground, stone bands (bg-bg-2) and deep-ink
+ * .force-dark moments for contrast. data-nav-dark flips the navbar to
+ * light text while it sits over the dark ones.
+ */
 export default function Home() {
   return (
     <>
@@ -18,14 +23,26 @@ export default function Home() {
       <KineticMarquee />
       <AboutTeaser />
       <CapabilitiesPinned />
-      <ShowreelReveal />
-      <ProductSpotlight />
-      <StatsBand />
+      <div data-nav-dark className="force-dark text-ink">
+        <ShowreelReveal />
+      </div>
+      <div className="bg-bg-2">
+        <ProductSpotlight />
+      </div>
+      <div data-nav-dark className="force-dark bg-bg text-ink">
+        <StatsBand />
+      </div>
       <WhyUs />
-      <Testimonials />
+      <div className="bg-bg-2">
+        <Testimonials />
+      </div>
       <FAQ />
-      <HowWeWork />
-      <CTABand />
+      <div className="bg-bg-2">
+        <HowWeWork />
+      </div>
+      <div data-nav-dark className="force-dark bg-bg text-ink">
+        <CTABand />
+      </div>
     </>
   );
 }

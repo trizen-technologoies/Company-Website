@@ -53,42 +53,43 @@
    THEME TOKENS
    ============================================================ */
 
-/* LIGHT (default + system-light)   brushed platinum / steel to match the logo */
+/* LIGHT (default + system-light)   "Ivory / Stone / Ink / Gold":
+   one warm-neutral family (ivory ground, stone bands, warm-ink text), with
+   deep-ink .force-dark sections for contrast and gold as the single accent. */
 :root {
   color-scheme: light;
 
-  --void: #d3d9e0;
-  --bg: #eaedf1;
-  --bg-2: #e2e6ec;
-  --surface: #ffffff;
+  --void: #e4dfd5;
+  --bg: #f5f3ee;
+  --bg-2: #ebe7df;
+  --surface: #fdfcf9;
 
-  --line: rgba(27, 33, 41, 0.1);
-  --line-strong: rgba(27, 33, 41, 0.2);
-  --fill: rgba(27, 33, 41, 0.04);
-  --fill-2: rgba(27, 33, 41, 0.07);
-  --fill-strong: rgba(27, 33, 41, 0.14);
+  --line: rgba(30, 26, 20, 0.1);
+  --line-strong: rgba(30, 26, 20, 0.2);
+  --fill: rgba(30, 26, 20, 0.04);
+  --fill-2: rgba(30, 26, 20, 0.07);
+  --fill-strong: rgba(30, 26, 20, 0.14);
 
-  --text: #1b2129;
-  --text-mist: #39424d;
-  --text-muted: #5e6a76;
-  --text-faint: #97a1ac;
+  --text: #17150f;
+  --text-mist: #3b382f;
+  --text-muted: #5f5a4f;
+  --text-faint: #9e988b;
 
   --accent: #c6892c;
-  --accent-bright: #9c6414;
+  --accent-bright: #8a590d;
   --accent-2: #a85221;
   --accent-3: #cf9836;
   --accent-contrast: #201a12;
 
-  --glass-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.44));
-  --glass-border: rgba(27, 33, 41, 0.08);
-  --card-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(249, 250, 252, 0.62));
-  --card-border: rgba(27, 33, 41, 0.09);
+  --glass-border: rgba(30, 26, 20, 0.16);
+  --card-bg: linear-gradient(180deg, rgba(253, 252, 249, 0.96), rgba(250, 248, 243, 0.85));
+  --card-border: rgba(30, 26, 20, 0.08);
 
   --canvas-rgb: 168 93 43;
   --canvas-line-alpha: 0.5;
   --hero-media-opacity: 0.12;
 
-  --nav-h: 76px;
+  --nav-h: 4.75rem;
 }
 
 /* DARK tokens shared by system-dark and explicit dark */
@@ -118,7 +119,6 @@
     --accent-3: #f3c978;
     --accent-contrast: #1a1712;
 
-    --glass-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
     --glass-border: rgba(255, 255, 255, 0.08);
     --card-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.012));
     --card-border: rgba(255, 255, 255, 0.07);
@@ -155,7 +155,6 @@
   --accent-3: #f3c978;
   --accent-contrast: #1a1712;
 
-  --glass-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
   --glass-border: rgba(255, 255, 255, 0.08);
   --card-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.012));
   --card-border: rgba(255, 255, 255, 0.07);
@@ -174,6 +173,17 @@ html {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   scroll-behavior: auto;
+}
+
+/* Large / 4K screens: scale the whole rem-based layout with the viewport so
+   anything wider than the reference 1280px laptop (14" FHD at 150%) shows
+   the exact same composition, just bigger (16px root at 1280px -> 24px at
+   1920px -> 48px at 3840px). Media queries still resolve rem against the
+   browser default, so breakpoints are unaffected. Keep layout sizes in rem. */
+@media (min-width: 1280px) {
+  html {
+    font-size: calc(100vw / 80);
+  }
 }
 
 body {
@@ -241,12 +251,22 @@ body {
    Surfaces   glass / cards / borders
    ============================================================ */
 .glass {
-  background: var(--glass-bg);
-  backdrop-filter: blur(16px) saturate(140%);
-  -webkit-backdrop-filter: blur(16px) saturate(140%);
   border: 1px solid var(--glass-border);
 }
 
+/* Home hero floating cards   warm cream fill (matches the video) so text
+   stays legible over the busy motion behind it. No backdrop blur. */
+.hero-float {
+  background: rgba(251, 248, 243, 0.72);
+  box-shadow: 0 20px 50px -24px rgba(70, 45, 20, 0.35);
+}
+
+/* Soft cream halo behind body copy laid directly over the hero video. */
+.hero-halo {
+  text-shadow:
+    0 0 3px rgba(251, 248, 243, 0.95),
+    0 0 14px rgba(251, 248, 243, 0.9);
+}
 .card {
   position: relative;
   background: var(--card-bg);
@@ -285,15 +305,6 @@ body {
   box-shadow: 0 24px 60px -28px color-mix(in oklab, var(--accent) 55%, transparent);
 }
 
-.blob {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(90px);
-  opacity: 0.5;
-  pointer-events: none;
-  will-change: transform;
-}
-
 .grid-bg {
   background-image:
     linear-gradient(to right, var(--line) 1px, transparent 1px),
@@ -323,6 +334,17 @@ body {
 }
 :root[data-theme="dark"] .hero-video {
   opacity: 0.36;
+}
+
+/* Light (ivory) footage: shown as-is in light mode, dimmed in dark mode so it
+   sits on the dark ground under light copy. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .video-dim-dark {
+    filter: brightness(0.42) saturate(0.9);
+  }
+}
+:root[data-theme="dark"] .video-dim-dark {
+  filter: brightness(0.42) saturate(0.9);
 }
 
 /* Softer / more translucent hero video (AI SDR) */
@@ -372,12 +394,78 @@ body {
 
 .btn-ghost {
   color: var(--text);
-  background: var(--fill);
+  background: transparent;
   border: 1px solid var(--line-strong);
 }
 .btn-ghost:hover {
   background: var(--fill-2);
   border-color: color-mix(in oklab, var(--accent) 45%, var(--line-strong));
+}
+
+/* Ivory pill with a gold hairline border, gold text and the brand sparkle;
+   an amber fill rises in on hover. */
+.btn-luxe {
+  isolation: isolate;
+  overflow: hidden;
+  color: var(--accent-bright);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  background: linear-gradient(
+    180deg,
+    var(--surface),
+    color-mix(in oklab, var(--accent) 10%, var(--surface))
+  );
+  box-shadow:
+    0 14px 34px -18px color-mix(in oklab, var(--accent) 80%, transparent),
+    0 2px 6px -2px rgba(70, 45, 20, 0.12);
+  transition:
+    transform 0.35s var(--ease-out-expo),
+    box-shadow 0.4s var(--ease-out-expo),
+    color 0.4s var(--ease-out-expo);
+}
+.btn-luxe::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: linear-gradient(120deg, var(--accent), var(--accent-2));
+  transform: translateY(101%);
+  transition: transform 0.55s var(--ease-out-expo);
+}
+.btn-luxe::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(120deg, var(--accent-3), var(--accent) 45%, var(--accent-2));
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+.btn-luxe:hover {
+  color: var(--accent-contrast);
+  transform: translateY(-2px);
+  box-shadow: 0 20px 46px -16px color-mix(in oklab, var(--accent) 75%, transparent);
+}
+.btn-luxe:hover::before {
+  transform: translateY(0);
+}
+.btn-luxe .btn-mark {
+  width: 0.8rem;
+  height: 0.8rem;
+  color: var(--section-accent);
+  transition:
+    transform 0.6s var(--ease-out-expo),
+    color 0.4s var(--ease-out-expo);
+}
+.btn-luxe:hover .btn-mark {
+  color: var(--accent-contrast);
+  transform: rotate(90deg);
 }
 
 .eyebrow {
@@ -386,6 +474,8 @@ body {
   align-items: center;
   gap: 0.6rem;
   padding-bottom: 0.6rem;
+  /* Breathing room between the label's underline and the heading below */
+  margin-bottom: 1.75rem;
   font-size: 1.5rem;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -472,11 +562,11 @@ body {
 /* Layout rhythm */
 .section {
   position: relative;
-  padding-block: clamp(6rem, 12vw, 11rem);
+  padding-block: clamp(3.5rem, 6vw, 6rem);
 }
 .container-x {
   width: 100%;
-  max-width: 1240px;
+  max-width: 77.5rem; /* 1240px at 16px root; scales on large screens */
   margin-inline: auto;
   padding-inline: clamp(1.25rem, 5vw, 2.5rem);
 }
@@ -500,12 +590,6 @@ body {
     color-mix(in oklab, var(--accent) 55%, white) 50%,
     transparent 82%
   );
-  /* Backdrop wash used behind showcase beats */
-  --wash: radial-gradient(
-    ellipse 70% 60% at 50% 0%,
-    color-mix(in oklab, var(--accent) 12%, transparent),
-    transparent 70%
-  );
 }
 
 @media (prefers-color-scheme: dark) {
@@ -521,11 +605,6 @@ body {
       color-mix(in oklab, var(--accent-bright) 62%, white) 50%,
       transparent 82%
     );
-    --wash: radial-gradient(
-      ellipse 70% 60% at 50% 0%,
-      color-mix(in oklab, var(--accent) 20%, transparent),
-      transparent 70%
-    );
   }
 }
 
@@ -540,11 +619,6 @@ body {
     color-mix(in oklab, var(--accent-bright) 62%, white) 50%,
     transparent 82%
   );
-  --wash: radial-gradient(
-    ellipse 70% 60% at 50% 0%,
-    color-mix(in oklab, var(--accent) 20%, transparent),
-    transparent 70%
-  );
 }
 
 /* Force dark-mode tokens on a subtree (e.g. a full-bleed video hero), so its
@@ -553,10 +627,11 @@ body {
    Tailwind --color-* aliases used by utilities (text-ink, borders, fills). */
 .force-dark {
   color-scheme: dark;
-  --void: #0b0906;
-  --bg: #100d09;
-  --bg-2: #17130d;
-  --surface: #1e1a13;
+  /* Neutral pitch black (no warm tint) for the dark showcase sections */
+  --void: #000000;
+  --bg: #050505;
+  --bg-2: #0a0a0a;
+  --surface: #141414;
   --line: rgba(255, 255, 255, 0.12);
   --line-strong: rgba(255, 255, 255, 0.24);
   --fill: rgba(255, 255, 255, 0.06);
@@ -581,10 +656,10 @@ body {
   --color-fill: rgba(255, 255, 255, 0.06);
   --color-fill-2: rgba(255, 255, 255, 0.1);
   --color-fill-strong: rgba(255, 255, 255, 0.2);
-  --color-surface: #1e1a13;
-  --color-bg: #100d09;
-  --color-bg-2: #17130d;
-  --color-void: #0b0906;
+  --color-surface: #141414;
+  --color-bg: #050505;
+  --color-bg-2: #0a0a0a;
+  --color-void: #000000;
   --color-accent: #f0a742;
   --color-accent-bright: #f6be68;
   --color-accent-2: #de7f27;
@@ -593,8 +668,7 @@ body {
   --color-blue-bright: #f6be68;
   --color-violet: #de7f27;
   --color-cyan: #f3c978;
-  /* Dark, semi-opaque glass/cards so they stand out over the video */
-  --glass-bg: linear-gradient(180deg, rgba(22, 18, 12, 0.62), rgba(22, 18, 12, 0.42));
+  /* Dark, semi-opaque cards so they stand out over the video */
   --glass-border: rgba(255, 255, 255, 0.14);
   --card-bg: linear-gradient(180deg, rgba(22, 18, 12, 0.72), rgba(22, 18, 12, 0.5));
   --card-border: rgba(255, 255, 255, 0.12);
@@ -683,30 +757,6 @@ html.no-intro .preloader {
   display: inline-block;
   animation: rotWordIn 0.95s var(--ease-out-expo);
   will-change: transform, filter, opacity;
-}
-
-/* Navbar translucency   more opaque in LIGHT mode so the (dark) nav text stays
-   legible over dark hero media; more transparent in DARK mode. */
-/* Light mode: resting (unscrolled) nav is fully solid; scrolled pill stays translucent */
-.nav-bar {
-  background: var(--bg);
-}
-.nav-bar.is-scrolled {
-  background: color-mix(in oklab, var(--bg) 64%, transparent);
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .nav-bar {
-    background: color-mix(in oklab, var(--bg) 40%, transparent);
-  }
-  :root:not([data-theme="light"]) .nav-bar.is-scrolled {
-    background: color-mix(in oklab, var(--bg) 62%, transparent);
-  }
-}
-:root[data-theme="dark"] .nav-bar {
-  background: color-mix(in oklab, var(--bg) 40%, transparent);
-}
-:root[data-theme="dark"] .nav-bar.is-scrolled {
-  background: color-mix(in oklab, var(--bg) 62%, transparent);
 }
 
 /* Hover-expand panels (Mission / Vision)   equal by default, hovered one grows */

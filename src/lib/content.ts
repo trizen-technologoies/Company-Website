@@ -41,8 +41,8 @@ export const hero = {
 } as const;
 
 export const heroStats = [
-  { value: 50, suffix: "+", label: "Projects delivered" },
-  { value: 20, suffix: "+", label: "Happy clients" },
+  { value: 10, suffix: "", label: "Projects delivered" },
+  { value: 5, suffix: "+", label: "Happy customers" },
   { value: 7, suffix: "", label: "Core disciplines" },
   { value: 24, suffix: "/7", label: "Autonomous outreach" },
 ] as const;
@@ -88,6 +88,9 @@ export type Service = {
   desc: string;
   includes: string[];
   image: string;
+  /** Optional looping clip shown instead of `image` on the services page. */
+  video?: string;
+  poster?: string;
 };
 
 export const services: Service[] = [
@@ -106,6 +109,8 @@ export const services: Service[] = [
       "Performance optimization",
     ],
     image: "/media/webdev.webp",
+    video: "/home/web-engineering.mp4",
+    poster: "/home/web-engineering-poster.jpg",
   },
   {
     id: "mobile",
@@ -122,6 +127,8 @@ export const services: Service[] = [
       "Push, real-time & store deployment",
     ],
     image: "/media/mobile-app.webp",
+    video: "/home/mobile-apps.mp4",
+    poster: "/home/mobile-apps-poster.jpg",
   },
   {
     id: "ai",
@@ -138,6 +145,8 @@ export const services: Service[] = [
       "AI-powered search & recommendations",
     ],
     image: "/media/neural.webp",
+    video: "/home/ai-chatbots.mp4",
+    poster: "/home/ai-chatbots-poster.jpg",
   },
   {
     id: "automation",
@@ -154,6 +163,8 @@ export const services: Service[] = [
       "AI decision engines",
     ],
     image: "/media/automation.webp",
+    video: "/home/automation.mp4",
+    poster: "/home/automation-poster.jpg",
   },
   {
     id: "arvr",
@@ -170,6 +181,8 @@ export const services: Service[] = [
       "3D interactive experiences",
     ],
     image: "/media/innovation.webp",
+    video: "/home/ar-vr.mp4",
+    poster: "/home/ar-vr-poster.jpg",
   },
   {
     id: "qa",
@@ -186,6 +199,8 @@ export const services: Service[] = [
       "CI/CD pipeline integration",
     ],
     image: "/media/workspace.webp",
+    video: "/home/qa-testing.mp4",
+    poster: "/home/qa-testing-poster.jpg",
   },
   {
     id: "seo",
@@ -202,6 +217,8 @@ export const services: Service[] = [
       "Analytics & performance tracking",
     ],
     image: "/media/marketing.webp",
+    video: "/home/growth-seo.mp4",
+    poster: "/home/growth-seo-poster.jpg",
   },
 ];
 
@@ -210,6 +227,8 @@ export type ServiceExtra = {
   tagline: string;
   video: string;
   poster: string;
+  /** "light" = ivory footage: hero uses theme text over an ivory fade instead of dark scrims. */
+  videoTone?: "light";
   intro: string[];
   whatWeDo: { title: string; desc: string }[];
   outcomes: { value: string; label: string }[];
@@ -220,8 +239,9 @@ export type ServiceExtra = {
 export const serviceExtra: Record<string, ServiceExtra> = {
   web: {
     tagline: "Fast, secure, AI-enhanced web platforms.",
-    video: "/media/svc-web.mp4",
-    poster: "/media/svc-web-poster.jpg",
+    video: "/home/web-engineering.mp4",
+    poster: "/home/web-engineering-poster.jpg",
+    videoTone: "light",
     intro: [
       "We build full-stack web applications that are quick to load, secure by default and intelligent under the hood   from dashboards and SaaS platforms to customer portals.",
       "Every build pairs modern front-end craft with robust APIs and cloud infrastructure, so your product scales cleanly as you grow.",
@@ -241,8 +261,9 @@ export const serviceExtra: Record<string, ServiceExtra> = {
   },
   mobile: {
     tagline: "Native & cross-platform apps, intelligence built in.",
-    video: "/media/svc-mobile.mp4",
-    poster: "/media/svc-mobile-poster.jpg",
+    video: "/home/mobile-apps.mp4",
+    poster: "/home/mobile-apps-poster.jpg",
+    videoTone: "light",
     intro: [
       "We craft mobile apps that feel native, perform smoothly and ship with AI baked in   for iOS, Android, or both from a single codebase.",
       "From offline-first architecture to on-device ML, we build apps users keep on their home screen.",
@@ -262,8 +283,9 @@ export const serviceExtra: Record<string, ServiceExtra> = {
   },
   ai: {
     tagline: "LLMs, RAG and assistants embedded into your product.",
-    video: "/media/svc-ai.mp4",
-    poster: "/media/svc-ai-poster.jpg",
+    video: "/home/ai-chatbots.mp4",
+    poster: "/home/ai-chatbots-poster.jpg",
+    videoTone: "light",
     intro: [
       "We turn ordinary products into intelligent ones   embedding conversational AI, LLMs and retrieval-augmented generation into new or existing systems.",
       "From support copilots to AI-powered search, we ship intelligence that's grounded in your data and safe in production.",
@@ -283,8 +305,9 @@ export const serviceExtra: Record<string, ServiceExtra> = {
   },
   automation: {
     tagline: "RPA and decision engines that reclaim hours.",
-    video: "/media/svc-automation.mp4",
-    poster: "/media/svc-automation-poster.jpg",
+    video: "/home/automation-hero.mp4",
+    poster: "/home/automation-hero-poster.jpg",
+    videoTone: "light",
     intro: [
       "We automate the repetitive work that slows teams down   with RPA, NLP pipelines and AI decision engines that run reliably in the background.",
       "The result: fewer manual steps, faster processes and people freed to do higher-value work.",
@@ -304,8 +327,9 @@ export const serviceExtra: Record<string, ServiceExtra> = {
   },
   arvr: {
     tagline: "Immersive training, simulation and visualization.",
-    video: "/media/svc-arvr.mp4",
-    poster: "/media/svc-arvr-poster.jpg",
+    video: "/home/ar-vr.mp4",
+    poster: "/home/ar-vr-poster.jpg",
+    videoTone: "light",
     intro: [
       "We build augmented and virtual reality experiences for training, simulation, product visualization and unforgettable customer engagement.",
       "From AR product previews to full VR environments, we make the immersive practical.",
@@ -325,8 +349,9 @@ export const serviceExtra: Record<string, ServiceExtra> = {
   },
   qa: {
     tagline: "Quality assurance you can trust.",
-    video: "/media/svc-qa.mp4",
-    poster: "/media/svc-qa-poster.jpg",
+    video: "/home/qa-testing.mp4",
+    poster: "/home/qa-testing-poster.jpg",
+    videoTone: "light",
     intro: [
       "We keep your applications bug-free and production-ready   from manual test planning to full CI/CD automation.",
       "Comprehensive QA that catches issues early, so you ship with confidence.",
@@ -346,8 +371,9 @@ export const serviceExtra: Record<string, ServiceExtra> = {
   },
   seo: {
     tagline: "Data-driven marketing that moves the needle.",
-    video: "/media/svc-seo.mp4",
-    poster: "/media/svc-seo-poster.jpg",
+    video: "/home/growth-seo.mp4",
+    poster: "/home/growth-seo-poster.jpg",
+    videoTone: "light",
     intro: [
       "We grow your visibility with SEO, paid campaigns and content that converts   all measured and optimized against real business goals.",
       "Strategy backed by analytics, executed with craft.",
@@ -534,20 +560,32 @@ export const about = {
 /* ---- Scroll-scrub video hero (Apple-style) ---- */
 export const aboutHero = {
   eyebrow: "About Trizen",
-  video: "/media/about-scroll.mp4",
-  poster: "/media/about-scroll-poster.jpg",
+  // Laptop teardown, re-encoded with a keyframe every 6 frames for smooth scroll-scrubbing
+  video: "/hero/hero-laptop-scrub.mp4",
+  poster: "/hero/hero-laptop-poster.jpg",
+  /* Brightness of the (unscrimmed) footage behind each stage's headline (`tone`)
+     and subtitle (`subTone`), so the copy switches between dark-on-light and
+     light-on-dark. */
   stages: [
     {
       title: ["We engineer", "intelligence."],
-      sub: "An AI-first studio turning bold ideas into products that think, learn and scale.",
+      // Lead words sit over the laptop's lighter edge, so they render dark
+      subLead: "An AI-first",
+      sub: "studio turning bold ideas into products that think, learn and scale.",
+      tone: "light",
+      subTone: "dark",
     },
     {
       title: ["Built by a", "restless young team."],
       sub: "Engineers, designers and AI specialists who treat every build as a craft.",
+      tone: "dark",
+      subTone: "dark",
     },
     {
       title: ["Let's build the", "intelligent future."],
       sub: "From the first spark of an idea to a living product   with intelligence at its core.",
+      tone: "light",
+      subTone: "light",
     },
   ],
 } as const;
@@ -740,9 +778,8 @@ export const homeAbout = {
     "Trizen Technologies is an AI-first studio. We started where most teams stop   asking not just what a product should do, but how it should reason. That question reshapes everything downstream: the architecture, the interface, the outcomes.",
     "From embedded assistants and retrieval pipelines to autonomous outreach agents, we ship intelligence as a first-class feature   engineered, measured and built to scale with your business.",
   ],
-  image: "/media/team-collab.jpg",
-  imageAlt: "Trizen team collaborating in the studio",
-  badge: { value: "07", label: "core disciplines, one partner" },
+  image: "/home/7b42c6e6-e039-4f73-a86d-cf70cf73eef2.png",
+  imageAlt: "Trizen team reviewing code and a system architecture diagram together",
 } as const;
 
 /* ---- Kinetic marquee rows (dual, counter-scrolling) ---- */
@@ -759,13 +796,109 @@ export const kineticRows = {
 
 /* ---- Capabilities gallery (pinned storyboard) ---- */
 /* Pulls from `services` but pairs each with a gallery image + short line. */
-export const capabilityGallery = [
-  { id: "web", label: "Web Engineering", line: "Fast, secure, AI-enhanced web platforms.", image: "/media/code-screen.jpg" },
-  { id: "mobile", label: "Mobile Apps", line: "Native & cross-platform, intelligence built in.", image: "/media/woman-laptop.jpg" },
-  { id: "ai", label: "AI & Chatbots", line: "LLMs, RAG and assistants embedded into your product.", image: "/media/ai-render.jpg" },
-  { id: "automation", label: "Automation", line: "RPA and decision engines that reclaim hours.", image: "/media/analytics-ui.jpg" },
-  { id: "arvr", label: "AR / VR", line: "Immersive training, simulation and visualization.", image: "/media/vr-headset.jpg" },
-  { id: "seo", label: "Growth & SEO", line: "Data-driven marketing that moves the needle.", image: "/media/meeting-room.jpg" },
+export type CapabilityItem = {
+  id: string;
+  label: string;
+  line: string;
+  desc: string;
+  points: readonly string[];
+  /** Still image; doubles as the poster when `video` is set. */
+  image: string;
+  video?: string;
+};
+
+export const capabilityGallery: readonly CapabilityItem[] = [
+  {
+    id: "web",
+    label: "Web Engineering",
+    line: "Fast, secure, AI-enhanced web platforms.",
+    desc: "From customer portals to full SaaS products, we build web apps with AI designed in from day one, not bolted on later.",
+    points: [
+      "React, Next.js & Node.js full-stack builds",
+      "AI search, copilots & recommendations",
+      "Cloud-ready, fast and secure by default",
+    ],
+    image: "/home/web-engineering-poster.jpg",
+    video: "/home/web-engineering.mp4",
+  },
+  {
+    id: "mobile",
+    label: "Mobile Apps",
+    line: "Native & cross-platform, intelligence built in.",
+    desc: "iOS and Android apps that feel quick, keep working offline and put smart features right in your users' hands.",
+    points: [
+      "Swift, Kotlin, React Native & Flutter",
+      "On-device AI & ML model integration",
+      "Offline-first, push & store deployment",
+    ],
+    image: "/home/mobile-apps-poster.jpg",
+    video: "/home/mobile-apps.mp4",
+  },
+  {
+    id: "ai",
+    label: "AI & Chatbots",
+    line: "LLMs, RAG and assistants embedded into your product.",
+    desc: "We connect language models to your own docs and data, so assistants give grounded answers instead of guesses.",
+    points: [
+      "Custom chatbots & AI assistants",
+      "RAG over your knowledge base",
+      "OpenAI, Gemini & Claude integrations",
+    ],
+    image: "/home/ai-chatbots-poster.jpg",
+    video: "/home/ai-chatbots.mp4",
+  },
+  {
+    id: "automation",
+    label: "Automation",
+    line: "RPA and decision engines that reclaim hours.",
+    desc: "We find the repetitive work slowing your team down and hand it to bots and AI pipelines that run around the clock.",
+    points: [
+      "RPA for data entry & back-office tasks",
+      "NLP & computer vision pipelines",
+      "Decision engines & automated reporting",
+    ],
+    image: "/home/automation-poster.jpg",
+    video: "/home/automation.mp4",
+  },
+  {
+    id: "arvr",
+    label: "AR / VR",
+    line: "Immersive training, simulation and visualization.",
+    desc: "Experiences that let people train safely, explore products in 3D and understand complex ideas by doing.",
+    points: [
+      "AR product visualization",
+      "VR training & simulation",
+      "Mixed reality & 3D interactive builds",
+    ],
+    image: "/home/ar-vr-poster.jpg",
+    video: "/home/ar-vr.mp4",
+  },
+  {
+    id: "qa",
+    label: "QA & Testing",
+    line: "Quality assurance you can trust.",
+    desc: "We test every release by hand and by script, so bugs get caught in the pipeline instead of by your users.",
+    points: [
+      "Functional, regression & UAT testing",
+      "Selenium, Appium & Cypress automation",
+      "API testing wired into CI/CD",
+    ],
+    image: "/home/qa-testing-poster.jpg",
+    video: "/home/qa-testing.mp4",
+  },
+  {
+    id: "seo",
+    label: "Growth & SEO",
+    line: "Data-driven marketing that moves the needle.",
+    desc: "SEO, paid campaigns and content built on real data, with every channel measured against growth you can see.",
+    points: [
+      "Technical SEO & keyword research",
+      "PPC & social media campaigns",
+      "Content strategy & performance tracking",
+    ],
+    image: "/home/growth-seo-poster.jpg",
+    video: "/home/growth-seo.mp4",
+  },
 ] as const;
 
 /* ---- Showreel (sparkle clip-path reveal) ---- */
@@ -775,14 +908,41 @@ export const showreel = {
   caption: "A look at how we engineer AI into products   from data to decision.",
   image: "/media/data-center.jpg",
   imageAlt: "Abstract data infrastructure",
+  /* Everyday scenes revealed over the video, one per business area */
+  scenes: [
+    {
+      area: "Support",
+      href: "/services/ai",
+      title: "Customer questions get answered at 2 a.m.",
+      desc: "Assistants trained on your docs and data resolve routine questions around the clock, and hand the tricky ones to your team with full context.",
+    },
+    {
+      area: "Sales",
+      href: "/products",
+      title: "New leads hear back in minutes, not days.",
+      desc: "An AI SDR follows up across calls, email, WhatsApp and LinkedIn, qualifies interest and books the meeting straight into your calendar.",
+    },
+    {
+      area: "Operations",
+      href: "/services/automation",
+      title: "Reports build themselves every morning.",
+      desc: "Automations pull numbers from every tool you use, flag what changed and land a clean summary in your inbox before the day starts.",
+    },
+    {
+      area: "Product",
+      href: "/services/web",
+      title: "Your app gets smarter with every user.",
+      desc: "Search that understands intent, recommendations that fit and features that adapt, built into the web and mobile products your customers already use.",
+    },
+  ],
 } as const;
 
 /* ---- Stats band ---- */
 export const statsBand = [
-  { value: 50, suffix: "+", label: "Projects delivered" },
-  { value: 20, suffix: "+", label: "Happy clients" },
-  { value: 312, suffix: "%", label: "Avg. response lift" },
-  { value: 24, suffix: "/7", label: "Autonomous outreach" },
+  { value: 10, suffix: "", label: "Projects delivered" },
+  { value: 5, suffix: "+", label: "Happy customers" },
+  { value: 7, suffix: "", label: "Core services" },
+  { value: 30, suffix: "+", label: "Technologies we build with" },
 ] as const;
 
 /* ---- Testimonials heading ---- */

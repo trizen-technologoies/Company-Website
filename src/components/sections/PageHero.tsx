@@ -10,7 +10,7 @@ type Props = {
   titleText?: string;
   gradientText?: string;
   subtitle?: string;
-  /** When provided, renders a full-bleed video background with dark scrims + white text. */
+  /** When provided, renders a full-bleed (dark) video background, unfiltered, with white text. */
   video?: string;
   poster?: string;
 };
@@ -45,16 +45,11 @@ export default function PageHero({
           >
             <source src={video} type="video/mp4" />
           </video>
-          {/* Fixed dark scrims   readable in both themes */}
-          <div className="absolute inset-0 bg-black/55" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-black/60" />
-          <div className="absolute inset-0 bg-accent/10 mix-blend-overlay" />
+          {/* Shown as-is (no scrims): expects dark footage under the white copy */}
         </>
       ) : (
         <>
           <div className="grid-bg absolute inset-0 opacity-60" />
-          <div className="pointer-events-none absolute inset-0" style={{ background: "var(--wash)" }} />
-          <div className="blob left-1/2 top-1/4 h-[320px] w-[680px] -translate-x-1/2 bg-accent/15" />
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-bg to-transparent" />
         </>
       )}

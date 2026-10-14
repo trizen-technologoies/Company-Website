@@ -1,9 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Check, ArrowUpRight } from "lucide-react";
+import { Check } from "lucide-react";
 import { services } from "@/lib/content";
 import Reveal from "@/components/ui/Reveal";
 import SplitReveal from "@/components/ui/SplitReveal";
+import LazyVideo from "@/components/ui/LazyVideo";
 import { cn } from "@/lib/utils";
 
 /** Warm accent per service   reads on both light + dark. */
@@ -29,13 +30,22 @@ export default function ServicesDetailed() {
                   href={`/services/${s.id}`}
                   className="group relative block aspect-[4/3] overflow-hidden rounded-3xl ring-1 ring-line"
                 >
-                  <Image
-                    src={s.image}
-                    alt={s.title}
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                    className="object-cover transition-transform duration-[1.2s] group-hover:scale-105"
-                  />
+                  {s.video ? (
+                    <LazyVideo
+                      src={s.video}
+                      poster={s.poster}
+                      label={s.title}
+                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1.2s] group-hover:scale-105"
+                    />
+                  ) : (
+                    <Image
+                      src={s.image}
+                      alt={s.title}
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      className="object-cover transition-transform duration-[1.2s] group-hover:scale-105"
+                    />
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-bl from-black/55 via-transparent to-transparent" />
                   <span
                     className="font-display absolute right-5 top-3 text-7xl font-bold"
@@ -44,14 +54,9 @@ export default function ServicesDetailed() {
                     {s.n}
                   </span>
                   <span className="absolute bottom-5 left-5 inline-flex items-center gap-2 rounded-full bg-black/45 px-4 py-2 text-sm font-medium text-white opacity-0 backdrop-blur transition-opacity duration-300 group-hover:opacity-100">
-                    View details <ArrowUpRight className="h-4 w-4" />
+                    View details
                   </span>
                 </Link>
-                {/* soft accent glow */}
-                <div
-                  className="pointer-events-none absolute -inset-2 -z-10 rounded-[2rem] opacity-40 blur-2xl"
-                  style={{ background: "color-mix(in oklab, var(--section-accent) 22%, transparent)" }}
-                />
               </Reveal>
 
               {/* Copy */}
@@ -84,7 +89,7 @@ export default function ServicesDetailed() {
                 </ul>
 
                 <Link href={`/services/${s.id}`} className="btn btn-ghost mt-8 px-6 py-3">
-                  Learn more <ArrowUpRight className="h-4 w-4" />
+                  Learn more
                 </Link>
               </Reveal>
             </div>

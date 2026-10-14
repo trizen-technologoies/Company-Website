@@ -9,10 +9,6 @@ const ACCENTS = ["#c6892c", "#a85221", "#cf9836", "#b5701f"];
 export default function AboutCulture() {
   return (
     <section className="section overflow-hidden border-y border-line bg-fill">
-      <div
-        className="pointer-events-none absolute inset-0 opacity-60"
-        style={{ background: "var(--wash)" }}
-      />
       <div className="container-x relative">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           {/* Left: heading + body */}

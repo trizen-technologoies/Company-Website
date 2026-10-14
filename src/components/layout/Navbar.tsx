@@ -2,54 +2,71 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { Menu, X, ArrowUpRight, Mail } from "lucide-react";
-import { nav, site } from "@/lib/content";
+import { useEffect, useRef, useState } from "react";
+import { Menu, X, Mail, ChevronDown } from "lucide-react";
+import { nav, site, services } from "@/lib/content";
 import { cn } from "@/lib/utils";
 import { Linkedin, Instagram } from "@/components/ui/SocialIcons";
 import Logo from "./Logo";
+import NavServicesMenu from "./NavServicesMenu";
 
 const navLinks = nav.filter((item) => item.label !== "Contact");
 const contactLink = nav.find((item) => item.label === "Contact");
+const SERVICES_HREF = "/services";
+const SERVICES_MENU_ID = "nav-services-menu";
 
 export default function Navbar() {
   const pathname = usePathname();
-  const [scrolled, setScrolled] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(false);
   const [open, setOpen] = useState(false);
-  const ulRef = useRef<HTMLUListElement>(null);
-  const [pillWidth, setPillWidth] = useState<number | null>(null);
+  const navRef = useRef<HTMLElement>(null);
+  const [onDark, setOnDark] = useState(false);
+
+  // Desktop services dropdown: opens on hover/focus, closes after a short
+  // grace period so the pointer can cross from the link into the panel.
+  const [svcOpen, setSvcOpen] = useState(false);
+  const svcTimer = useRef<number | undefined>(undefined);
+  const openSvc = () => {
+    window.clearTimeout(svcTimer.current);
+    setSvcOpen(true);
+  };
+  const closeSvc = (delay = 140) => {
+    window.clearTimeout(svcTimer.current);
+    svcTimer.current = window.setTimeout(() => setSvcOpen(false), delay);
+  };
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  // The shrink-to-pill treatment (logo/links collapsing) is desktop-only -
-  // on mobile the nav bar stays the same before and after scroll.
-  useEffect(() => {
-    const mq = window.matchMedia("(min-width: 768px)");
-    const onChange = () => setIsDesktop(mq.matches);
-    onChange();
-    mq.addEventListener("change", onChange);
-    return () => mq.removeEventListener("change", onChange);
-  }, []);
-
-  const shrink = scrolled && isDesktop;
-
-  // Measure the (always-rendered, absolutely-positioned) links row so the
-  // scrolled pill can shrink-wrap to fit it exactly, rather than guessing a
-  // fixed width - keeps the "AI SDR" / "Contact" labels from wrapping.
-  useLayoutEffect(() => {
-    const measure = () => {
-      if (ulRef.current) setPillWidth(ulRef.current.getBoundingClientRect().width);
+    if (!svcOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSvcOpen(false);
     };
-    measure();
-    window.addEventListener("resize", measure);
-    return () => window.removeEventListener("resize", measure);
-  }, [shrink, pathname]);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [svcOpen]);
+
+  useEffect(() => () => window.clearTimeout(svcTimer.current), []);
+
+  // The bar is transparent, so switch it to light text while it sits over a
+  // dark video hero (sections marked data-nav-dark) to keep the links legible.
+  useEffect(() => {
+    const check = () => {
+      if (!navRef.current) return;
+      const r = navRef.current.getBoundingClientRect();
+      const y = r.top + r.height / 2;
+      setOnDark(
+        Array.from(document.querySelectorAll("[data-nav-dark]")).some((el) => {
+          const b = el.getBoundingClientRect();
+          return b.top <= y && b.bottom >= y;
+        })
+      );
+    };
+    check();
+    window.addEventListener("scroll", check, { passive: true });
+    window.addEventListener("resize", check);
+    return () => {
+      window.removeEventListener("scroll", check);
+      window.removeEventListener("resize", check);
+    };
+  }, [pathname]);
 
   // Lock scroll when mobile menu is open
   useEffect(() => {
@@ -61,101 +78,84 @@ export default function Navbar() {
 
   return (
     <>
-      <header
-        className={cn(
-          "fixed inset-x-0 top-0 z-50 transition-all duration-[1400ms] ease-out",
-          shrink ? "py-2.5" : "py-4"
-        )}
-      >
+      <header className="fixed inset-x-0 top-0 z-50 py-4">
         <div className="container-x">
           <nav
+            ref={navRef}
             className={cn(
-              "nav-bar relative mx-auto flex items-center justify-between overflow-hidden border border-line backdrop-blur-xl backdrop-saturate-150",
-              shrink
-                ? "is-scrolled px-3 py-1.5 shadow-[0_12px_40px_-20px_rgba(0,0,0,0.5)]"
-                : "w-full px-4 py-2.5"
+              // Mostly opaque so the bar reads the same cream over light and dark heroes alike
+              "relative mx-auto flex w-full items-center justify-between rounded-2xl border border-line bg-bg/85 px-4 py-2.5 backdrop-blur-xl",
+              onDark && !open && "force-dark"
             )}
-            style={{
-              ...(shrink && pillWidth ? { width: pillWidth + 40 } : {}),
-              // An explicit, modest px value (not Tailwind's rounded-full ->
-              // 9999px) so border-radius interpolates smoothly the whole
-              // way - animating from 9999px down to 16px spends almost the
-              // entire transition clamped at "fully round" (since any value
-              // above ~half the pill's height looks identical), then snaps
-              // in the last instant once it finally drops below that.
-              borderRadius: shrink ? 28 : 16,
-              // Same duration, no relative delay: the pill's edges and the
-              // logo/contact motion move together as one shrink, instead of
-              // the logo disappearing before the bar itself has moved.
-              transition:
-                "width 1.4s var(--ease-out-expo), padding 1.4s var(--ease-out-expo), border-radius 1.4s var(--ease-out-expo), box-shadow 1.4s var(--ease-out-expo), background 1.4s var(--ease-out-expo)",
-            }}
           >
-            <div
-              className="shrink-0 overflow-hidden"
-              style={{
-                maxWidth: shrink ? 0 : 220,
-                opacity: shrink ? 0 : 1,
-                // Slides toward the middle as it fades, in step with the
-                // pill's own width change - not before it.
-                transform: `translateX(${shrink ? 36 : 0}px)`,
-                transition:
-                  "max-width 1.4s var(--ease-out-expo), opacity 1.1s var(--ease-out-expo), transform 1.4s var(--ease-out-expo)",
-              }}
-            >
+            <div className="shrink-0">
               <Logo />
             </div>
 
-            <ul
-              ref={ulRef}
-              className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 md:flex"
-            >
-              {(shrink ? nav : navLinks).map((item) => {
+            <ul className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 md:flex">
+              {navLinks.map((item) => {
                 const active =
                   item.href === "/"
                     ? pathname === "/"
                     : pathname.startsWith(item.href);
-                const isContact = shrink && item.label === "Contact";
+                const isServices = item.href === SERVICES_HREF;
                 return (
                   <li
                     key={item.href}
-                    style={
-                      isContact
-                        ? { animation: "navContactIn 0.9s var(--ease-out-expo) both" }
-                        : undefined
-                    }
+                    className={isServices ? "relative" : undefined}
+                    {...(isServices
+                      ? {
+                          onMouseEnter: openSvc,
+                          onMouseLeave: () => closeSvc(),
+                          onFocus: openSvc,
+                          onBlur: (e: React.FocusEvent<HTMLLIElement>) => {
+                            if (!e.currentTarget.contains(e.relatedTarget as Node | null)) closeSvc(0);
+                          },
+                        }
+                      : {})}
                   >
                     <Link
                       href={item.href}
+                      onClick={isServices ? () => setSvcOpen(false) : undefined}
+                      aria-haspopup={isServices ? "true" : undefined}
+                      aria-expanded={isServices ? svcOpen : undefined}
+                      aria-controls={isServices ? SERVICES_MENU_ID : undefined}
                       className={cn(
                         "relative whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition-colors",
-                        active ? "text-ink" : "text-muted hover:text-ink"
+                        active || (isServices && svcOpen) ? "text-ink" : "text-muted hover:text-ink"
                       )}
                     >
                       {active && (
                         <span className="absolute inset-x-3 -bottom-0.5 h-0.5 rounded-full bg-accent" />
                       )}
-                      <span className="relative">{item.label}</span>
+                      <span className="relative inline-flex items-center gap-1">
+                        {item.label}
+                        {isServices && (
+                          <ChevronDown
+                            aria-hidden="true"
+                            className={cn(
+                              "h-3.5 w-3.5 transition-transform duration-300",
+                              svcOpen && "rotate-180"
+                            )}
+                          />
+                        )}
+                      </span>
                     </Link>
+                    {isServices && (
+                      <NavServicesMenu
+                        id={SERVICES_MENU_ID}
+                        open={svcOpen}
+                        pathname={pathname}
+                        onNavigate={() => setSvcOpen(false)}
+                      />
+                    )}
                   </li>
                 );
               })}
             </ul>
 
             {contactLink && (
-              <div
-                className="hidden shrink-0 overflow-hidden md:block"
-                style={{
-                  maxWidth: shrink ? 0 : 200,
-                  opacity: shrink ? 0 : 1,
-                  // Detaches and slides left toward the group in step with
-                  // the pill's own width change, mirroring the logo's motion
-                  // on the opposite edge.
-                  transform: `translateX(${shrink ? -36 : 0}px)`,
-                  transition:
-                    "max-width 0.9s var(--ease-out-expo), opacity 0.7s var(--ease-out-expo), transform 0.9s var(--ease-out-expo)",
-                }}
-              >
+              <div className="hidden shrink-0 md:block">
                 <Link
                   href={contactLink.href}
                   className={cn(
@@ -183,7 +183,7 @@ export default function Navbar() {
       {/* Mobile overlay */}
       <div
         className={cn(
-          "fixed inset-0 z-40 flex flex-col px-6 pb-8 pt-28 transition-all duration-500 md:hidden",
+          "fixed inset-0 z-40 flex flex-col overflow-y-auto px-6 pb-8 pt-28 transition-all duration-500 md:hidden",
           open
             ? "pointer-events-auto opacity-100"
             : "pointer-events-none opacity-0"
@@ -217,8 +217,33 @@ export default function Navbar() {
                     </span>
                     {item.label}
                   </span>
-                  <ArrowUpRight className="h-5 w-5 shrink-0 text-faint" />
                 </Link>
+                {item.href === SERVICES_HREF && (
+                  <ul
+                    className="grid grid-cols-2 gap-x-4 gap-y-2.5 pb-5 pl-8"
+                    style={{
+                      transitionDelay: `${i * 40 + 20}ms`,
+                      transform: open ? "none" : "translateY(16px)",
+                      opacity: open ? 1 : 0,
+                      transition: "transform 0.5s var(--ease-out-expo), opacity 0.5s var(--ease-out-expo)",
+                    }}
+                  >
+                    {services.map((s) => (
+                      <li key={s.id}>
+                        <Link
+                          href={`/services/${s.id}`}
+                          onClick={() => setOpen(false)}
+                          className={cn(
+                            "text-sm leading-snug transition-colors",
+                            pathname === `/services/${s.id}` ? "text-accent" : "text-muted hover:text-ink"
+                          )}
+                        >
+                          {s.title}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </li>
             );
           })}
@@ -259,13 +284,6 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-
-      <style>{`
-        @keyframes navContactIn {
-          from { opacity: 0; transform: translateX(18px); }
-          to { opacity: 1; transform: translateX(0); }
-        }
-      `}</style>
     </>
   );
 }

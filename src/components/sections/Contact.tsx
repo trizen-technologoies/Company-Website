@@ -12,10 +12,6 @@ export default function Contact() {
 
   return (
     <section id="contact" className="section overflow-hidden pt-4">
-      <div
-        className="pointer-events-none absolute inset-0 opacity-60"
-        style={{ background: "var(--wash)" }}
-      />
       <div className="container-x relative">
         <div className="grid gap-8 lg:grid-cols-12">
           {/* Left: info */}

@@ -48,7 +48,17 @@ export default function FooterWordmark() {
         {
           ["--rv" as string]: 0,
           ease: "none",
-          scrollTrigger: { trigger: el, start: "top bottom", end: "top center", scrub: 0.8 },
+          scrollTrigger: {
+            trigger: el,
+            start: "top bottom",
+            end: "top center",
+            scrub: 0.8,
+            // The footer (in the root layout) hydrates before the page's pinned
+            // sections create their triggers. Refresh it last so its positions
+            // include their pin spacing; otherwise on pages with tall pins (home)
+            // the sweep finishes screens before the wordmark is visible.
+            refreshPriority: -1,
+          },
         }
       );
       // Positions/current scroll may still be settling right after navigation;

@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 import { homeAbout } from "@/lib/content";
 import Reveal from "@/components/ui/Reveal";
 import SplitReveal from "@/components/ui/SplitReveal";
@@ -10,11 +9,13 @@ import Sparkle from "@/components/ui/Sparkle";
 
 /**
  * Editorial "who we are" block   generous whitespace, big split-reveal
- * headline, image with a floating sparkle badge. Hybrid editorial pacing.
+ * headline and image. Hybrid editorial pacing.
  */
 export default function AboutTeaser() {
   return (
-    <section className="section overflow-hidden">
+    // No bottom padding on desktop: the pinned "What we do" stage below already
+    // reserves space above its label (to clear the navbar when pinned)
+    <section className="section overflow-hidden lg:pb-0!">
       <div className="container-x">
         <div className="grid items-center gap-14 lg:grid-cols-12 lg:gap-20">
           {/* Copy */}
@@ -49,10 +50,11 @@ export default function AboutTeaser() {
             <Reveal delay={280}>
               <Link
                 href="/about"
-                className="btn btn-ghost mt-8 px-7 py-3.5"
+                className="btn btn-luxe mt-8 min-w-[11rem] px-9 py-3.5 text-[0.95rem]"
                 data-cursor="hover"
               >
-                Our story <ArrowUpRight className="h-4 w-4" />
+                <Sparkle className="btn-mark" />
+                Our story
               </Link>
             </Reveal>
           </div>
@@ -69,19 +71,6 @@ export default function AboutTeaser() {
                   className="object-cover"
                 />
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-void/55 via-transparent to-transparent" />
-              </div>
-
-              {/* Floating badge */}
-              <div className="glass absolute -bottom-6 -left-4 flex items-center gap-4 rounded-2xl px-5 py-4 sm:-left-6">
-                <Sparkle className="h-8 w-8 shrink-0 text-accent" />
-                <div>
-                  <div className="font-display text-2xl font-semibold text-ink">
-                    {homeAbout.badge.value}
-                  </div>
-                  <div className="max-w-[10rem] text-xs leading-tight text-muted">
-                    {homeAbout.badge.label}
-                  </div>
-                </div>
               </div>
             </Reveal>
           </div>

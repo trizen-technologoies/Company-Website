@@ -1,19 +1,19 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Image from "next/image";
 import { gsap } from "gsap";
-import { Sparkles, ArrowRight, PlayCircle } from "lucide-react";
+import { Sparkles, PlayCircle } from "lucide-react";
 import { hero } from "@/lib/content";
-import HeroCanvas from "@/components/ui/HeroCanvas";
 import MagneticButton from "@/components/ui/MagneticButton";
 import Counter from "@/components/ui/Counter";
 
 export default function Hero() {
   const root = useRef<HTMLDivElement>(null);
+  const video = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) video.current?.pause();
     const ctx = gsap.context(() => {
       if (!reduce) {
         gsap.set("[data-hero-line] span", { yPercent: 120 });
@@ -73,32 +73,19 @@ export default function Hero() {
       ref={root}
       className="relative flex min-h-[100svh] items-center overflow-hidden pt-20 pb-12"
     >
-      {/* Fallback image behind canvas (also mobile-friendly) */}
-      <Image
-        src="/media/hero-fallback.webp"
-        alt=""
-        fill
-        priority
-        sizes="100vw"
-        className="hero-media object-cover"
-      />
-
-      {/* Cinematic layers */}
-      <div className="absolute inset-0 bg-gradient-to-b from-void/60 via-bg/70 to-bg" />
-      <div className="grid-bg absolute inset-0" />
-      <HeroCanvas />
-      <div
-        data-parallax
-        data-depth="-28"
-        className="blob left-[8%] top-[18%] h-[380px] w-[380px] bg-blue/25"
-      />
-      <div
-        data-parallax
-        data-depth="24"
-        className="blob right-[6%] top-[30%] h-[440px] w-[440px] bg-violet/25"
-      />
-      <div className="blob left-1/2 bottom-[-10%] h-[360px] w-[680px] -translate-x-1/2 bg-cyan/10" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-bg to-transparent" />
+      {/* Full-bleed background video, shown as-is (no overlays) */}
+      <video
+        ref={video}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        aria-hidden="true"
+        className="absolute inset-0 h-full w-full object-cover"
+      >
+        <source src="/hero/hero-system.mp4" type="video/mp4" />
+      </video>
 
       <div className="container-x relative z-10 w-full">
         <div className="grid items-center gap-16 lg:grid-cols-12">
@@ -136,7 +123,7 @@ export default function Hero() {
 
             <p
               data-hero-fade
-              className="mt-5 max-w-2xl text-base leading-relaxed text-mist opacity-0"
+              className="hero-halo mt-5 max-w-2xl text-base leading-relaxed text-mist opacity-0"
               style={{ transform: "translateY(20px)" }}
             >
               {hero.lead}
@@ -149,7 +136,6 @@ export default function Hero() {
             >
               <MagneticButton href={hero.primary.href}>
                 {hero.primary.label}
-                <ArrowRight className="h-4 w-4" />
               </MagneticButton>
               <MagneticButton href={hero.secondary.href} variant="ghost">
                 <PlayCircle className="h-4 w-4" />
@@ -159,7 +145,7 @@ export default function Hero() {
           </div>
 
           {/* Right: floating glass cards */}
-          <div className="relative hidden h-[520px] lg:col-span-5 lg:block">
+          <div className="relative hidden h-[32.5rem] lg:col-span-5 lg:block">
             <FloatingCards />
           </div>
         </div>
@@ -175,7 +161,7 @@ function FloatingCards() {
         data-hero-card
         data-parallax
         data-depth="18"
-        className="glass absolute right-0 top-2 w-64 rounded-3xl p-5 opacity-0"
+        className="glass hero-float absolute right-0 top-2 w-64 rounded-3xl p-5 opacity-0"
         style={{ transform: "translateY(30px) scale(0.96)" }}
       >
         <div className="flex items-center justify-between">
@@ -201,7 +187,7 @@ function FloatingCards() {
         data-hero-card
         data-parallax
         data-depth="34"
-        className="glass absolute left-0 top-40 w-60 rounded-3xl p-5 opacity-0"
+        className="glass hero-float absolute left-0 top-40 w-60 rounded-3xl p-5 opacity-0"
         style={{ transform: "translateY(30px) scale(0.96)" }}
       >
         <div className="flex items-center gap-3">
@@ -232,7 +218,7 @@ function FloatingCards() {
         data-hero-card
         data-parallax
         data-depth="12"
-        className="glass absolute bottom-4 right-6 w-52 rounded-3xl p-5 opacity-0"
+        className="glass hero-float absolute bottom-4 right-6 w-52 rounded-3xl p-5 opacity-0"
         style={{ transform: "translateY(30px) scale(0.96)" }}
       >
         <div className="text-xs text-muted">Response rate</div>

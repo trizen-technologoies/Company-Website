@@ -57,19 +57,19 @@ export default function KineticMarquee() {
     return (
       <div
         data-km-track
-        className={`flex w-max items-center gap-8 ${
+        className={`flex w-max items-center gap-5 ${
           reverse ? "animate-marquee-reverse" : "animate-marquee"
         }`}
       >
         {track.map((item, i) => (
           <span
             key={i}
-            className={`font-display inline-flex shrink-0 items-center gap-8 text-[clamp(1.6rem,4vw,3.2rem)] font-semibold tracking-tight ${
+            className={`font-display inline-flex shrink-0 items-center gap-5 text-[clamp(0.9rem,1.5vw,1.3rem)] font-semibold tracking-tight ${
               muted ? "text-faint/70" : "text-ink"
             }`}
           >
             {item}
-            <Sparkle className="h-5 w-5 shrink-0 text-accent" />
+            <Sparkle className="h-3 w-3 shrink-0 text-accent" />
           </span>
         ))}
       </div>
@@ -79,11 +79,11 @@ export default function KineticMarquee() {
   return (
     <div
       ref={root}
-      className="relative overflow-hidden border-y border-line bg-fill py-10"
+      className="relative mt-4 overflow-hidden border-y border-line bg-fill py-3"
     >
       <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-28 bg-gradient-to-r from-bg to-transparent" />
       <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-28 bg-gradient-to-l from-bg to-transparent" />
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-1">
         <Row items={kineticRows.top} />
         <Row items={kineticRows.bottom} reverse muted />
       </div>

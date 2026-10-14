@@ -67,10 +67,22 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
     window.addEventListener("load", onLoad);
     const settle = window.setTimeout(() => ScrollTrigger.refresh(), 1200);
 
+    // ...and again whenever page layout shifts later (font swap, the scrollbar
+    // returning after the preloader, content resizing). Stale positions make
+    // pinned sections overshoot their pin point, then jump into place.
+    let resizeTimer = 0;
+    const ro = new ResizeObserver(() => {
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(() => ScrollTrigger.refresh(), 150);
+    });
+    ro.observe(document.body);
+
     return () => {
       document.removeEventListener("click", onClick);
       window.removeEventListener("load", onLoad);
       window.clearTimeout(settle);
+      ro.disconnect();
+      window.clearTimeout(resizeTimer);
       gsap.ticker.remove(onRaf);
       lenis.destroy();
       lenisRef.current = null;

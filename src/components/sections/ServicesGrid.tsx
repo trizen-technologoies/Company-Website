@@ -1,25 +1,13 @@
 import Link from "next/link";
-import {
-  Globe, Smartphone, Bot, Workflow, Boxes, ShieldCheck, LineChart, ArrowUpRight,
-} from "lucide-react";
+import { Bot } from "lucide-react";
 import { services } from "@/lib/content";
+import { serviceIcons as icons } from "@/lib/serviceIcons";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Reveal from "@/components/ui/Reveal";
-
-const icons: Record<string, React.ElementType> = {
-  web: Globe,
-  mobile: Smartphone,
-  ai: Bot,
-  automation: Workflow,
-  arvr: Boxes,
-  qa: ShieldCheck,
-  seo: LineChart,
-};
 
 export default function ServicesGrid() {
   return (
     <section id="services" className="section">
-      <div className="blob right-[-6%] top-1/4 h-[420px] w-[420px] bg-indigo/15" />
       <div className="container-x relative">
         <div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
           <SectionHeading
@@ -34,7 +22,7 @@ export default function ServicesGrid() {
           />
           <Reveal delay={200}>
             <Link href="/services" className="btn btn-ghost shrink-0 px-6 py-3">
-              View all services <ArrowUpRight className="h-4 w-4" />
+              View all services
             </Link>
           </Reveal>
         </div>
@@ -53,7 +41,6 @@ export default function ServicesGrid() {
                     <span className="grid h-12 w-12 place-items-center rounded-2xl border border-line bg-fill text-blue-bright transition-all duration-500 group-hover:border-transparent group-hover:bg-gradient-to-br group-hover:from-blue group-hover:to-violet group-hover:text-[var(--accent-contrast)]">
                       <Icon className="h-5 w-5" />
                     </span>
-                    <ArrowUpRight className="h-5 w-5 text-faint transition-all duration-500 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-ink" />
                   </div>
                   <h3 className="font-display mt-6 text-lg font-semibold text-ink">
                     {s.title}

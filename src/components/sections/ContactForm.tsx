@@ -49,7 +49,7 @@ export default function ContactForm() {
 
   if (status === "sent") {
     return (
-      <div className="card flex min-h-[420px] flex-col items-center justify-center rounded-3xl p-10 text-center">
+      <div className="card flex min-h-[26.25rem] flex-col items-center justify-center rounded-3xl p-10 text-center">
         <span className="grid h-16 w-16 place-items-center rounded-full bg-gradient-to-br from-blue to-violet">
           <Check className="h-8 w-8 text-[var(--accent-contrast)]" />
         </span>

@@ -31,10 +31,10 @@ export default function AboutStory() {
                 <Sparkle className="h-7 w-7 shrink-0 text-accent" />
                 <div>
                   <div className="font-display text-2xl font-semibold text-gradient">
-                    20+
+                    5+
                   </div>
                   <p className="text-xs leading-tight text-muted">
-                    Happy clients worldwide
+                    Happy customers worldwide
                   </p>
                 </div>
               </div>
@@ -92,10 +92,6 @@ export default function AboutStory() {
                   className="card card-glow group relative flex h-full flex-col justify-center overflow-hidden rounded-[2rem] p-8 lg:h-[27rem]"
                   style={{ ["--section-accent" as string]: m.accent }}
                 >
-                  <div
-                    className="pointer-events-none absolute inset-0 opacity-60"
-                    style={{ background: "var(--wash)" }}
-                  />
                   <Sparkle className="pointer-events-none absolute -right-12 -top-12 h-64 w-64 text-[var(--section-accent)] opacity-[0.07] transition-opacity duration-500 group-hover:opacity-[0.13]" />
                   <div className="relative">
                     <span

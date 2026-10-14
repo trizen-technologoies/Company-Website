@@ -86,13 +86,13 @@ export default function WhyUs() {
         <div className="grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
           {/* Left: image + floating logo badge */}
           <div data-wt-image className="relative opacity-0">
-            <div className="relative aspect-[5/6] overflow-hidden rounded-3xl ring-1 ring-line">
+            <div className="relative aspect-square overflow-hidden rounded-3xl ring-1 ring-line">
               <Image
-                src="/media/enterprise-team.webp"
-                alt="Trizen team celebrating a successful delivery"
+                src="/home/why-trizen.png"
+                alt="A human hand and a robotic hand meeting over glowing AI and software icons"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover"
+                className="object-cover object-[50%_34%]"
               />
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-void/60 via-transparent to-transparent" />
             </div>

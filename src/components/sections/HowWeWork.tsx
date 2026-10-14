@@ -97,9 +97,11 @@ export default function HowWeWork() {
               <div key={s.n} className="relative">
                 <span
                   data-hww-node
-                  className="font-display relative z-10 grid h-16 w-16 place-items-center rounded-2xl border border-line bg-surface text-2xl font-semibold text-gradient shadow-[0_10px_30px_-12px_var(--glow)]"
+                  className="font-display relative z-10 grid h-16 w-16 place-items-center rounded-2xl border border-line bg-surface text-2xl font-semibold shadow-[0_10px_30px_-12px_var(--glow)]"
                 >
-                  {s.n}
+                  {/* Gradient on the number only: .text-gradient's background would
+                      replace the solid tile and let the connecting line show through */}
+                  <span className="text-gradient">{s.n}</span>
                 </span>
                 <Reveal delay={80}>
                   <h3 className="font-display mt-6 text-xl font-semibold text-ink">

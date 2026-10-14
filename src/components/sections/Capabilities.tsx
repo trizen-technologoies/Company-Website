@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowUpRight } from "lucide-react";
 import { services } from "@/lib/content";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Reveal from "@/components/ui/Reveal";
@@ -45,7 +44,6 @@ export default function Capabilities() {
                     <h3 className="font-display text-xl font-semibold text-ink">
                       {s.title}
                     </h3>
-                    <ArrowUpRight className="mt-1 h-5 w-5 shrink-0 text-faint transition-all duration-500 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-ink" />
                   </div>
                   <p className="mt-3 text-sm leading-relaxed text-muted">
                     {s.desc}
@@ -58,7 +56,7 @@ export default function Capabilities() {
 
         <Reveal delay={120} className="mt-12 flex justify-center">
           <Link href="/services" className="btn btn-ghost px-7 py-3.5">
-            View all services <ArrowUpRight className="h-4 w-4" />
+            View all services
           </Link>
         </Reveal>
       </div>

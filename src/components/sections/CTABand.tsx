@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ArrowRight, PlayCircle } from "lucide-react";
+import { PlayCircle } from "lucide-react";
 import { ctaBand } from "@/lib/content";
 import Reveal from "@/components/ui/Reveal";
 import SplitReveal from "@/components/ui/SplitReveal";
@@ -20,10 +20,6 @@ export default function CTABand() {
             className="object-cover opacity-25"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-bg/70 via-bg/85 to-bg" />
-          <div
-            className="pointer-events-none absolute inset-0"
-            style={{ background: "var(--wash)" }}
-          />
 
           <div className="relative px-6 py-20 text-center sm:px-12 sm:py-28">
             <Reveal className="mx-auto w-fit">
@@ -53,7 +49,6 @@ export default function CTABand() {
               <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
                 <MagneticButton href={ctaBand.primary.href}>
                   {ctaBand.primary.label}
-                  <ArrowRight className="h-4 w-4" />
                 </MagneticButton>
                 <MagneticButton href={ctaBand.secondary.href} variant="ghost">
                   <PlayCircle className="h-4 w-4" />

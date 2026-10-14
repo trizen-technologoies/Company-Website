@@ -16,8 +16,8 @@ export default function ContactPage() {
         titleText="Let's work"
         gradientText="together."
         subtitle="Have a project in mind? Want to integrate AI into your business? We'd love to hear from you   response within 24 hours."
-        video="/media/showreel.mp4"
-        poster="/media/showreel-poster.jpg"
+        video="/hero/contact-bg.mp4"
+        poster="/hero/contact-bg-poster.jpg"
       />
       <Contact />
     </>

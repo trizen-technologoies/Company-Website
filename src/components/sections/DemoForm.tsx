@@ -2,7 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { ArrowRight, Check, Loader2 } from "lucide-react";
+import { Check, Loader2 } from "lucide-react";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Reveal from "@/components/ui/Reveal";
 import { cn } from "@/lib/utils";
@@ -102,9 +102,7 @@ export default function DemoForm() {
                       <Loader2 className="h-4 w-4 animate-spin" /> Sending...
                     </>
                   ) : (
-                    <>
-                      Request demo <ArrowRight className="h-4 w-4" />
-                    </>
+                    "Request demo"
                   )}
                 </button>
               </form>

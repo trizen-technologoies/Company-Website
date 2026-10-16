@@ -17,10 +17,10 @@ export default function AboutStory() {
         <div className="container-x">
           <div className="grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
             <Reveal className="relative">
-              <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] ring-1 ring-line">
+              <div className="relative aspect-square overflow-hidden rounded-[2rem] ring-1 ring-line">
                 <Image
-                  src="/media/team-office.webp"
-                  alt="Trizen Technologies workspace"
+                  src="/about/a9728e52-3bef-4f26-8ccb-4a3f1aadbf6c.png"
+                  alt="The Trizen team working together around a table of laptops"
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
                   className="object-cover"

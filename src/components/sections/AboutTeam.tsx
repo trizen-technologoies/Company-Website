@@ -6,7 +6,8 @@ import SplitReveal from "@/components/ui/SplitReveal";
 /** Team / people   copy on one side, an image collage on the other. */
 export default function AboutTeam() {
   return (
-    <section className="section overflow-hidden">
+    // Light padding only: the neighbouring sections already supply the spacing
+    <section className="relative overflow-hidden py-4">
       <div className="container-x">
         <div className="grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
           {/* Copy */}
@@ -48,7 +49,7 @@ export default function AboutTeam() {
           </div>
 
           {/* Collage   two offset columns */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="mx-auto grid w-full max-w-[32rem] grid-cols-2 gap-4 lg:max-w-[26rem]">
             {[0, 1].map((col) => (
               <div key={col} className={`flex flex-col gap-4 ${col === 1 ? "mt-8" : ""}`}>
                 {aboutTeam.images
@@ -60,7 +61,7 @@ export default function AboutTeam() {
                           src={img.src}
                           alt={img.alt}
                           fill
-                          sizes="(max-width: 1024px) 50vw, 25vw"
+                          sizes="(max-width: 1024px) 50vw, 13rem"
                           className="object-cover transition-transform duration-700 hover:scale-105"
                         />
                         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-void/40 to-transparent" />

@@ -32,7 +32,6 @@ export const nav = [
 ] as const;
 
 export const hero = {
-  badge: "AI-Powered Solutions",
   titleLines: ["Intelligence,", "engineered", "into everything", "you build."],
   lead:
     "We embed AI into web apps, mobile products and business workflows   delivering agents, chatbots, automation and outreach systems that transform how you operate and grow.",
@@ -569,11 +568,10 @@ export const aboutHero = {
   stages: [
     {
       title: ["We engineer", "intelligence."],
-      // Lead words sit over the laptop's lighter edge, so they render dark
-      subLead: "An AI-first",
-      sub: "studio turning bold ideas into products that think, learn and scale.",
+      // Sits over the video's first frame (closed laptop on a light ground)
+      sub: "An AI-first studio turning bold ideas into products that think, learn and scale.",
       tone: "light",
-      subTone: "dark",
+      subTone: "light",
     },
     {
       title: ["Built by a", "restless young team."],
@@ -599,31 +597,31 @@ export const aboutValues = {
       title: "Innovation",
       tags: ["Curious", "Frontier"],
       desc: "We stay ahead of the curve, continuously adopting the latest AI and technology advancements.",
-      image: "/media/innovation.webp",
+      image: "/about/c6d60cda-169e-4003-84db-73b1042689ed.png",
     },
     {
       title: "Quality",
       tags: ["Craft", "Reliable"],
       desc: "Every line of code and every solution meets the highest standards of performance.",
-      image: "/media/code-screen.jpg",
+      image: "/about/882cbded-5f18-4128-ab4d-1dae482641c5.png",
     },
     {
       title: "AI-First",
       tags: ["Intelligent", "By design"],
       desc: "Intelligence isn't an add-on   it's the foundation of everything we design and build.",
-      image: "/media/neural.webp",
+      image: "/about/092f37fa-f3c5-4c1b-abfc-e6eeae868329.png",
     },
     {
       title: "Client Success",
       tags: ["Outcomes", "Value"],
       desc: "Your growth is our mission. We measure success by the value we create for you.",
-      image: "/media/meeting-room.jpg",
+      image: "/about/196f76b2-ade9-4c5d-b894-c0af547441c0.png",
     },
     {
       title: "Partnership",
       tags: ["Team", "Long-term"],
       desc: "We work as an extension of your team   not a vendor   invested in your results.",
-      image: "/media/team-collab.jpg",
+      image: "/about/f1dd0132-2969-4750-9aac-f9fbfa20a55f.png",
     },
   ],
 } as const;
@@ -656,32 +654,11 @@ export const aboutCulture = {
   ],
 } as const;
 
-/* ---- Journey / milestones (founded 2026) ---- */
-export const aboutJourney = {
-  eyebrow: "Our journey",
-  heading: ["Just getting", "started."],
-  milestones: [
-    {
-      year: "Early 2026",
-      title: "The beginning",
-      desc: "Trizen is founded as an AI-first studio   obsessed with shipping intelligent, well-crafted products from day one.",
-    },
-    {
-      year: "Mid 2026",
-      title: "Building the core",
-      desc: "We shape our craft around intelligence   agents, RAG and automation baked into everything we build.",
-    },
-    {
-      year: "Late 2026",
-      title: "First products ship",
-      desc: "Our earliest AI-native builds and the flagship AI SDR outreach system go live for our first clients.",
-    },
-    {
-      year: "Now",
-      title: "Only the start",
-      desc: "A young, energetic team moving fast   growing our clients and our craft across industries.",
-    },
-  ],
+/* ---- What we build (About): the real service list + the AI SDR product ---- */
+export const aboutOffer = {
+  eyebrow: "What we build",
+  heading: ["Seven services.", "One AI-first team."],
+  sub: "Everything we offer, in one place. Pick the one you need, or bring us the problem and we'll shape the build around it.",
 } as const;
 
 /* ---- Team / people ---- */
@@ -691,10 +668,12 @@ export const aboutTeam = {
   body: "We stay deliberately lean   a tight, multidisciplinary crew who ship more than teams three times our size. Fewer hand-offs, more craft, and direct access to the people actually building your product.",
   tags: ["Engineers", "Designers", "AI specialists", "QA", "Growth"],
   images: [
-    { src: "/media/team-collab.jpg", alt: "The team collaborating", tall: true },
-    { src: "/media/developers.jpg", alt: "Engineers pairing on a build" },
-    { src: "/media/meeting-room.jpg", alt: "A strategy session in progress" },
-    { src: "/media/team-office.webp", alt: "Life at the Trizen studio", tall: true },
+    // Collage fills column-first (even = left, odd = right); the two similar
+    // laptop shots (0 and 3) sit diagonally so they're never side by side.
+    { src: "/about/cae1243f-0eaa-4da7-80ae-e9041d77ac76.png", alt: "Engineers pairing on code at a shared monitor" },
+    { src: "/about/cb79fbb4-d7f9-40f7-a47f-f18cff8ff513.png", alt: "Mapping out app screens on a whiteboard with sticky notes" },
+    { src: "/about/d3da46b4-5cd8-420a-aa1f-b0505cb465a3.png", alt: "A team session walking through an AI dashboard" },
+    { src: "/about/987de268-1c4d-4570-a6f5-b88aea772754.png", alt: "The team smiling over a build on a laptop" },
   ],
 } as const;
 
@@ -780,18 +759,6 @@ export const homeAbout = {
   ],
   image: "/home/7b42c6e6-e039-4f73-a86d-cf70cf73eef2.png",
   imageAlt: "Trizen team reviewing code and a system architecture diagram together",
-} as const;
-
-/* ---- Kinetic marquee rows (dual, counter-scrolling) ---- */
-export const kineticRows = {
-  top: [
-    "AI Integration", "Autonomous Agents", "Web Engineering", "Mobile Apps",
-    "SaaS Platforms", "RPA & Automation",
-  ],
-  bottom: [
-    "Intelligence, engineered", "Built for the AI era", "Ship products that think",
-    "24/7 autonomous outreach", "From concept to scale",
-  ],
 } as const;
 
 /* ---- Capabilities gallery (pinned storyboard) ---- */

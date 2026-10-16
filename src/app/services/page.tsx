@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import ServicesHero from "@/components/sections/ServicesHero";
-import KineticMarquee from "@/components/sections/KineticMarquee";
 import ServicesDetailed from "@/components/sections/ServicesDetailed";
 import TechStack from "@/components/sections/TechStack";
 import CTABand from "@/components/sections/CTABand";
@@ -15,7 +14,6 @@ export default function ServicesPage() {
   return (
     <>
       <ServicesHero />
-      <KineticMarquee />
       <div className="pt-24">
         <ServicesDetailed />
       </div>

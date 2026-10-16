@@ -39,11 +39,6 @@ export default function CapabilitiesPinned() {
           trigger: section.current,
           pin: stage.current,
           scrub: 1,
-          snap: {
-            snapTo: 1 / (n - 1),
-            duration: 0.35,
-            ease: "power1.inOut",
-          },
           start: "top top",
           end: () => "+=" + window.innerHeight * (n - 1),
           onUpdate: (self) => {

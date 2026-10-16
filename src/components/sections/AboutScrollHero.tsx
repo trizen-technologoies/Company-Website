@@ -10,13 +10,20 @@ import SplitReveal from "@/components/ui/SplitReveal";
 /**
  * Copy colours picked by how bright the unscrimmed footage is behind it:
  * headline by `tone`, subtitle by `subTone`. White subtitles get a soft glow.
+ * Phones only see the centre of the footage, where the bright CPU (mid-scroll)
+ * and the dark laptop screen (end) sit right behind the copy, so below md the
+ * copy gets a contrasting halo instead.
  */
 const TONE = {
-  light: { text: "text-ink", accent: "text-accent", sub: "text-ink" },
+  light: {
+    text: "text-ink max-md:[text-shadow:0_0_18px_rgba(250,247,240,0.9)]",
+    accent: "text-accent",
+    sub: "text-ink max-md:[text-shadow:0_0_12px_rgba(250,247,240,0.95)]",
+  },
   dark: {
-    text: "text-white",
+    text: "text-white max-md:[text-shadow:0_2px_18px_rgba(0,0,0,0.65)]",
     accent: "text-[color:var(--accent-3)]",
-    sub: "text-white [text-shadow:0_0_12px_rgba(255,255,255,0.45)]",
+    sub: "text-white [text-shadow:0_0_12px_rgba(255,255,255,0.45)] max-md:[text-shadow:0_1px_12px_rgba(0,0,0,0.7)]",
   },
 } as const;
 
@@ -24,8 +31,8 @@ const TONE = {
  * Apple-style scroll-scrub hero. A pinned section where the video's playback
  * is driven by scroll (video.currentTime = progress × duration) while the
  * headline copy crossfades through stages around it and the footage subtly
- * scales. Reduced-motion / mobile: the video just loops and the first stage's
- * text sits statically (no pin, no scrub).
+ * scales. Reduced-motion: the video just loops and the first stage's text
+ * sits statically (no pin, no scrub).
  */
 export default function AboutScrollHero() {
   const section = useRef<HTMLElement>(null);
@@ -38,11 +45,10 @@ export default function AboutScrollHero() {
 
   useEffect(() => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const isDesktop = window.matchMedia("(min-width: 768px)").matches;
     const vid = video.current;
 
     // Fallback: just loop the video, show first stage.
-    if (reduce || !isDesktop || !section.current || !vid) {
+    if (reduce || !section.current || !vid) {
       if (vid) {
         vid.loop = true;
         vid.play().catch(() => {});
@@ -61,18 +67,15 @@ export default function AboutScrollHero() {
     vid.addEventListener("loadedmetadata", onMeta);
     if (vid.readyState >= 1) onMeta();
 
-    // Intro: let the video actually PLAY for ~1.1s on entry, then hand control
-    // to the scroll scrub (so it doesn't open on a frozen frame).
-    vid.muted = true;
-    let introDone = false;
-    let introTime = 0;
-    vid.currentTime = 0;
-    vid.play().catch(() => {});
-    const introTimer = window.setTimeout(() => {
-      introTime = vid.currentTime || 0;
-      introDone = true;
-      vid.pause();
-    }, 2000);
+    // No autoplay: the video sits on its first frame until scroll drives it.
+    // A play()+pause() primes mobile browsers, which (iOS especially) won't
+    // load frames for seeking until the video has been played once. If that's
+    // blocked (e.g. iOS Low Power Mode), the first touch retries it.
+    const prime = () => {
+      vid.play().then(() => vid.pause()).catch(() => {});
+    };
+    prime();
+    window.addEventListener("touchstart", prime, { once: true, passive: true });
 
     const stageEls = gsap.utils.toArray<HTMLElement>("[data-stage]");
 
@@ -85,13 +88,8 @@ export default function AboutScrollHero() {
         scrub: 0.6,
         onUpdate: (self) => {
           const p = self.progress;
-          // Scrub the video (only after the intro playback has finished)   scrub
-          // FORWARD from where the intro paused, so scrolling never rewinds it.
-          if (introDone && duration)
-            vid.currentTime = Math.min(
-              duration - 0.05,
-              introTime + p * (duration - introTime)
-            );
+          // Scrub the video across its full length
+          if (duration) vid.currentTime = Math.min(duration - 0.05, p * duration);
           // Subtle scale on the footage
           if (media.current) gsap.set(media.current, { scale: 1 + p * 0.12 });
           // Vertical reel: one stage centered at a time, neighbours fade out
@@ -114,16 +112,18 @@ export default function AboutScrollHero() {
 
     return () => {
       vid.removeEventListener("loadedmetadata", onMeta);
-      window.clearTimeout(introTimer);
+      window.removeEventListener("touchstart", prime);
       ctx.revert();
     };
   }, [n]);
 
   return (
     <section ref={section} className="relative">
+      {/* lvh, not svh: on phones the pinned stage must still cover the screen
+          after the address bar collapses mid-scroll */}
       <div
         ref={stage}
-        className="relative flex h-[100svh] items-center justify-center overflow-hidden bg-void"
+        className="relative flex h-[100lvh] items-center justify-center overflow-hidden bg-void"
       >
         {/* Video, shown as-is (no scrims); each stage's copy adapts to it instead */}
         <div ref={media} className="absolute inset-0 will-change-transform">
@@ -177,11 +177,6 @@ export default function AboutScrollHero() {
                   )}
                 </h1>
                 <p className={`mx-auto mt-6 max-w-xl text-lg leading-relaxed ${TONE[s.subTone].sub}`}>
-                  {"subLead" in s && (
-                    <>
-                      <span className="text-ink [text-shadow:none]">{s.subLead}</span>{" "}
-                    </>
-                  )}
                   {s.sub}
                 </p>
               </div>

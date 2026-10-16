@@ -18,17 +18,12 @@ export default function Hero() {
       if (!reduce) {
         gsap.set("[data-hero-line] span", { yPercent: 120 });
         const tl = gsap.timeline({ delay: 0.15 });
-        tl.to("[data-hero-badge]", { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" })
-          .to(
-            "[data-hero-line] span",
-            {
-              yPercent: 0,
-              duration: 1.1,
-              ease: "expo.out",
-              stagger: 0.12,
-            },
-            "-=0.4"
-          )
+        tl.to("[data-hero-line] span", {
+          yPercent: 0,
+          duration: 1.1,
+          ease: "expo.out",
+          stagger: 0.12,
+        })
           .to(
             "[data-hero-fade]",
             { opacity: 1, y: 0, duration: 0.9, ease: "power3.out", stagger: 0.12 },
@@ -41,7 +36,7 @@ export default function Hero() {
           );
       } else {
         gsap.set(
-          "[data-hero-badge], [data-hero-line] span, [data-hero-fade], [data-hero-card]",
+          "[data-hero-line] span, [data-hero-fade], [data-hero-card]",
           { opacity: 1, y: 0, yPercent: 0, scale: 1 }
         );
       }
@@ -91,17 +86,7 @@ export default function Hero() {
         <div className="grid items-center gap-16 lg:grid-cols-12">
           {/* Left: copy */}
           <div className="lg:col-span-7">
-            <div
-              data-hero-badge
-              className="glass inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm text-mist opacity-0"
-              style={{ transform: "translateY(16px)" }}
-            >
-              <Sparkles className="h-3.5 w-3.5 text-cyan" />
-              {hero.badge}
-              <span className="ml-1 h-1.5 w-1.5 animate-pulse-glow rounded-full bg-cyan" />
-            </div>
-
-            <h1 className="font-display mt-5 text-balance text-[clamp(1.9rem,4.2vw,3.6rem)] font-semibold leading-[0.98] tracking-[-0.02em]">
+            <h1 className="font-display text-balance text-[clamp(1.9rem,4.2vw,3.6rem)] font-semibold leading-[0.98] tracking-[-0.02em]">
               {hero.titleLines.map((line, i) => (
                 <span
                   key={i}
@@ -161,7 +146,7 @@ function FloatingCards() {
         data-hero-card
         data-parallax
         data-depth="18"
-        className="glass hero-float absolute right-0 top-2 w-64 rounded-3xl p-5 opacity-0"
+        className="glass hero-float absolute left-12 top-2 w-64 rounded-3xl p-5 opacity-0"
         style={{ transform: "translateY(30px) scale(0.96)" }}
       >
         <div className="flex items-center justify-between">
@@ -187,7 +172,7 @@ function FloatingCards() {
         data-hero-card
         data-parallax
         data-depth="34"
-        className="glass hero-float absolute left-0 top-40 w-60 rounded-3xl p-5 opacity-0"
+        className="glass hero-float absolute -right-8 top-40 w-60 rounded-3xl p-5 opacity-0"
         style={{ transform: "translateY(30px) scale(0.96)" }}
       >
         <div className="flex items-center gap-3">
@@ -218,7 +203,7 @@ function FloatingCards() {
         data-hero-card
         data-parallax
         data-depth="12"
-        className="glass hero-float absolute bottom-4 right-6 w-52 rounded-3xl p-5 opacity-0"
+        className="glass hero-float absolute bottom-4 left-20 w-52 rounded-3xl p-5 opacity-0"
         style={{ transform: "translateY(30px) scale(0.96)" }}
       >
         <div className="text-xs text-muted">Response rate</div>

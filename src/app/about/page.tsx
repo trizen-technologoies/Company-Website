@@ -3,7 +3,7 @@ import { about } from "@/lib/content";
 import AboutScrollHero from "@/components/sections/AboutScrollHero";
 import AboutStory from "@/components/sections/AboutStory";
 import AboutCulture from "@/components/sections/AboutCulture";
-import AboutJourney from "@/components/sections/AboutJourney";
+import AboutOffer from "@/components/sections/AboutOffer";
 import AboutTeam from "@/components/sections/AboutTeam";
 import CTABand from "@/components/sections/CTABand";
 
@@ -18,7 +18,7 @@ export default function AboutPage() {
       <AboutScrollHero />
       <AboutStory />
       <AboutCulture />
-      <AboutJourney />
+      <AboutOffer />
       <AboutTeam />
       <CTABand />
     </>

@@ -682,13 +682,6 @@ body {
   );
 }
 
-/* Kinetic type helpers */
-@keyframes marqueeReverse {
-  from { transform: translateX(-50%); }
-  to { transform: translateX(0); }
-}
-.animate-marquee-reverse { animation: marqueeReverse 46s linear infinite; }
-
 @keyframes breathe {
   0%, 100% { transform: scale(1); }
   50% { transform: scale(1.08); }
@@ -795,6 +788,6 @@ html.no-intro .preloader {
     scroll-behavior: auto !important;
   }
   [data-reveal] { opacity: 1 !important; transform: none !important; }
-  .sheen-text, .animate-breathe, .animate-marquee-reverse { animation: none !important; }
+  .sheen-text, .animate-breathe { animation: none !important; }
   .mv-panel { transition: none !important; }
 }

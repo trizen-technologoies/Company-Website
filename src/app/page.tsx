@@ -1,5 +1,4 @@
 import Hero from "@/components/sections/Hero";
-import KineticMarquee from "@/components/sections/KineticMarquee";
 import AboutTeaser from "@/components/sections/AboutTeaser";
 import CapabilitiesPinned from "@/components/sections/CapabilitiesPinned";
 import ShowreelReveal from "@/components/sections/ShowreelReveal";
@@ -20,7 +19,6 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <KineticMarquee />
       <AboutTeaser />
       <CapabilitiesPinned />
       <div data-nav-dark className="force-dark text-ink">

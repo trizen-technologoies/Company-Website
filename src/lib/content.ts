@@ -10,7 +10,7 @@ export const site = {
   tagline: "AI-Driven Innovation",
   domain: "trizentechnologies.com",
   email: "trizen@trizentechnologies.com",
-  location: "Paras Panorama, Sector 126, Mohali, Punjab",
+  location: "Paras Panorama, Sector 126, Mohali, Punjab, India",
   locationShort: "India",
   // Exact Google Maps place link (not a text search) so "Directions" always
   // opens this precise, verified location instead of Google's best guess.

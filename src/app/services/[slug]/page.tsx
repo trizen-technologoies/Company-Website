@@ -38,7 +38,7 @@ export default async function ServiceDetailPage({ params }: Params) {
   return (
     <>
       {/* ---------- Hero (video) ---------- */}
-      <section className="relative flex min-h-[100svh] items-center overflow-hidden pt-24 pb-16">
+      <section className="relative flex min-h-[100svh] items-center overflow-hidden pt-40 pb-16">
         <video
           autoPlay
           muted
@@ -50,14 +50,7 @@ export default async function ServiceDetailPage({ params }: Params) {
         >
           <source src={extra.video} type="video/mp4" />
         </video>
-        {light ? (
-          <>
-            {/* Ivory fade behind the copy: even wash on small screens, left-weighted on desktop */}
-            <div className="absolute inset-0 bg-bg/75 lg:hidden" />
-            <div className="absolute inset-0 hidden bg-gradient-to-r from-bg from-10% via-bg/70 via-45% to-transparent to-75% lg:block" />
-            <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-bg to-transparent" />
-          </>
-        ) : (
+        {!light && (
           <>
             {/* Fixed dark scrims   readable in both themes */}
             <div className="absolute inset-0 bg-black/50" />
@@ -67,47 +60,54 @@ export default async function ServiceDetailPage({ params }: Params) {
         )}
 
         <div className="container-x relative z-10">
-          <Link
-            href="/services"
-            className={cn(
-              "inline-flex items-center gap-2 text-sm font-medium transition-colors",
-              light ? "text-muted hover:text-ink" : "text-white/70 hover:text-white"
+          <div className="relative isolate mx-auto w-fit max-w-full text-center">
+            {light && (
+              /* Soft ivory glow behind the copy only */
+              <div
+                aria-hidden
+                className="pointer-events-none absolute -inset-x-16 -inset-y-12 -z-10 rounded-[4rem] bg-bg/55 blur-3xl"
+              />
             )}
-          >
-            All services
-          </Link>
+            <div className="flex items-center justify-center gap-3">
+              <Sparkle className="h-7 w-7 animate-breathe text-accent" />
+              <span
+                className="text-sm font-semibold uppercase tracking-[0.2em]"
+                style={{ color: light ? "var(--accent-bright)" : "var(--accent-3)" }}
+              >
+                Service {s.n}
+              </span>
+            </div>
 
-          <div className="mt-6 flex items-center gap-3">
-            <Sparkle className="h-7 w-7 animate-breathe text-accent" />
-            <span
-              className="text-sm font-semibold uppercase tracking-[0.2em]"
-              style={{ color: light ? "var(--accent-bright)" : "var(--accent-3)" }}
+            <h1
+              className={cn(
+                "font-display mx-auto mt-4 text-balance text-[clamp(2.2rem,4.6vw,4.25rem)] font-semibold leading-[1.02] tracking-tight",
+                light ? "text-ink" : "text-white"
+              )}
             >
-              Service {s.n}
-            </span>
-          </div>
+              <SplitReveal text={s.title} immediate delay={0.1} />
+            </h1>
+            <p
+              className={cn(
+                "mx-auto mt-6 max-w-2xl text-lg leading-relaxed sm:text-xl",
+                light ? "text-mist" : "text-white/80"
+              )}
+            >
+              {extra.tagline}
+            </p>
 
-          <h1
-            className={cn(
-              "font-display mt-4 max-w-3xl text-balance text-[clamp(2.4rem,6vw,4.6rem)] font-semibold leading-[1.02] tracking-tight",
-              light ? "text-ink" : "text-white"
-            )}
-          >
-            <SplitReveal text={s.title} immediate delay={0.1} />
-          </h1>
-          <p
-            className={cn(
-              "mt-5 max-w-xl text-xl leading-relaxed",
-              light ? "text-mist" : "text-white/80"
-            )}
-          >
-            {extra.tagline}
-          </p>
-
-          <div className="mt-9 flex flex-wrap items-center gap-4">
-            <MagneticButton href="/contact">
-              Start a project
-            </MagneticButton>
+            <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
+              <MagneticButton href="/contact">
+                Start a project
+              </MagneticButton>
+              <Link
+                href="/services"
+                data-cursor="hover"
+                className="btn btn-luxe px-6 py-3 text-[0.95rem]"
+              >
+                <Sparkle className="btn-mark" />
+                All services
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -211,16 +211,27 @@ export default async function ServiceDetailPage({ params }: Params) {
           </Reveal>
 
           <Reveal delay={120}>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="relative col-span-2 aspect-[16/9] overflow-hidden rounded-2xl ring-1 ring-line">
-                <Image src={extra.gallery[0]} alt="" fill sizes="(max-width:1024px) 100vw, 50vw" className="object-cover" />
-              </div>
-              {extra.gallery.slice(1, 3).map((g) => (
-                <div key={g} className="relative aspect-square overflow-hidden rounded-2xl ring-1 ring-line">
-                  <Image src={g} alt="" fill sizes="(max-width:1024px) 50vw, 25vw" className="object-cover" />
+            {extra.galleryImage ? (
+              <Image
+                src={extra.galleryImage.src}
+                alt=""
+                width={extra.galleryImage.width}
+                height={extra.galleryImage.height}
+                sizes="(max-width:1024px) 100vw, 50vw"
+                className="h-auto w-full rounded-2xl"
+              />
+            ) : (
+              <div className="grid grid-cols-2 gap-4">
+                <div className="relative col-span-2 aspect-[16/9] overflow-hidden rounded-2xl ring-1 ring-line">
+                  <Image src={extra.gallery[0]} alt="" fill sizes="(max-width:1024px) 100vw, 50vw" className="object-cover" />
                 </div>
-              ))}
-            </div>
+                {extra.gallery.slice(1, 3).map((g) => (
+                  <div key={g} className="relative aspect-square overflow-hidden rounded-2xl ring-1 ring-line">
+                    <Image src={g} alt="" fill sizes="(max-width:1024px) 50vw, 25vw" className="object-cover" />
+                  </div>
+                ))}
+              </div>
+            )}
           </Reveal>
         </div>
       </section>

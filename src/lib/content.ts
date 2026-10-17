@@ -232,12 +232,15 @@ export type ServiceExtra = {
   whatWeDo: { title: string; desc: string }[];
   outcomes: { value: string; label: string }[];
   gallery: string[];
+  /** Ready-made collage shown in place of the 3-image gallery grid. */
+  galleryImage?: { src: string; width: number; height: number };
   tech: string[];
 };
 
 export const serviceExtra: Record<string, ServiceExtra> = {
   web: {
-    tagline: "Fast, secure, AI-enhanced web platforms.",
+    tagline:
+      "Your website or web app is often the first thing customers see. We build ones that load fast, stay secure and are easy to use, whether it's a customer portal, an internal dashboard or a full SaaS product.",
     video: "/home/web-engineering.mp4",
     poster: "/home/web-engineering-poster.jpg",
     videoTone: "light",
@@ -256,10 +259,12 @@ export const serviceExtra: Record<string, ServiceExtra> = {
       { value: "SEO", label: "Best practices built in" },
     ],
     gallery: ["/media/webdev.webp", "/media/code-screen.jpg", "/media/developers.jpg"],
+    galleryImage: { src: "/services/web-gallery.png", width: 1536, height: 1024 },
     tech: ["React", "Next.js", "TypeScript", "Node.js", "GraphQL", "AWS"],
   },
   mobile: {
-    tagline: "Native & cross-platform apps, intelligence built in.",
+    tagline:
+      "Your customers spend most of their day on their phones. We build iPhone and Android apps that feel smooth, keep working on a weak connection and get through App Store and Play Store review without delays.",
     video: "/home/mobile-apps.mp4",
     poster: "/home/mobile-apps-poster.jpg",
     videoTone: "light",
@@ -278,10 +283,12 @@ export const serviceExtra: Record<string, ServiceExtra> = {
       { value: "4.8★", label: "Store-quality UX" },
     ],
     gallery: ["/media/mobile-app.webp", "/media/woman-laptop.jpg", "/media/workspace.webp"],
+    galleryImage: { src: "/services/mobile-gallery.png", width: 1536, height: 1024 },
     tech: ["Swift", "Kotlin", "React Native", "Flutter", "Firebase"],
   },
   ai: {
-    tagline: "LLMs, RAG and assistants embedded into your product.",
+    tagline:
+      "Your team answers the same questions every day. We add chatbots and AI assistants that learn from your own documents, so customers and staff get accurate answers instantly, at any hour.",
     video: "/home/ai-chatbots.mp4",
     poster: "/home/ai-chatbots-poster.jpg",
     videoTone: "light",
@@ -300,10 +307,12 @@ export const serviceExtra: Record<string, ServiceExtra> = {
       { value: "RAG", label: "Grounded, cited answers" },
     ],
     gallery: ["/media/neural.webp", "/media/ai-render.jpg", "/media/ai-abstract.webp"],
+    galleryImage: { src: "/services/ai-gallery.png", width: 1672, height: 941 },
     tech: ["OpenAI", "Claude", "LangChain", "Python", "Pinecone"],
   },
   automation: {
-    tagline: "RPA and decision engines that reclaim hours.",
+    tagline:
+      "Copying data between spreadsheets, chasing approvals, rebuilding the same report every week. We automate that repetitive work so it runs on its own, and your team gets those hours back.",
     video: "/home/automation-hero.mp4",
     poster: "/home/automation-hero-poster.jpg",
     videoTone: "light",
@@ -322,10 +331,12 @@ export const serviceExtra: Record<string, ServiceExtra> = {
       { value: "0", label: "Manual re-keying" },
     ],
     gallery: ["/media/automation.webp", "/media/analytics-ui.jpg", "/media/data-center.jpg"],
+    galleryImage: { src: "/services/automation-gallery.png", width: 1536, height: 1024 },
     tech: ["Python", "UiPath", "Airflow", "OpenCV"],
   },
   arvr: {
-    tagline: "Immersive training, simulation and visualization.",
+    tagline:
+      "Some things are easier to show than explain. We build AR and VR experiences that let customers see a product in their own space, and let your team train hands-on without the cost or risk of the real thing.",
     video: "/home/ar-vr.mp4",
     poster: "/home/ar-vr-poster.jpg",
     videoTone: "light",
@@ -344,10 +355,12 @@ export const serviceExtra: Record<string, ServiceExtra> = {
       { value: "AR", label: "On any device" },
     ],
     gallery: ["/media/innovation.webp", "/media/vr-headset.jpg", "/media/cyber.jpg"],
+    galleryImage: { src: "/services/arvr-gallery.png", width: 1536, height: 1024 },
     tech: ["Unity", "WebXR", "Three.js", "ARKit", "ARCore"],
   },
   qa: {
-    tagline: "Quality assurance you can trust.",
+    tagline:
+      "One bug in production can cost you customers. We test your web and mobile apps by hand and with automated checks on every release, so problems get caught before your users ever see them.",
     video: "/home/qa-testing.mp4",
     poster: "/home/qa-testing-poster.jpg",
     videoTone: "light",
@@ -366,10 +379,12 @@ export const serviceExtra: Record<string, ServiceExtra> = {
       { value: "↓ bugs", label: "In production" },
     ],
     gallery: ["/media/workspace.webp", "/media/code-screen.jpg", "/media/developers.jpg"],
+    galleryImage: { src: "/services/qa-gallery.png", width: 1536, height: 1024 },
     tech: ["Selenium", "Appium", "Cypress", "Postman", "Jest"],
   },
   seo: {
-    tagline: "Data-driven marketing that moves the needle.",
+    tagline:
+      "A great product won't sell if nobody can find it. We help you rank on Google, run ads that bring in real customers, and show you clear numbers on what's working and what isn't.",
     video: "/home/growth-seo.mp4",
     poster: "/home/growth-seo-poster.jpg",
     videoTone: "light",
@@ -388,6 +403,7 @@ export const serviceExtra: Record<string, ServiceExtra> = {
       { value: "ROI", label: "Measured & optimized" },
     ],
     gallery: ["/media/marketing.webp", "/media/analytics-ui.jpg", "/media/meeting-room.jpg"],
+    galleryImage: { src: "/services/seo-gallery.png", width: 1672, height: 941 },
     tech: ["GA4", "Search Console", "Ahrefs", "Meta Ads"],
   },
 };

@@ -18,6 +18,7 @@ export default function ContactPage() {
         subtitle="Have a project in mind? Want to integrate AI into your business? We'd love to hear from you   response within 24 hours."
         video="/hero/contact-bg.mp4"
         poster="/hero/contact-bg-poster.jpg"
+        cta={{ label: "Fill the form", href: "#contact-form" }}
       />
       <Contact />
     </>

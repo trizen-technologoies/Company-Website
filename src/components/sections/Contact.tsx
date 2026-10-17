@@ -91,18 +91,23 @@ export default function Contact() {
             </div>
           </Reveal>
 
-          {/* Right: form */}
-          <Reveal delay={120} className="lg:col-span-7">
-            <div className="mb-5 flex items-center gap-3">
-              <Sparkle className="h-6 w-6 text-accent" />
-              <h2 className="font-display text-xl font-semibold text-ink">
-                Send us a message
-              </h2>
-            </div>
-            <Suspense fallback={null}>
-              <ContactForm />
-            </Suspense>
-          </Reveal>
+          {/* Right: form. The scroll anchor sits outside <Reveal> (whose
+              pre-reveal offset would skew the target) and a little above the
+              heading, so it lands clear of the floating navbar. */}
+          <div className="relative lg:col-span-7">
+            <span id="contact-form" aria-hidden className="absolute -top-8" />
+            <Reveal delay={120}>
+              <div className="mb-5 flex items-center gap-3">
+                <Sparkle className="h-6 w-6 text-accent" />
+                <h2 className="font-display text-xl font-semibold text-ink">
+                  Send us a message
+                </h2>
+              </div>
+              <Suspense fallback={null}>
+                <ContactForm />
+              </Suspense>
+            </Reveal>
+          </div>
         </div>
       </div>
     </section>

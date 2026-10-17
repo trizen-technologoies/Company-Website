@@ -536,6 +536,20 @@ body {
 .animate-pulse-glow { animation: pulseGlow 5s ease-in-out infinite; }
 .animate-spin-slow { animation: spinSlow 22s linear infinite; }
 
+/* Gentle downward nudge for scroll-down cues */
+@keyframes nudgeDown {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(3px); }
+}
+.animate-nudge-down { animation: nudgeDown 1.6s ease-in-out infinite; }
+
+/* One-off fade-up on load, for above-the-fold bits that <Reveal> can't catch */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
+}
+.animate-fade-up { animation: fadeUp 0.9s var(--ease-out-expo) both; }
+
 .aurora-text {
   background: linear-gradient(90deg, var(--accent-bright), var(--accent-2), var(--accent-3), var(--accent-bright));
   background-size: 300% 100%;

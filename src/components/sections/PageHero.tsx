@@ -1,3 +1,4 @@
+import { ArrowDown } from "lucide-react";
 import Reveal from "@/components/ui/Reveal";
 import SplitReveal from "@/components/ui/SplitReveal";
 import Sparkle from "@/components/ui/Sparkle";
@@ -13,6 +14,8 @@ type Props = {
   /** When provided, renders a full-bleed (dark) video background, unfiltered, with white text. */
   video?: string;
   poster?: string;
+  /** Optional scroll-down button pinned to the bottom of the hero (e.g. jump to a form). */
+  cta?: { label: string; href: string };
 };
 
 const H1 =
@@ -27,11 +30,17 @@ export default function PageHero({
   subtitle,
   video,
   poster,
+  cta,
 }: Props) {
   const onVideo = !!video;
 
   return (
-    <section className="relative flex min-h-[100svh] items-center overflow-hidden pt-24 pb-16">
+    <section
+      className={cn(
+        "relative flex min-h-[100svh] flex-col items-center overflow-hidden pt-24",
+        cta ? "pb-10" : "pb-16"
+      )}
+    >
       {onVideo ? (
         <>
           <video
@@ -54,7 +63,7 @@ export default function PageHero({
         </>
       )}
 
-      <div className="container-x relative z-10 w-full text-center">
+      <div className="container-x relative z-10 my-auto w-full text-center">
         <Reveal className="mx-auto w-fit">
           <Sparkle className="mx-auto h-8 w-8 animate-breathe text-accent" />
         </Reveal>
@@ -103,6 +112,18 @@ export default function PageHero({
           </Reveal>
         )}
       </div>
+
+      {/* In flow (not absolute) so it never overlaps the copy on short screens.
+          Fades in on load rather than via <Reveal>: sitting at the very bottom
+          of the viewport, it would never cross Reveal's in-view line. */}
+      {cta && (
+        <div className="animate-fade-up relative z-10 mt-10" style={{ animationDelay: "0.6s" }}>
+          <a href={cta.href} className="btn btn-primary px-7 py-2.5 text-[0.95rem]">
+            {cta.label}
+            <ArrowDown className="h-4 w-4 animate-nudge-down" />
+          </a>
+        </div>
+      )}
     </section>
   );
 }
